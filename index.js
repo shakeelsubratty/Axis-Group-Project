@@ -16,7 +16,7 @@ var ideaSchema = mongoose.Schema({
     text: String,
     avgTypingSpeed: Number,
     backtrackedAmount: Number,
-    timeNotTyping: Number
+    timeNotTyping: Number //time AFTER typing started, during which nothing was typed - presumably time spent thinking
 });
 
 var Idea = mongoose.model("Idea", ideaSchema);
