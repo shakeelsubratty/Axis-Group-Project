@@ -43,55 +43,29 @@ app.get('/', function(request, response) {
         });
     };
     response.writeHead(200, {"Content-Type": "text/plain"});
-    response.write("Here are my ideas:\n");
-    /*tasks = [];
-    tasks.push(findAsync(Idea, {byUser: 'you'}));
-    tasks.push(findAsync(Idea, {byUser: 'me'}));//*/
-    //*
     Promise.all(
         [
-            findAsync.call(Idea, {byUser: 'you'}),
-            findAsync.call(Idea, {byUser: 'me'})
+            findAsync.call(Idea, {byUser: 'me'}),
+            findAsync.call(Idea, {byUser: 'you'})
         ]
     ).then(function(ideaSets) {
-        console.log("FOUNF");
-    });//*/
-    /*
-    findAsync
-        .call(Idea, {byUser: 'me'})
-        .then(printIdeas)
-        .then(function() {
-            findAsync
-                .call(Idea, {byUser: 'you'})
-                .then(printIdeas)
-                .catch(function(err) {
-                    response.write("ERROR: " + err);
-                }).finally(function() {
-                    response.end();
-                })
-            }
-        
-    );//*/
-    /*
-    Idea.find({byUser: "me"}, function(err, ideas) {
-        if (err) {
-            response.write("ERROR: " + err);
-            return;
-        }
-        ideas.forEach(function(idea) {
-            response.write(idea.text + "\n");
-        });
+        response.write("Here are my ideas:\n");
+        printIdeas(ideaSets[0]);
+        response.write("And here are yours:\n");
+        printIdeas(ideaSets[1]);
+    })
+    .catch(function(err) {
+        response.write("ERROR: " + err);
+    }).finally(function() {
+        response.end();
     });
-    response.write("Here are your ideas:\n");
-    Idea.find({byUser: "you"}, function(err, ideas) {
-        if (err) {
-            response.write("ERROR: " + err);
-            return;
-        }
-        ideas.forEach(function(idea) {
-            response.write(idea.text + "\n");
-        });
-    });//*/
+});
+
+app.get('/newIdea/:byuser/', function(req, res) {
+    Idea({byUser: req.params.byuser, text: req.query.text}).save(function(err, idea) {
+        if (err) return res.sendStatus(500);
+        else res.sendStatus(200);
+    });
 });
 
 app.listen(3000, function(){console.log("App started on port 3000");});
