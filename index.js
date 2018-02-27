@@ -24,6 +24,8 @@ var ideaSchema = mongoose.Schema({
 });
 
 var Idea = mongoose.model("Idea", ideaSchema);
+/********* Uncomment this to add two ideas to the database next time you start **********\
+\*********  the server then comment it back or else it will keep adding them   **********/
 /*
 var test = new Idea({byUser: 'me', text: 'this is gay'});
 test.save(function(err, idea){
