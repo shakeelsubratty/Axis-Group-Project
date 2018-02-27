@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var express = require('express');
 var Promise = require('bluebird');
+var _ = require('lodash');
 const url = `mongodb://${process.env.DB_PORT_27017_TCP_ADDR}:${process.env.DB_PORT_27017_TCP_PORT}/app`
 mongoose.connect(url);
 
@@ -38,7 +39,10 @@ findAsync = Promise.promisify(Idea.find); //should probably be something like mo
 app.get('/', function(request, response) {
     var idea = Idea.find({user:"me"});
     var printIdeas = function(ideas) {
-        ideas.forEach(function(idea) {
+        if (!ideas.length) {
+            return response.write("[Placeholder - no data]");
+        }
+        _.each(ideas, function(idea) {
             response.write(idea.text + "\n");
         });
     };
