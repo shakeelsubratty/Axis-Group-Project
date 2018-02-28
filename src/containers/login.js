@@ -24,7 +24,9 @@ class Login extends Component {
     return (
       <div className='Home'>
         <div className='wrapper' style={{flex:1}}>
-          <h1 style={{textAlign: 'center', marginTop:5}}> Home </h1>
+          <h1 style={{textAlign: 'center', marginTop:5}}>
+            Login
+          </h1>
           <form className='login-form'>
             <input type='text' name='username' placeholder='Username'style={{margin:5}} onChange={(event) => this.setState({user: event.target.value})}/>
             <input type='password' name='password' placeholder='Password' style={{margin:5}} onChange={(event) => this.setState({pass: event.target.value})}/>
@@ -43,7 +45,7 @@ class Login extends Component {
               </Link>
               <Link
                 className='btn btn-secondary link'
-                style={{marginTop:5, marginBottom: 5, width:'50%'}}
+                style={{margin: 5, width:'50%'}}
                 to='/'
               >
                 Back

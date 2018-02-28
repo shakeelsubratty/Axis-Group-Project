@@ -18,11 +18,6 @@ export default class Home extends Component {
             </div>
           </div>
         </div>
-        <div className='log-out'>
-          <Link className='btn btn-secondary link' to='/'>
-            Return
-          </Link>
-        </div>
       </div>
     );
   }
