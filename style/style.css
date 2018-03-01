@@ -1,60 +1,74 @@
+body, html {
+    height: 100%;
+    /* The image used */
+    background-image: url('https://images.unsplash.com/photo-1503264116251-35a269479413');
+	 /* original pic: https://unsplash.com/photos/SshYpuf607g */
+
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
 .container{
-  width: 100vw;
+	width: 100vw;
 	height: 100vh;
-  max-width: none !important;
+	max-width: none !important;
 	padding: 0 !important;
-  margin-top: 3%;
+	margin-top: 3%;
 }
 
 .main {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  align-items: center;
-  justify-content: flex-start;
-  background-color: blue;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+	align-items: center;
+	justify-content: flex-start;
+	background-color: transparent;
 }
 
 .Home {
-  display: flex;
-  height: 500px;
+	display: flex;
+	height: 500px;
 
 }
 
 .wrapper {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: green;
-  padding: 10px;
-  width: 80%;
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background-color: transparent;
+	padding: 10px;
+	width: 80%;
 }
 
 .login-form {
-  display:flex;
-  align-items: center;
-  flex-direction: column;
-  padding:10px;
+	display:flex;
+	align-items: center;
+	flex-direction: column;
+	padding:10px;
 }
 
 .TypeSelector {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 500px;
-  margin-top: 5%;
-  background-color: blue;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	min-height: 500px;
+	margin-top: 5%;
+	background-color: blue;
 }
 
 .button-box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 10px;
-  flex-wrap: wrap;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 10px;
+	flex-wrap: wrap;
 }
 
 .card-body {
