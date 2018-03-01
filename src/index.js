@@ -6,30 +6,32 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import reducers from './reducers';
 import ReduxPromise from 'redux-promise';
 import {
-  Home,
-  ParticipantView
+	Home,
+	ParticipantView
 } from './components';
 import {
-EnterWorkshop,
-  Login,
-  CreateWorkshop,
-  ModeratorView
+	EnterWorkshop,
+	Login,
+	CreateWorkshop,
+	ModeratorView,
+	IdeaGeneration
 } from './containers';
 
 
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
 
 ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(reducers)}>
-    <BrowserRouter>
-      <Switch>
-        <Route path='/login' component={Login} />
-        <Route path='/create-workshop' component={CreateWorkshop} />
-        <Route path='/enter-workshop' component={EnterWorkshop} />
-        <Route path='/participant' component={ParticipantView} />
-        <Route path='/moderator' component={ModeratorView} />
-        <Route path='/' component={Home} />
-      </Switch>
-    </BrowserRouter>
-  </Provider>
-  , document.querySelector('.container'));
+	<Provider store={createStoreWithMiddleware(reducers)}>
+		<BrowserRouter>
+			<Switch>
+				<Route path='/workshop:id' component={IdeaGeneration}/>
+				<Route path='/login' component={Login} />
+				<Route path='/create-workshop' component={CreateWorkshop} />
+				<Route path='/enter-workshop' component={EnterWorkshop} />
+				<Route path='/participant' component={ParticipantView} />
+				<Route path='/moderator' component={ModeratorView} />
+				<Route path='/' component={Home} />
+			</Switch>
+		</BrowserRouter>
+	</Provider>
+	, document.querySelector('.container'));
