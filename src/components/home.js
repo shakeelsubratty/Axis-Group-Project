@@ -7,7 +7,7 @@ export default class Home extends Component {
       <div className='main'>
         <div className='wrapper' style={{flex: 1}}>
           <div className='card card-big' style={{alignItems:'center'}}>
-            <h1 className='card-title'>Select What To Do Now! </h1>
+            <h1 className='card-title' style={{textAlign:'center'}}>Select What To Do Now! </h1>
             <div className='button-box' style={{flex:1}} >
               <Link className='btn btn-primary' to='/login'>
                 Create Workshop

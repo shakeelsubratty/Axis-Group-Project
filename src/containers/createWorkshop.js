@@ -4,44 +4,57 @@ import { Link } from 'react-router-dom';
 import { logOut } from '../actions';
 
 class CreateWorkshop extends Component {
+
+  componentWillMount(){
+  }
+
   render() {
 
     if (!this.props.isLogged) {
       return(
-        <div>
-          <h1>
-            Oops...It looks like you are not logged in...
-          </h1>
-          <Link
-            className='btn btn-secondary'
-            style={{margin:5, width:'50%'}}
-            to='/login'
-          >
-            Log in now
-          </Link>
+        <div className='main createWorkshop'>
+          <div className='wrapper'>
+            <div className='card card-big'>
+              <h2 style={{textAlign:'center'}}>
+                Oops...It looks like you are not logged in...
+              </h2>
+              <div className='card-body' style={{width:'100%', textAlign:'center'}}>
+                <Link
+                  className='btn btn-primary'
+                  style={{margin:'5%', width:'50%'}}
+                  to='/login'
+                >
+                  Log in now
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
       );
     }
 
     return (
-      <div className='main'>
+      <div className='main createWorkshop'>
         <div className='wrapper'>
-          <div className='card card-big'>
-            <h1 className='card-header' style={{flex:1, textAlign:'center'}}>
+          <div className='card card-big' style={{height:'50%'}}>
+            <h1 className='card-title' style={{textAlign:'center', width:'100%'}}>
               Create Workshop
             </h1>
-            <div className='card-body' style={{flex:4}}>
-              <form style={{height: '100%', width: '80%', display: 'flex', flexDirection:'column', justifyContent:'center', margin:'0 auto'}}>
+            <div className='card-body' style={{}}>
+              <form style={{height: '60%', width: '80%', display: 'flex', flexDirection:'column', justifyContent:'center', margin:'0 auto'}}>
                 <span> Type </span>
                 <input type='text' name='username' placeholder='...'style={{margin:5}} onChange={(event) => this.setState({user: event.target.value})}/>
                 <span> Short Description </span>
                 <input type='text' name='password' placeholder='...' style={{margin:5}} onChange={(event) => this.setState({pass: event.target.value})}/>
+                <button type='submit' className='btn btn-primary'>
+                  Submit
+                </button>
               </form>
             </div>
-            <div className='card-footer button-box'>
+            <div style={{width:'100%', textAlign:'right'}}>
               <Link
-              className='btn btn-primary'
-              style={{margin:5, width:'50%'}}
+              className='btn'
+              style={{marginRight:'10%'}}
               to='/login'
               onClick={() => {
                 this.props.logOut();
