@@ -7,10 +7,10 @@ import reducers from './reducers';
 import ReduxPromise from 'redux-promise';
 import {
   Home,
-  EnterWorkshop,
   ParticipantView
 } from './components';
 import {
+EnterWorkshop,
   Login,
   CreateWorkshop,
   ModeratorView

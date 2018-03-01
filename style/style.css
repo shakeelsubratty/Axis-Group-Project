@@ -42,12 +42,12 @@
 }
 
 .TypeSelector {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 500px;
-  margin-top: 5%;
-  background-color: blue;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	min-height: 500px;
+	margin-top: 5%;
+	background-color: blue;
 }
 
 .button-box {

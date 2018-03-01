@@ -9,7 +9,6 @@ export default (state = INITIAL_STATE, action) => {
     return { ...state, isLogged: action.data}
     case "LOG_OUT":
     return { ...state, isLogged: false }
-      break;
     default:
       return state;
   }
