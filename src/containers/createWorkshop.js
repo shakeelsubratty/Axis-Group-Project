@@ -7,21 +7,9 @@ import { logOut, createWorkshop } from '../actions';
 class CreateWorkshop extends Component {
 
   componentWillMount(){
-  }
-
-  displayNotLogged(){
-    return (
-      <div className='wrapper'>
-        <div className='card card-big'>
-          <h2 style={{textAlign:'center'}}>Oops...It looks like you are not logged in...</h2>
-          <div className='card-body' style={{width:'100%', textAlign:'center'}}>
-            <Link className='btn btn-primary' style={{margin:'5%', width:'50%'}} to='/login'>
-              Log in now
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
+    if (!this.props.isLogged) {
+      this.props.history.push('/login-failed')
+    }
   }
 
   renderField(field){
@@ -31,7 +19,7 @@ class CreateWorkshop extends Component {
       <div className={className}>
         <span>{field.label}</span>
         <input className='form-control' type='text' {...field.input}/>
-      <div className='text-help'>
+        <div className='text-help'>
           {touched ? error : ''}
         </div>
       </div>
@@ -41,44 +29,36 @@ class CreateWorkshop extends Component {
   onSubmit(values){
     event.preventDefault();
     // Change to next container when ready
-		this.props.history.push('/');
     this.props.createWorkshop(values);
+    this.props.logOut(); // for now, to avoid being able to enter a workshop while still logged in as moderator
+		this.props.history.push('/');
+
   }
 
   render() {
-
+    console.log(`isLogged==> ${this.props.isLogged}`)
     const { handleSubmit } = this.props;
-
-    if (!this.props.isLogged) {
-      return(
-        <div className='main createWorkshop'>
-          {this.displayNotLogged()}
-        </div>
-      );
-    } else {
-      return (
-        <div className='main createWorkshop'>
-          <div className='wrapper'>
-            <div className='card card-big' style={{minHeight:'50%'}}>
-              <h1 className='card-title' style={{textAlign:'center', width:'100%'}}> Create Workshop</h1>
-              <div className='card-body'>
-                <form className='form-group' style={{display:'flex',flexDirection:'column', height:'60%'}} onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-                  <Field name='type' component={this.renderField} label='Type'/>
+    return (
+      <div className='main createWorkshop'>
+        <div className='wrapper'>
+          <div className='card card-big' style={{minHeight:'50%'}}>
+            <h1 className='card-title' style={{textAlign:'center', width:'100%'}}> Create Workshop</h1>
+            <div className='card-body'>
+              <form className='form-group' style={{display:'flex',flexDirection:'column', height:'60%'}} onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+                <Field name='type' component={this.renderField} label='Type'/>
                 <Field name='description' component={this.renderField} label='Description'/>
-                <button type='submit' className='btn btn-primary' style={{margin:5}}>Submit</button>
-                </form>
-              </div>
-              <div style={{width:'100%', textAlign:'right'}}>
-                <Link className='btn' style={{marginRight:'10%'}} to='/login' onClick={() => {this.props.logOut();}}>
-                  Log Out
-                </Link>
-
-              </div>
+              <button type='submit' className='btn btn-primary' style={{margin:5}}>Submit</button>
+              </form>
+            </div>
+            <div style={{width:'100%', textAlign:'right'}}>
+              <Link className='btn' style={{marginRight:'10%'}} to='/login' onClick={() => {this.props.logOut()}}>
+                Log Out
+              </Link>
             </div>
           </div>
         </div>
-      );
-    }
+      </div>
+    );
   }
 }
 

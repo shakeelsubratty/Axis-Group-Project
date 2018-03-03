@@ -1,3 +1,5 @@
+import { JOIN_WORKSHOP, CREATE_WORKSHOP, ATTEMPT_LOGIN, LOG_OUT } from '../actions';
+
 const INITIAL_STATE = {
   isLogged: false,
   comment: 'hello World!'
@@ -5,9 +7,9 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case "SET_LOGGED_TO":
+    case ATTEMPT_LOGIN:
     return { ...state, isLogged: action.data}
-    case "LOG_OUT":
+    case LOG_OUT:
     return { ...state, isLogged: false }
     default:
       return state;
