@@ -31,10 +31,11 @@ class Login extends Component {
       <div className={className} style={{display:'flex',flexDirection:'column', alignItems:'center'}}>
         <div className='col-xs-6'>
           <input className='form-control' type={field.type} placeholder={field.placeholder} {...field.input}/>
+          <div className='text-help'>
+            {touched ? error : ''}
+          </div>
         </div>
-        <div className='text-help'>
-          {touched ? error : ''}
-        </div>
+
       </div>
     );
   }
