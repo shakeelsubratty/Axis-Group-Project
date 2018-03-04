@@ -2,12 +2,12 @@ app:
     build: .
     command: node index.js
     volumes:
-        - .:/app:rw
+        - .:/app
     ports:
         - '3000:3000'
     links:
         - db
 db:
     image: mongo
-    #volumes:
-    #   - ./data:/data/db
+    volumes:
+       - ./data:/data/db
