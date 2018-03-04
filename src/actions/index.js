@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export const JOIN_WORKSHOP = 'join_workshop'
+export const CREATE_WORKSHOP = 'join_workshop'
 
 export function attemptLogIn(authIsCorrect) {
   return {
@@ -23,6 +24,17 @@ export function joinWorkshop(workshopId) {
 
 	return {
 		type: JOIN_WORKSHOP,
+		payload: request
+	};
+}
+
+export function createWorkshop(values) {
+	const request = '';
+	console.log('joinWorkshop action called, id is ==> ',values);
+	// we should make the post API call here.
+
+	return {
+		type: CREATE_WORKSHOP,
 		payload: request
 	};
 }
