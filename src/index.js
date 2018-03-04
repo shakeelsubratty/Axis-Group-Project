@@ -7,7 +7,8 @@ import reducers from './reducers';
 import ReduxPromise from 'redux-promise';
 import {
   Home,
-  ParticipantView
+  ParticipantView,
+  LoginFailed
 } from './components';
 import {
 EnterWorkshop,
@@ -23,6 +24,7 @@ ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
     <BrowserRouter>
       <Switch>
+        <Route path='/login-failed' component={LoginFailed} />
         <Route path='/login' component={Login} />
         <Route path='/create-workshop' component={CreateWorkshop} />
         <Route path='/enter-workshop' component={EnterWorkshop} />

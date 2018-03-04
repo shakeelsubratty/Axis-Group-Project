@@ -14,16 +14,18 @@
   justify-content: flex-start;
 }
 
-.createWorkshop {
+.createWorkshop, .login {
   background: url('https://images.pexels.com/photos/29435/landscape-sky-night-stars-29435.jpg?w=940&h=650&dpr=2&auto=compress&cs=tinysrgb');
   background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .enterWorkshop {
   background-image: url('https://images.unsplash.com/photo-1503264116251-35a269479413');
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
 }
 
 .Home {
@@ -76,4 +78,5 @@
   flex-direction: column;
   justify-content: center;
   padding: 3%;
+  background-color: #e8edf4 !important; /* or #d2def2 */
 }
