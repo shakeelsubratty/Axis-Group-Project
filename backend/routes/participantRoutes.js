@@ -2,7 +2,7 @@ const Promise = require('bluebird');
 const config = require('../config');
 const participantModel = require('../models/participantModel');
 
-module.export = function(app) {
+module.exports = function(app) {
     app.get(config.participantRoot + '/create/:name', function(req, res) {
         participantModel.createParticipant(req.params.name).then(function(newId) {
             res.writeHead(200, {"Content-Type": "text/plain"});
