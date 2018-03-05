@@ -13,12 +13,6 @@ class Login extends Component {
     }
   }
 
-  componentDidUpdate(){
-    if (this.props.isLogged) {
-      this.props.history.push('/create-workshop')
-    }
-  }
-
   componentWillMount(){
     this.props.logOut();
   }
