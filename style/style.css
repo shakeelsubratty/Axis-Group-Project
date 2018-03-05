@@ -78,3 +78,8 @@ body, html {
 .btn-primary {
 	margin: 2px;
 }
+
+.container-fluid {
+	height: inherit;
+	width: inherit;
+}
