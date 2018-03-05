@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { fetchIdeas } from '../actions';
-import { UserIdea } from '../components'
+import UserIdea from '../components/userIdea'
 
 class IdeaGeneration extends Component {
 
@@ -11,11 +11,20 @@ class IdeaGeneration extends Component {
 	}
 
 	renderIdeas() {
-		return _.map(this.props.ideas, idea => {
+		const jj = Object.keys(this.props.ideas).map((item)=>{
 			return (
-				<UserIdea title={idea.title} description={idea.description} />
-			);
+				<div key={this.props.ideas[item].id}>
+					<UserIdea
+						title={this.props.ideas[item].title}
+
+					>{this.props.ideas[item].explanation}
+				</UserIdea>
+				</div>
+			)
 		});
+		console.log('ideasss=>>',jj);
+
+		return jj
 	}
 
 	render() {
@@ -26,9 +35,8 @@ class IdeaGeneration extends Component {
 					<div className="row">
 						<div className="col-sm" style={{ textAlign: 'center', backgroundColor: 'yellow'}}>100%</div>
 					</div>
-
 					<div className="row">
-						<div className="col-sm-6" style={{ backgroundColor: 'red'}}>50%</div>
+						<div className="col-sm-6" style={{ backgroundColor: 'red'}}>{this.renderIdeas()}</div>
 						<div className="col-sm-6" style={{ backgroundColor: 'orange' }}>50%</div>
 					</div>
 				</div>

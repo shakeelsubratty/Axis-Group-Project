@@ -31,9 +31,9 @@ export function joinWorkshop(workshopId) {
 export function fetchIdeas() {
 
 	const request = [
-		{ id: 0, idea: "Elon Musk is a genious", explanation:'he has multiple successfull companies'},
-		{ id: 1, idea: "I should buy a Model S", explanation:'It is quick'},
-		{ id: 2, idea: "I should buy a Model X", explanation:'It is quick'},
+		{ id: 0, title: "Elon Musk is a genious", explanation:'he has multiple successfull companies'},
+		{ id: 1, title: "I should buy a Model S", explanation:'It is quick'},
+		{ id: 2, title: "I should buy a Model X", explanation:'It is quick'},
 
 	];
 
@@ -41,6 +41,6 @@ export function fetchIdeas() {
 
 	return {
 		type: FETCH_IDEAS,
-		payloard: request
+		payload: request
 	}
 }

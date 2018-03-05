@@ -1,33 +1,45 @@
-import { Collapse, Button, CardBody, Card } from 'reactstrap';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-class UserIdea extends Component {
-  constructor(props) {
-    super(props);
-    this.toggle = this.toggle.bind(this);
-    this.state = { collapse: false };
-  }
+class UserIdea extends React.Component {
 
-  toggle() {
-    this.setState({ collapse: !this.state.collapse });
-  }
+    constructor(props){
+        super(props)
+        this.state = {
+            isExpanded: false
+        }
+    }
 
-  render() {
-    return (
-      <div>
-        <Button color="primary" onClick={this.toggle} style={{ marginBottom: '1rem' }}>Toggle</Button>
-        <Collapse isOpen={this.state.collapse}>
-          <Card>
-            <CardBody>
-            Anim pariatur cliche reprehenderit,
-             enim eiusmod high life accusamus terry richardson ad squid. Nihil
-             anim keffiyeh helvetica, craft beer labore wes anderson cred
-             nesciunt sapiente ea proident.
-            </CardBody>
-          </Card>
-        </Collapse>
-      </div>
-    );
-  }
+    toggle(event){
+        event.preventDefault();
+        this.setState({
+            isExpanded: !this.state.isExpanded,
+            height: this.refs.inner.clientHeight
+        })
+    }
+
+    render(){
+        const {title, children} = this.props;
+        const {isExpanded, height} = this.state;
+        const currentHeight = isExpanded ? height : 0;
+        return (
+            <div className={`card panel ${isExpanded ? 'is-expanded' : ''}`} onClick={(event) => this.toggle(event)}>
+                <div className="card-header panel-heading">
+                    <h2>{title}</h2>
+                </div>
+                <div className="panel-collapse" style={{height: currentHeight+'px'}}>
+                    <div className="panel-body" ref="inner">
+                        {children}
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
 }
+
+UserIdea.propTypes = {
+    title: PropTypes.string,
+};
 
 export default UserIdea;
