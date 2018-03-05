@@ -5,11 +5,12 @@ export const CREATE_WORKSHOP = 'create_workshop'
 export const ATTEMPT_LOGIN = 'attempt_login'
 export const LOG_OUT = 'log_out'
 
-export function attemptLogIn(values) {
+export function attemptLogIn(username, password) {
   const request = true;
-	console.log('login action called, username is ==> '+ values.username + ' password ==>', values.password);
+	console.log('login action called, username is ==> '+ username + ' password ==>', password);
 	// we should make the post API call here.
-
+  sessionStorage.setItem('usrn', username);
+  sessionStorage.setItem('pass', password);
 	return {
 		type: ATTEMPT_LOGIN,
 		data: request
@@ -17,6 +18,9 @@ export function attemptLogIn(values) {
 }
 
 export function logOut() {
+  console.log('LOGGING OUT');
+  sessionStorage.setItem('usrn', null);
+  sessionStorage.setItem('pass', null);
   return {
     type: LOG_OUT,
     data: false

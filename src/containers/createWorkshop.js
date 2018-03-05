@@ -2,13 +2,22 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
-import { logOut, createWorkshop } from '../actions';
+import { logOut, attemptLogIn, createWorkshop } from '../actions';
 
 class CreateWorkshop extends Component {
 
   componentWillMount(){
-    if (!this.props.isLogged) {
-      this.props.history.push('/login-failed')
+    if ((sessionStorage.getItem('usrn') == 'null' || sessionStorage.getItem('pass') == 'null')) {
+      console.log('gets here');
+      if (!this.props.isLogged) {
+        this.props.history.push('/login-failed');
+      }
+    } else {
+      const usrn = sessionStorage.getItem('usrn');
+      const pass = sessionStorage.getItem('pass');
+      if (!this.props.attemptLogIn(usrn,pass)) {
+        this.props.history.push('/login-failed');
+      }
     }
   }
 
@@ -85,7 +94,8 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = {
   logOut,
-  createWorkshop
+  createWorkshop,
+  attemptLogIn
 }
 
 export default reduxForm({
