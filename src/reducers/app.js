@@ -2,7 +2,6 @@ import { JOIN_WORKSHOP, CREATE_WORKSHOP, ATTEMPT_LOGIN, LOG_OUT } from '../actio
 
 const INITIAL_STATE = {
   isLogged: false,
-  comment: 'hello World!'
 };
 
 export default (state = INITIAL_STATE, action) => {
