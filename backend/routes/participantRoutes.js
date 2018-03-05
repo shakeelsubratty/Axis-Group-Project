@@ -9,7 +9,7 @@ module.exports = function(app) {
                 console.log("[API accessed] [participantRoute] /create/:name; created user with id: " + newId);
             }
             res.writeHead(200, {"Content-Type": "text/plain"});
-            res.write(newId);
+            res.write(newId.toString());
             res.end();
         });
     });
