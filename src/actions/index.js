@@ -60,7 +60,7 @@ export function createIdea(values) {
 export function getWorkshopTitle() {
 
 	const request = 'Elon Musk'
-
+	console.log('getWorkshopTitle called->',request);
 	return {
 		type: GET_WS_TITLE,
 		payload: request
