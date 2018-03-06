@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { attemptLogIn } from '../actions';
+import { attemptLogIn, logOut } from '../actions';
 
 class Login extends Component {
 
@@ -13,15 +13,13 @@ class Login extends Component {
     }
   }
 
-  componentDidUpdate(){
-    if (this.props.isLogged) {
-      this.props.history.push('/create-workshop')
-    }
+  componentWillMount(){
+    this.props.logOut();
   }
 
   onSubmit(values){
     event.preventDefault();
-    this.props.attemptLogIn(values)
+    this.props.attemptLogIn(values.username, values.password)
   }
 
   renderField(field){
@@ -41,7 +39,8 @@ class Login extends Component {
   }
 
   render() {
-    console.log(`isLogged==> ${this.props.isLogged}`)
+    console.log(`isLogged - Login==> ${this.props.isLogged}`)
+    console.log(`isLoggedSession - Login==> ${sessionStorage.getItem('isLogged')}`)
     const { handleSubmit } = this.props;
 
     return (
@@ -85,7 +84,8 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = {
-  attemptLogIn
+  attemptLogIn,
+  logOut
 }
 
 export default reduxForm({
