@@ -7,7 +7,7 @@ export default class Home extends Component {
     return (
       <div className='main home'>
         <div className='wrapper' style={{flex: 1}}>
-          <div className='card card-big' style={{alignItems:'center'}}>
+          <div className='card card-big animated bounceInDown' style={{alignItems:'center'}}>
             <img className='img-fluid' src={axisLogo} style={{backgroundColor:'transparent'}} />
             <h3 className='card-title' style={{textAlign:'center', marginTop:'5%'}}>What would you like to do?</h3>
             <div className='button-box' style={{flex:1}} >

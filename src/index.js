@@ -14,7 +14,8 @@ import {
 EnterWorkshop,
   Login,
   CreateWorkshop,
-  ModeratorView
+  ModeratorView,
+  ModeratorWait
 } from './containers';
 
 
@@ -29,6 +30,7 @@ ReactDOM.render(
         <Route path='/create-workshop' component={CreateWorkshop} />
         <Route path='/enter-workshop' component={EnterWorkshop} />
         <Route path='/participant' component={ParticipantView} />
+        <Route path='/moderator-wait' component={ModeratorWait} />
         <Route path='/moderator' component={ModeratorView} />
         <Route path='/' component={Home} />
       </Switch>

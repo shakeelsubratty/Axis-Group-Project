@@ -14,7 +14,7 @@
   justify-content: flex-start;
 }
 
-.createWorkshop, .login, .home {
+.createWorkshop, .login, .home, .moderatorWait {
   background: url('https://images.pexels.com/photos/29435/landscape-sky-night-stars-29435.jpg?w=940&h=650&dpr=2&auto=compress&cs=tinysrgb');
   background-size: cover;
   background-position: center;
@@ -52,7 +52,7 @@
   flex-wrap: wrap;
 }
 
-.btn-primary {
+.btn {
   margin: 2px;
 }
 
@@ -83,3 +83,10 @@
 }
 
 /* -- END OF LOADER */
+
+#id1 {
+  -webkit-animation-duration: 0.5s;
+  -moz-animation-duration: 0.5s;
+  -o-animation-duration: 0.5s;
+
+}
