@@ -1,3 +1,5 @@
+import { GET_WS_TITLE } from '../actions'
+
 const INITIAL_STATE = {
   isLogged: false,
   comment: 'hello World!'
@@ -10,6 +12,8 @@ export default (state = INITIAL_STATE, action) => {
     case "LOG_OUT":
     return { ...state, isLogged: false }
     default:
+	 case GET_WS_TITLE:
+	 return { ...state, wsTitle: action.payload}
       return state;
   }
 };

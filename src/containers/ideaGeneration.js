@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import { fetchIdeas } from '../actions';
+import { fetchIdeas, getWorkshopTitle } from '../actions';
 import UserIdea from '../components/userIdea'
-import NewPost from './newPost'
+import NewIdea from './newIdea'
 
 class IdeaGeneration extends Component {
 
 	componentDidMount() {
 		this.props.fetchIdeas();
+		this.props.getWorkshopTitle();
+
 	}
 
 	renderIdeas() {
@@ -25,23 +27,19 @@ class IdeaGeneration extends Component {
 		});
 	}
 
-	renderCreatePost() {
-
-	}
-
 	render() {
 		console.log('this.props.ideas=>',this.props.ideas)
 		return (
 			<div className='main'>
 				<div className="container-fluid">
 					<div className="row">
-						<h1 className="col-sm" style={{ textAlign: 'center', padding: '20px', color: 'white'}}>Workshop Question</h1>
+						<h1 className="col-sm" style={{ textAlign: 'center', padding: '20px', color: 'white'}}>{this.props.wsTitle}</h1>
 					</div>
 					<div className="row">
 
 						<div className="col-sm-6" style={{ display: 'flex', justifyContent: 'flex-end'}}>
 							<div style={{width: '40vw'}}>
-								<NewPost/>
+								<NewIdea/>
 							</div>
 						</div>
 
@@ -54,15 +52,20 @@ class IdeaGeneration extends Component {
 					</div>
 				</div>
 			</div>
-
-
-
-	);
-}
+		);
+	}
 }
 
 function mapStateToProps(state) {
-	return { ideas: state.ideas };
+	return {
+		ideas: state.ideas,
+		wsTitle: state.app.wsTitle
+	};
 }
 
-export default connect(mapStateToProps, {fetchIdeas})(IdeaGeneration);
+const mapDispatchToProps = {
+  fetchIdeas,
+  getWorkshopTitle
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(IdeaGeneration);

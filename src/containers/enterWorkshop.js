@@ -28,7 +28,6 @@ class EnterWorkshop extends Component {
 	}
 
 	onSubmit(values) {
-		event.preventDefault();
 		this.props.history.push('/');
 		this.props.joinWorkshop(values);
 	}

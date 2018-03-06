@@ -2,6 +2,8 @@ import axios from 'axios';
 
 export const JOIN_WORKSHOP = 'join_workshop';
 export const FETCH_IDEAS = 'fetch_ideas';
+export const CREATE_IDEA = 'create_idea';
+export const GET_WS_TITLE = 'get_workshop_Title';
 
 export function attemptLogIn(authIsCorrect) {
   return {
@@ -41,6 +43,26 @@ export function fetchIdeas() {
 
 	return {
 		type: FETCH_IDEAS,
+		payload: request
+	}
+}
+
+export function createIdea(values) {
+
+		// here we send it to the API.
+		const request = console.log('we are sending to the api==>',values);
+		return {
+			type: CREATE_IDEA,
+			payload: request
+		}
+}
+
+export function getWorkshopTitle() {
+
+	const request = 'Elon Musk'
+
+	return {
+		type: GET_WS_TITLE,
 		payload: request
 	}
 }
