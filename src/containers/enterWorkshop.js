@@ -37,10 +37,10 @@ class EnterWorkshop extends Component {
 
 
     return (
-      <div className='main'>
+      <div className='main enterWorkshop'>
 			<div className='wrapper'>
-				<div className='card' style={{ width: '80%'}}>
-					<h1 className='card-header' style={{ textAlign: 'center', padding: '5%'}}>Join the workshop</h1>
+				<div className='card card-big' style={{width:'80%'}}>
+					<h1 className='card-title' style={{textAlign: 'center', padding: '5%'}}>Join the workshop</h1>
 					<div className="card-body">
 						<div className='form-group'>
 							<form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
@@ -48,7 +48,7 @@ class EnterWorkshop extends Component {
 									name="workshopId"
 									component={this.renderField}
 								/>
-								<div className="button-box" >
+								<div className="button-box" style={{marginTop:'2%'}} >
 									<button type="submit" className="btn btn-primary">Submit</button>
 									<Link to='/' type="button" className="btn btn-danger">Cancel</Link>
 								</div>

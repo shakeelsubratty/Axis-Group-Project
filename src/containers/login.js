@@ -1,72 +1,96 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { attemptLogIn } from '../actions';
+import { Field, reduxForm } from 'redux-form';
+import { attemptLogIn, logOut } from '../actions';
 
 class Login extends Component {
 
   constructor(props){
     super(props);
     this.state={
-      user:'',
-      pass:''
+
     }
   }
 
-  onFormSubmit(uss,pass){
-    console.log(uss + pass);
-    alert(`User => ${this.state.user}, Pass=> ${this.state.pass}`);
-    this.setState({})
+  componentWillMount(){
+    this.props.logOut();
+  }
+
+  onSubmit(values){
+    event.preventDefault();
+    this.props.attemptLogIn(values.username, values.password)
+  }
+
+  renderField(field){
+    const { meta: {touched, error} } = field;
+    const className = `form-group ${touched && error ? 'has-danger' : ''}`
+    return (
+      <div className={className} style={{display:'flex',flexDirection:'column', alignItems:'center'}}>
+        <div className='col-xs-6'>
+          <input className='form-control' type={field.type} placeholder={field.placeholder} {...field.input}/>
+          <div className='text-help'>
+            {touched ? error : ''}
+          </div>
+        </div>
+
+      </div>
+    );
   }
 
   render() {
-    console.log(`isLogged==> ${this.props.isLogged}`)
+    console.log(`isLogged - Login==> ${this.props.isLogged}`)
+    console.log(`isLoggedSession - Login==> ${sessionStorage.getItem('isLogged')}`)
+    const { handleSubmit } = this.props;
+
     return (
-      <div className='Home'>
-        <div className='wrapper' style={{flex:1}}>
-          <h1 style={{textAlign: 'center', marginTop:5}}>
-            Login
-          </h1>
-          <form className='login-form'>
-            <input type='text' name='username' placeholder='Username'style={{margin:5}} onChange={(event) => this.setState({user: event.target.value})}/>
-            <input type='password' name='password' placeholder='Password' style={{margin:5}} onChange={(event) => this.setState({pass: event.target.value})}/>
-            <div className='button-box'>
-              <Link
-                className='btn btn-secondary link'
-                type='submit'
-                style={{margin:5, width:'50%'}}
-                to='/create-workshop'
-                onClick={() => {
-                  this.onFormSubmit(this.state.user,this.state.pass);
-                  this.props.attemptLogIn(true);
-                }}
-              >
-                Submit
-              </Link>
-              <Link
-                className='btn btn-secondary link'
-                style={{margin: 5, width:'50%'}}
-                to='/'
-              >
-                Back
-              </Link>
-            </div>
-          </form>
+      <div className='main login'>
+        <div className='wrapper'>
+          <div className='card card-big'>
+            <h1  className='card-title' style={{textAlign: 'center', width:'100%'}}>Login</h1>
+            <form className='form-group row' style={{height:'60%'}} onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+              <Field name='username' component={this.renderField} type='text' placeholder='Username'/>
+              <Field name='password' component={this.renderField} type='password' placeholder='Password'/>
+              <div className='button-box'>
+                <button type='submit' className='btn btn-primary' style={{margin:5}}>Submit</button>
+                <Link className='btn btn-danger' to='/'> Back</Link>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     );
   }
 }
 
+function validate(values) {
+  const errors = {};
+
+  if (!values.username) {
+    errors.username = "Please input a username"
+  }
+
+  if (!values.password) {
+    errors.password = "Please input a password"
+  }
+
+  return errors;
+}
+
 function mapStateToProps(state) {
   return {
     isLogged: state.app.isLogged,
-    firstTry: state.app.firstTry
   };
 }
 
 const mapDispatchToProps = {
-  attemptLogIn
+  attemptLogIn,
+  logOut
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Login);
+export default reduxForm({
+  validate,
+  form: 'facilitatorLoginForm'
+})(
+  connect(mapStateToProps,mapDispatchToProps)(Login)
+);

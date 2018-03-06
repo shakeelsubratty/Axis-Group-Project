@@ -30,7 +30,7 @@ class IdeaGeneration extends Component {
 	render() {
 		console.log('this.props.ideas=>',this.props.ideas)
 		return (
-			<div className='main'>
+			<div className='main enterWorkshop'>
 				<div className="container-fluid">
 					<div className="row">
 						<h1 className="col-sm" style={{ textAlign: 'center', padding: '20px', color: 'white'}}>{this.props.wsTitle}</h1>

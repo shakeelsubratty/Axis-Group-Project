@@ -1,49 +1,88 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { logOut } from '../actions';
+import { Field, reduxForm } from 'redux-form';
+import { logOut, attemptLogIn, createWorkshop } from '../actions';
 
 class CreateWorkshop extends Component {
-  render() {
 
-    if (!this.props.isLogged) {
-      return(
-        <div>
-          <h1>
-            Oops...It looks like you are not logged in...
-          </h1>
-          <Link
-            className='btn btn-secondary'
-            style={{margin:5, width:'50%'}}
-            to='/login'
-          >
-            Log in now
-          </Link>
-        </div>
-      );
+  componentWillMount(){
+    if ((sessionStorage.getItem('usrn') == 'null' || sessionStorage.getItem('pass') == 'null')) {
+      console.log('gets here');
+      if (!this.props.isLogged) {
+        this.props.history.push('/login-failed');
+      }
+    } else {
+      const usrn = sessionStorage.getItem('usrn');
+      const pass = sessionStorage.getItem('pass');
+      if (!this.props.attemptLogIn(usrn,pass)) {
+        this.props.history.push('/login-failed');
+      }
     }
+  }
 
+  renderField(field){
+    const { meta: {touched, error} } = field;
+    const className = `form-group ${touched && error ? 'has-danger' : ''}`
     return (
-      <div>
-        <h1>
-          Create Workshop
-        </h1>
-        <h2>
-          Logged in!
-        </h2>
-        <Link
-        className='btn btn-secondary'
-        style={{margin:5, width:'50%'}}
-        to='/login'
-        onClick={() => {
-          this.props.logOut();
-        }}
-        >
-          Log Out
-        </Link>
+      <div className={className}>
+        <span>{field.label}</span>
+        <input className='form-control' type='text' {...field.input}/>
+        <div className='text-help'>
+          {touched ? error : ''}
+        </div>
       </div>
     );
   }
+
+  onSubmit(values){
+    event.preventDefault();
+    // Change to next container when ready
+    this.props.createWorkshop(values);
+    this.props.logOut(); // for now, to avoid being able to enter a workshop while still logged in as moderator
+		this.props.history.push('/');
+
+  }
+
+  render() {
+    console.log(`isLogged==> ${this.props.isLogged}`)
+    const { handleSubmit } = this.props;
+    return (
+      <div className='main createWorkshop'>
+        <div className='wrapper'>
+          <div className='card card-big' style={{minHeight:'50%'}}>
+            <h1 className='card-title' style={{textAlign:'center', width:'100%'}}> Create Workshop</h1>
+            <div className='card-body'>
+              <form className='form-group' style={{display:'flex',flexDirection:'column', height:'60%'}} onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+                <Field name='type' component={this.renderField} label='Type'/>
+                <Field name='description' component={this.renderField} label='Description'/>
+              <button type='submit' className='btn btn-primary' style={{margin:5}}>Submit</button>
+              </form>
+            </div>
+            <div style={{width:'100%', textAlign:'right'}}>
+              <Link className='btn' style={{marginRight:'10%'}} to='/login' onClick={() => {this.props.logOut()}}>
+                Log Out
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+function validate(values) {
+	const errors = {};
+
+	if (!values.type) {
+		errors.type = "Please input a type to continue."
+	}
+
+  if (!values.description) {
+		errors.description = "Please input a description to continue."
+	}
+
+	return errors;
 }
 
 function mapStateToProps(state) {
@@ -54,7 +93,14 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = {
-  logOut
+  logOut,
+  createWorkshop,
+  attemptLogIn
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateWorkshop);
+export default reduxForm({
+  validate,
+	form: 'createWorkshopForm'
+})(
+	connect(mapStateToProps, mapDispatchToProps)(CreateWorkshop)
+);
