@@ -19,7 +19,8 @@ class Login extends Component {
 
   onSubmit(values){
     event.preventDefault();
-    this.props.attemptLogIn(values.username, values.password)
+    this.props.attemptLogIn(values.username, values.password);
+    this.props.history.push('/create-workshop');
   }
 
   renderField(field){
