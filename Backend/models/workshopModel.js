@@ -19,5 +19,20 @@ module.exports = {
             }
             return newWorkshop._id;
         });
+    },
+    getWorkshopDescription: function(id) {
+        return Workshop.findOneAsync({'_id': id})
+            .then(function(workshop) {
+                if (!workshop) {
+                    if (config.DEBUG) {
+                        console.log("Attempted to retrieve workshop with id: " + id + "; no such workshop");
+                    }
+                    return null;
+                }
+                if (config.DEBUG) {
+                    console.log("Retrieved workshop with id: " + id + "; it has description: " + workshop.description);
+                }
+                return workshop.description;
+            });
     }
 }
