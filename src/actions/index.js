@@ -4,11 +4,15 @@ export const JOIN_WORKSHOP = 'join_workshop';
 export const FETCH_IDEAS = 'fetch_ideas';
 export const CREATE_IDEA = 'create_idea';
 export const GET_WS_TITLE = 'get_workshop_Title';
-export const CREATE_WORKSHOP = 'create_workshop'
-export const ATTEMPT_LOGIN = 'attempt_login'
-export const LOG_OUT = 'log_out'
+export const CREATE_WORKSHOP = 'create_workshop';
+export const ATTEMPT_LOGIN = 'attempt_login';
+export const LOG_OUT = 'log_out';
 
-
+export const currentData = [
+	{ id: 0, title: "Elon Musk is a genious", explanation:'he has multiple successfull companies'},
+	{ id: 1, title: "I should buy a Model S", explanation:'It is quick'},
+	{ id: 2, title: "I should buy a Model X", explanation:'It is quick'},
+];
 export function attemptLogIn(username, password) {
   const request = true;
 	console.log('login action called, username is ==> '+ username + ' password ==>', password);
@@ -55,14 +59,9 @@ export function createWorkshop(values) {
 
 export function fetchIdeas() {
 
-	const request = [
-		{ id: 0, title: "Elon Musk is a genious", explanation:'he has multiple successfull companies'},
-		{ id: 1, title: "I should buy a Model S", explanation:'It is quick'},
-		{ id: 2, title: "I should buy a Model X", explanation:'It is quick'},
+	let request = currentData;
 
-	];
-
-	console.log('request ==>',request);
+	console.log('fetchIdeas is called request ==>',request);
 
 	return {
 		type: FETCH_IDEAS,
@@ -70,10 +69,15 @@ export function fetchIdeas() {
 	}
 }
 
-export function createIdea(values) {
-
+export function createIdea(values, callback) {
+	console.log('we are sending to the api==>',values)
 		// here we send it to the API.
-		const request = console.log('we are sending to the api==>',values);
+	//	const request = axios.post().then(()=>callback);
+		const request = 'elonnnnnn'
+		currentData.push(values);
+
+		console.log(currentData);
+		callback();
 		return {
 			type: CREATE_IDEA,
 			payload: request

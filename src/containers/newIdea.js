@@ -1,10 +1,16 @@
 import React, {Component} from 'react';
-import { Field, reduxForm } from 'redux-form';
-import { Link } from 'react-router-dom';
+import { Field, reduxForm, reset } from 'redux-form';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { createIdea } from '../actions'
+import { createIdea, fetchIdeas} from '../actions'
+import { renderIdeas } from './ideaGeneration'
+
 
 class NewPost extends Component {
+	constructor(props) {
+		super(props)
+
+	}
 
 	renderTitleField(field) {
 		const { meta: {touched, error}} = field;
@@ -45,33 +51,41 @@ class NewPost extends Component {
 	}
 
 	onSubmit(values) {
-		event.preventDefault();
-		this.props.createIdea(values);
+		this.props.createIdea(values, () => {
+			this.props.callback();
+		});
 
 	}
 
 	render() {
-		const { handleSubmit } = this.props;
+		const { handleSubmit, reset, pristine, submitting } = this.props;
 		return (
 			<div className='card'>
-				<h1 className='card-header' style={{ textAlign: 'left'}}>Ideas </h1>
+				<h1 className='card-header' style={{ textAlign: 'left'}}>Ideas</h1>
 				<div className="card-body">
 					<div className='form-group'>
 						<form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
 							<Field
-								name="ideaTitle"
+								name="title"
 								component={this.renderTitleField}
 								label="Idea Title:"
 								placeholder="Tell us about your idea."
 								/>
 							<Field
-								name="ideaExplanation"
+								name="explanation"
 								component={this.renderExplanationField}
 								label="Explanation:"
 								placeholder="Expand on your thoughts."
 								/>
+							<Field
+								name="id"
+								component={this.renderExplanationField}
+								label="id:"
+								placeholder="Expand on your thoughts."
+								/>
 							<div className="button-box" >
-								<button type="submit" className="btn btn-primary" >Save</button>
+								<button type="submit" className="btn btn-primary" disabled={pristine || submitting}>Save</button>
+								<button type="button" className="btn btn-danger" onClick={reset} disabled={pristine || submitting} >Clear Values</button>
 							</div>
 						</form>
 					</div>
@@ -85,12 +99,12 @@ class NewPost extends Component {
 function validate(values) {
 	const errors = {};
 
-	if (!values.ideaTitle) {
-		errors.ideaTitle = "Please enter a title to continue."
+	if (!values.title) {
+		errors.title = "Please enter a title to continue."
 	}
 
-	if (!values.ideaExplanation) {
-		errors.ideaExplanation = "Please provide a bit of clarification on your ideas."
+	if (!values.explanation) {
+		errors.explanation = "Please provide a bit of clarification on your ideas."
 	}
 
 	return errors;
@@ -100,5 +114,5 @@ export default reduxForm({
 	validate,
 	form: 'CreateIdea'
 })(
-	connect(null, {createIdea})(NewPost)
+	withRouter(connect(null, {createIdea})(NewPost))
 );
