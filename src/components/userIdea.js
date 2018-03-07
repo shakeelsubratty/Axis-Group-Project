@@ -25,10 +25,12 @@ class UserIdea extends React.Component {
         return (
             <div className={`card panel ${isExpanded ? 'is-expanded' : ''}`} onClick={(event) => this.toggle(event)}>
                 <div className="card-header panel-heading">
-                    <h2>{title}</h2>
+						 <span><button>Delete</button></span>
+
+                    <div  className='noborder' style={{width:'80%', marginRight: '0 !important', borderRight: 'none'}}>{title}</div>
                 </div>
                 <div className="panel-collapse" style={{height: currentHeight+'px'}}>
-                    <div className="panel-body" ref="inner">
+                    <div className="card-body panel-body" ref="inner" style={{padding: '3%'}}>
                         {children}
                     </div>
                 </div>

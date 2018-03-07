@@ -17,7 +17,7 @@ class NewPost extends Component {
 		const className = `${touched && error ? 'has-danger' : ''}`
 		return(
 			<div className={className}>
-				<label>{field.label}</label>
+				<label className='badge' >{field.label}</label>
 				<input
 					className='form-control'
 					type='text'
@@ -64,7 +64,7 @@ class NewPost extends Component {
 			<div className='card'>
 				<h1 className='card-header' style={{ textAlign: 'left'}}>Ideas</h1>
 				<div className="card-body">
-					<div className='form-group'>
+					<div className='form-group' style={{padding: '1.5%'}}>
 						<form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
 							<Field
 								name="title"

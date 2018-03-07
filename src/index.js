@@ -23,7 +23,6 @@ ReactDOM.render(
 
   <Provider store={createStoreWithMiddleware(reducers)}>
     <BrowserRouter>
-		 <div>
       <Switch>
 			<Route path='/workshop:id' component={IdeaGeneration}/>
         <Route path='/login-failed' component={LoginFailed} />
@@ -32,7 +31,6 @@ ReactDOM.render(
         <Route path='/enter-workshop' component={EnterWorkshop} />
         <Route path='/' component={Home} />
       </Switch>
-	</div>
     </BrowserRouter>
 
   </Provider>

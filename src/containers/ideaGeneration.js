@@ -2,15 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { fetchIdeas, getWorkshopTitle } from '../actions';
-import UserIdea from '../components/userIdea'
-import NewIdea from './newIdea'
+
+import { UserIdea } from '../components'
+import { NewIdea } from './'
 
 class IdeaGeneration extends Component {
 	constructor(props) {
 		super(props);
-		this.state={
-
-		}
 
 		this.update = this.update.bind(this);
 	}
@@ -44,7 +42,7 @@ class IdeaGeneration extends Component {
 	render() {
 
 		return (
-			<div className='main enterWorkshop'>
+			<div className='main bg1'>
 				<div className="container-fluid">
 					<div className="row">
 						<h1 className="col-sm" style={{ textAlign: 'center', padding: '20px', color: 'white'}}>{this.props.wsTitle}</h1>
