@@ -4,6 +4,7 @@
 front-end/bundle.js
 /front-end/npm-debug.log
 .DS_Store
+/node_modules/
 
 # IntelliJ
 *.iml
