@@ -12,9 +12,14 @@
   <script src="/bundle.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script type="text/javascript">
-    function animateBounceDownTwice(id) {
-      $('#'+id).addClass('animated bounceOutDown').one('animationend oAnimationEnd mozAnimationEnd webkitAnimationEnd', function () {
-        $('#'+id).addClass('bounceInDown').removeClass('bounceOutDown');
+    function animateLeftToRight(id) {
+      $('#'+id).addClass('animated bounceInLeft').one('animationend oAnimationEnd mozAnimationEnd webkitAnimationEnd', function () {
+        $('#'+id).removeClass('bounceInLeft');
+      })
+    }
+    function animateRightToLeft(id) {
+      $('#'+id).addClass('animated bounceInRight').one('animationend oAnimationEnd mozAnimationEnd webkitAnimationEnd', function () {
+        $('#'+id).removeClass('bounceInRight');
       })
     }
   </script>

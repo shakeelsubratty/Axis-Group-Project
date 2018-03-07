@@ -1,7 +1,7 @@
 import CreateWorkshop from './createWorkshop';
-import ModeratorView from './moderatorView';
 import Login from './login';
 import EnterWorkshop from './enterWorkshop';
 import ModeratorWait from './moderatorWait';
+import IdeaGeneration from './ideaGeneration';
 
-export { Login, CreateWorkshop, ModeratorView, EnterWorkshop, ModeratorWait };
+export { Login, CreateWorkshop, EnterWorkshop, ModeratorWait, IdeaGeneration};

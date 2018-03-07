@@ -8,12 +8,6 @@ const STRING_ID_LENGTH = 10;
 
 class EnterWorkshop extends Component {
 
-	onSubmit(values) {
-		event.preventDefault();
-		this.props.history.push('/');
-
-	}
-
 	renderField(field) {
 		const { meta: {touched, error}} = field;
 		const className = `${touched && error ? 'has-danger' : ''}`
@@ -34,6 +28,7 @@ class EnterWorkshop extends Component {
 	}
 
 	onSubmit(values) {
+		this.props.history.push('/');
 		this.props.joinWorkshop(values);
 	}
 
@@ -42,7 +37,7 @@ class EnterWorkshop extends Component {
 
 
     return (
-      <div className='main enterWorkshop'>
+      <div className='main'>
 			<div className='wrapper'>
 				<div className='card card-big' style={{width:'80%'}}>
 					<h1 className='card-title' style={{textAlign: 'center', padding: '5%'}}>Join the workshop</h1>

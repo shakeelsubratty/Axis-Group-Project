@@ -12,17 +12,7 @@
   height: 100%;
   align-items: center;
   justify-content: flex-start;
-}
-
-.createWorkshop, .login, .home, .moderatorWait {
   background: url('https://images.pexels.com/photos/29435/landscape-sky-night-stars-29435.jpg?w=940&h=650&dpr=2&auto=compress&cs=tinysrgb');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.enterWorkshop {
-  background-image: url('https://images.unsplash.com/photo-1503264116251-35a269479413');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -31,7 +21,6 @@
 .Home {
   display: flex;
   height: 500px;
-
 }
 
 .wrapper {
@@ -84,9 +73,28 @@
 
 /* -- END OF LOADER */
 
-#id1 {
-  -webkit-animation-duration: 0.5s;
-  -moz-animation-duration: 0.5s;
-  -o-animation-duration: 0.5s;
+/* #moderatorWaitPanel {
+  -webkit-animation-duration: 0.6s;
+  -moz-animation-duration: 0.6s;
+  -o-animation-duration: 0.6s;
 
+} */
+
+.container-fluid {
+	height: inherit;
+	width: inherit;
+}
+
+.panel .panel-heading {
+  cursor: pointer;
+}
+.panel .panel-collapse {
+  overflow: hidden;
+  transition: height 0.3s ease-out;
+}
+.panel .panel-body {
+  border: none !important;
+}
+.panel h2 {
+  margin-top: 5px !important;
 }

@@ -5,7 +5,7 @@ export default class LoginFailed extends Component {
 
   render(){
     return(
-      <div className='main createWorkshop'>
+      <div className='main'>
         <div className='wrapper'>
           <div className='card card-big'>
             <h2 style={{textAlign:'center'}}>Oops...It looks like you are not logged in...</h2>
