@@ -50,6 +50,26 @@ class NewPost extends Component {
 		);
 	}
 
+	renderIdField(field) {
+		const { meta: {touched, error}} = field;
+		const className = `${touched && error ? 'has-danger' : ''}`
+		return(
+			<div className={className} style={{marginTop: '10px'}}>
+				<label>{field.label}</label>
+				<input
+					type='number'
+					placeholder={field.placeholder}
+					min="0"
+					max="100"
+					{...field.input}
+					/>
+				<div className="text-help">
+					{touched ? error : ''}
+				</div>
+			</div>
+		);
+	}
+
 	onSubmit(values) {
 		this.props.createIdea(values, () => {
 			this.props.callback();
@@ -80,9 +100,8 @@ class NewPost extends Component {
 								/>
 							<Field
 								name="id"
-								component={this.renderExplanationField}
+								component={this.renderIdField}
 								label="id:"
-								placeholder="Expand on your thoughts."
 								/>
 							<div className="button-box" >
 								<button type="submit" className="btn btn-primary" disabled={pristine || submitting}>Save</button>

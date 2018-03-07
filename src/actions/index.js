@@ -1,4 +1,6 @@
 import axios from 'axios';
+import _ from 'lodash';
+
 
 export const JOIN_WORKSHOP = 'join_workshop';
 export const FETCH_IDEAS = 'fetch_ideas';
@@ -7,11 +9,12 @@ export const GET_WS_TITLE = 'get_workshop_Title';
 export const CREATE_WORKSHOP = 'create_workshop';
 export const ATTEMPT_LOGIN = 'attempt_login';
 export const LOG_OUT = 'log_out';
+export const DELETE_IDEA = 'delete_idea';
 
-export const currentData = [
-	{ id: 0, title: "Elon Musk is a genious", explanation:'he has multiple successfull companies'},
-	{ id: 1, title: "I should buy a Model S", explanation:'It is quick'},
-	{ id: 2, title: "I should buy a Model X", explanation:'It is quick'},
+let currentData = [
+	{ id: '0', title: "Elon Musk is a genious", explanation:'he has multiple successfull companies'},
+	{ id: '1', title: "I should buy a Model S", explanation:'It is quick'},
+	{ id: '2', title: "I should buy a Model X", explanation:'It is quick'},
 ];
 export function attemptLogIn(username, password) {
   const request = true;
@@ -91,5 +94,20 @@ export function getWorkshopTitle() {
 	return {
 		type: GET_WS_TITLE,
 		payload: request
+	}
+}
+
+export function deleteIdea(id) {
+
+	const request = 'aaaa'
+	console.log('id passed ', id);
+	// make api call to delete that idea.
+	currentData.splice(id,1);
+
+	console.log('delete idea called, result array=>',currentData);
+
+	return{
+		type: DELETE_IDEA,
+		payload: request,
 	}
 }

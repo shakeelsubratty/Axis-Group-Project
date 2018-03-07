@@ -30,6 +30,8 @@ class IdeaGeneration extends Component {
 			return (
 				<div key={this.props.ideas[item].id}>
 					<UserIdea
+						callback = {this.update}
+						id = {this.props.ideas[item].id}
 						title={this.props.ideas[item].title}
 
 						>{this.props.ideas[item].explanation}
@@ -51,7 +53,7 @@ class IdeaGeneration extends Component {
 
 						<div className="col-sm-6" style={{ display: 'flex', justifyContent: 'flex-end'}}>
 							<div style={{width: '40vw'}}>
-								<NewIdea callback={this.update} urlId={this.props.match.params.id}/>
+								<NewIdea callback={this.update} />
 							</div>
 						</div>
 
