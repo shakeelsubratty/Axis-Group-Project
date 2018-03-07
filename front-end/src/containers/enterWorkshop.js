@@ -28,7 +28,7 @@ class EnterWorkshop extends Component {
 	}
 
 	onSubmit(values) {
-		this.props.history.push('/');
+		this.props.history.push('/workshop1');
 		this.props.joinWorkshop(values);
 	}
 
