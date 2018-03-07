@@ -37,7 +37,6 @@ class CreateWorkshop extends Component {
   }
 
   onSubmit(values){
-    event.preventDefault();
     // Change to next container when ready
     this.props.createWorkshop(values);
 		this.props.history.push('/moderator-wait');

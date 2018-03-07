@@ -13,14 +13,26 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script type="text/javascript">
     function animateLeftToRight(id) {
-      $('#'+id).addClass('animated bounceInLeft').one('animationend oAnimationEnd mozAnimationEnd webkitAnimationEnd', function () {
-        $('#'+id).removeClass('bounceInLeft');
-      })
+      if ( /^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
+        $('#'+id).addClass('animated slideInLeft').one('animationend oAnimationEnd mozAnimationEnd webkitAnimationEnd', function () {
+          $('#'+id).removeClass('slideInLeft');
+        })
+      } else {
+        $('#'+id).addClass('animated bounceInLeft').one('animationend oAnimationEnd mozAnimationEnd webkitAnimationEnd', function () {
+          $('#'+id).removeClass('bounceInLeft');
+        })
+      }
     }
     function animateRightToLeft(id) {
-      $('#'+id).addClass('animated bounceInRight').one('animationend oAnimationEnd mozAnimationEnd webkitAnimationEnd', function () {
-        $('#'+id).removeClass('bounceInRight');
-      })
+      if ( /^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
+        $('#'+id).addClass('animated slideInRight').one('animationend oAnimationEnd mozAnimationEnd webkitAnimationEnd', function () {
+          $('#'+id).removeClass('slideInRight');
+        })
+      } else {
+        $('#'+id).addClass('animated bounceInRight').one('animationend oAnimationEnd mozAnimationEnd webkitAnimationEnd', function () {
+          $('#'+id).removeClass('bounceInRight');
+        })
+      }
     }
   </script>
 </html>

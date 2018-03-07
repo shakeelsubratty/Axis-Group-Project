@@ -43,36 +43,61 @@ class ModeratorWait extends Component {
     console.log('showingId==>', this.state.showingId);
     if (this.state.showingId) {
       return (
-        <div className='card-body' style={{flex:1,display:'flex', flexDirection:'row', width:'100%', paddingLeft:'3%'}}>
-          <div style={{flex:1, display: 'flex', flexDirection:'column', alignItems:'center', justifyContent:'space-around'}}>
-            <div className='.row' style={{flex:1,textAlign:'center', marginTop:'5%'}}>
+        <div className='card-body flexRowCenter' style={{alignItems:'stretch', width:'100%', paddingLeft:'3%'}}>
+          <div className='flexColumnCenter' style={{justifyContent:'space-around'}}>
+            <div style={{flex:1,textAlign:'center', marginTop:'5%'}}>
               <h4><u>Workshop Id</u></h4>
-                <h2>{this.props.wsId}</h2>
+              <h2>
+                {this.props.wsId}
+              </h2>
             </div>
-            <div className='.row' style={{flex:2,textAlign:'center', marginTop:'3%'}}>
+            <div style={{flex:2,textAlign:'center', marginTop:'3%'}}>
               <h4><u>Description</u></h4>
-                <div style={{textAlign:'-webkit-auto', padding:'1% 3%'}}>{this.props.wsDescription}</div>
+              <div style={{textAlign:'-webkit-auto', padding:'1% 3%'}}>
+                {this.props.wsDescription}
+              </div>
             </div>
           </div>
-          <button className='btn btn-secondary' style={{backgroundColor:'#e8edf4', borderColor:'#bfbebe'}} onClick={() => {
-            window.animateLeftToRight('moderatorWaitPanel');
-            {this.setState({showingId: !this.state.showingId})}
-          }}>
-            >
+          <button
+            className='btn btn-secondary'
+            style={{backgroundColor:'#e8edf4', borderColor:'#bfbebe'}}
+            onClick={() => {
+              window.animateLeftToRight('moderatorWaitPanel');
+              {this.setState({showingId: !this.state.showingId})}
+            }}
+          >
+            <b>&gt;</b>
           </button>
         </div>
       );
     } else {
       return (
-        <div className='card-body' style={{flex:1,display:'flex', flexDirection:'row', width:'100%', paddingRight:'3%'}}>
-          <button className='btn btn-secondary' style={{backgroundColor:'#e8edf4', borderColor:'#bfbebe'}} onClick={() => {
-            window.animateRightToLeft('moderatorWaitPanel');
-            {this.setState({showingId: !this.state.showingId})}
-          }}>
-            &lt;
+        <div className='card-body flexRowCenter' style={{alignItems:'stretch', width:'100%', paddingRight:'3%'}}>
+          <button
+            className='btn btn-secondary'
+            style={{backgroundColor:'#e8edf4', borderColor:'#bfbebe'}}
+            onClick={() => {
+              window.animateRightToLeft('moderatorWaitPanel');
+              {this.setState({showingId: !this.state.showingId})}
+            }}
+          >
+            <b>&lt;</b>
           </button>
-          <div style={{flex:1}}>
-            Participant List
+          <div className='flexRowCenter' style={{alignItems:'flex-start'}}>
+            <div style={{flex:1,textAlign:'center', marginTop:'5%'}}>
+              <h4><u>Who's In</u></h4>
+              <div className='flexRowCenter' style={{flex:1, flexWrap:'wrap', marginTop:'5%'}}>
+                <div className='card userCard'>{this.props.wsId}</div>
+                <div className='card userCard'>{this.props.wsId}</div>
+                <div className='card userCard'>{this.props.wsId}</div>
+                <div className='card userCard'>{this.props.wsId}</div>
+                <div className='card userCard'>{this.props.wsId}</div>
+                <div className='card userCard'>{this.props.wsId}</div>
+                <div className='card userCard'>{this.props.wsId}</div>
+                <div className='card userCard'>{this.props.wsId}</div>
+                <div className='card userCard'>{this.props.wsId}</div>
+              </div>
+            </div>
           </div>
         </div>
       );
@@ -81,7 +106,7 @@ class ModeratorWait extends Component {
 
   renderLinks(){
     return (
-      <div className='button-box' style={{padding: '1% 3% 0 0', width:'100%'}}>
+      <div className='button-box' style={{padding: `${this.state.showingId ? '1% 3% 0 0' : '1% 0 0 3%'}`, width:'100%'}}>
         <Link className='btn btn-success' to='/'> Start</Link>
         <Link className='btn btn-danger' to='/' onClick={() => {this.props.logOut()}}>
           Exit
@@ -95,9 +120,15 @@ class ModeratorWait extends Component {
       <div className='main'>
         <div className='wrapper'>
           <div className='card' style={{width:'80%', backgroundColor:'#e8edf4', minHeight:'8%', textAlign:'center'}}>
-            <h1>{this.props.wsTitle}</h1>
+            <h1>
+              {this.props.wsTitle}
+            </h1>
           </div>
-          <div id='moderatorWaitPanel' className='card card-big' style={{alignItems:'center', minHeight:'70%', paddingRight:0, paddingLeft:0}}>
+          <div
+            id='moderatorWaitPanel'
+            className='card card-big'
+            style={{alignItems:'center', minHeight:'70%', paddingRight:0, paddingLeft:0}}
+          >
             {this.renderContent()}
             {this.renderLinks()}
           </div>
