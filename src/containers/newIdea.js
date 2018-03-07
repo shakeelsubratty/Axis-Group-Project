@@ -54,6 +54,7 @@ class NewPost extends Component {
 		this.props.createIdea(values, () => {
 			this.props.callback();
 		});
+		this.props.reset();
 
 	}
 

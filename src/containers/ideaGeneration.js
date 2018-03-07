@@ -42,10 +42,7 @@ class IdeaGeneration extends Component {
 	}
 
 	render() {
-		console.log('render is called')
 
-		console.log('ideagen urlid', this.props.match.params.id);
-		console.log('this.props.ideas=>',this.props.ideas)
 		return (
 			<div className='main enterWorkshop'>
 				<div className="container-fluid">
