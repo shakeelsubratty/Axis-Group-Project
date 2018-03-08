@@ -34,5 +34,6 @@ ReactDOM.render(
         <Route path='/' component={Home} />
       </Switch>
     </BrowserRouter>
+
   </Provider>
   , document.querySelector('.container'));

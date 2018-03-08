@@ -6,18 +6,31 @@ import UserIdea from '../components/userIdea'
 import NewIdea from './newIdea'
 
 class IdeaGeneration extends Component {
+	constructor(props) {
+		super(props);
 
-	componentDidMount() {
+		this.update = this.update.bind(this);
+	}
+
+	componentWillMount() {
 		this.props.fetchIdeas();
 		this.props.getWorkshopInfo();
 
 	}
+
+	update() {
+		this.props.fetchIdeas();
+		this.props.getWorkshopTitle();
+	}
+
 
 	renderIdeas() {
 		return Object.keys(this.props.ideas).map((item)=>{
 			return (
 				<div key={this.props.ideas[item].id}>
 					<UserIdea
+						callback = {this.update}
+						id = {this.props.ideas[item].id}
 						title={this.props.ideas[item].title}
 
 						>{this.props.ideas[item].explanation}
@@ -28,7 +41,7 @@ class IdeaGeneration extends Component {
 	}
 
 	render() {
-		console.log('this.props.ideas=>',this.props.ideas)
+
 		return (
 			<div className='main'>
 				<div className="container-fluid">
@@ -39,7 +52,7 @@ class IdeaGeneration extends Component {
 
 						<div className="col-sm-6" style={{ display: 'flex', justifyContent: 'flex-end'}}>
 							<div style={{width: '40vw'}}>
-								<NewIdea/>
+								<NewIdea callback={this.update} />
 							</div>
 						</div>
 

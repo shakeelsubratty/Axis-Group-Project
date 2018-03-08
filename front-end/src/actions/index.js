@@ -1,4 +1,6 @@
 import axios from 'axios';
+import _ from 'lodash';
+
 
 export const JOIN_WORKSHOP = 'join_workshop';
 export const FETCH_IDEAS = 'fetch_ideas';
@@ -9,7 +11,13 @@ export const SET_WORKSHOP_TO = 'set_workshop_to';
 export const FETCH_USERS = 'fetch_users';
 export const ATTEMPT_LOGIN = 'attempt_login';
 export const LOG_OUT = 'log_out';
+export const DELETE_IDEA = 'delete_idea';
 
+let currentData = [
+	{ id: '0', title: "Elon Musk is a genious", explanation:'he has multiple successfull companies'},
+	{ id: '1', title: "I should buy a Model S", explanation:'It is quick'},
+	{ id: '2', title: "I should buy a Model X", explanation:'It is quick'},
+];
 
 export function attemptLogIn(username, password) {
   const request = true;
@@ -93,14 +101,9 @@ export function fetchUsers(id){
 
 export function fetchIdeas() {
 
-	const request = [
-		{ id: 0, title: "Elon Musk is a genious", explanation:'he has multiple successfull companies'},
-		{ id: 1, title: "I should buy a Model S", explanation:'It is quick'},
-		{ id: 2, title: "I should buy a Model X", explanation:'It is quick'},
+	let request = currentData;
 
-	];
-
-	console.log('request ==>',request);
+	console.log('fetchIdeas is called request ==>',request);
 
 	return {
 		type: FETCH_IDEAS,
@@ -108,10 +111,15 @@ export function fetchIdeas() {
 	}
 }
 
-export function createIdea(values) {
-
+export function createIdea(values, callback) {
+	console.log('we are sending to the api==>',values)
 		// here we send it to the API.
-		const request = console.log('we are sending to the api==>',values);
+	//	const request = axios.post().then(()=>callback);
+		const request = 'elonnnnnn'
+		currentData.push(values);
+
+		console.log(currentData);
+		callback();
 		return {
 			type: CREATE_IDEA,
 			payload: request
@@ -124,5 +132,20 @@ export function getWorkshopInfo(id) {
 	return {
 		type: GET_WS_INFO,
 		payload: request
+	}
+}
+
+export function deleteIdea(id) {
+
+	const request = 'aaaa'
+	console.log('id passed ', id);
+	// make api call to delete that idea.
+	currentData.splice(id,1);
+
+	console.log('delete idea called, result array=>',currentData);
+
+	return{
+		type: DELETE_IDEA,
+		payload: request,
 	}
 }

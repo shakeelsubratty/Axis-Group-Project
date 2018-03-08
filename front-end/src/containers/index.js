@@ -3,5 +3,6 @@ import Login from './login';
 import EnterWorkshop from './enterWorkshop';
 import ModeratorWait from './moderatorWait';
 import IdeaGeneration from './ideaGeneration';
+import NewIdea from './newIdea'
 
-export { Login, CreateWorkshop, EnterWorkshop, ModeratorWait, IdeaGeneration};
+export { Login, CreateWorkshop, EnterWorkshop, ModeratorWait, IdeaGeneration, NewIdea};

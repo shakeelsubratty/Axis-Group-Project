@@ -3,8 +3,8 @@ body{
 }
 
 .container{
-  width: 100vw;
-	height: 100vh;
+  width: 100vw !important;
+	height: 100vh !important;
   max-width: none !important;
 	padding: 0 !important;
   overflow: hidden;
@@ -13,8 +13,8 @@ body{
 .main {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 100%;
+  width: 100% !important;
+  height: 100% !important;
   align-items: center;
   justify-content: flex-start;
   background: url('https://images.pexels.com/photos/29435/landscape-sky-night-stars-29435.jpg?w=940&h=650&dpr=2&auto=compress&cs=tinysrgb');
@@ -37,6 +37,7 @@ body{
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 10px;
   /* margin-top: 5%; */
   flex-wrap: wrap;
 }
@@ -128,4 +129,8 @@ body{
 }
 .panel h2 {
   margin-top: 5px !important;
+}
+
+.noborder {
+	margin: none !important;
 }
