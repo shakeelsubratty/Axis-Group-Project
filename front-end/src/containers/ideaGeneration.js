@@ -2,22 +2,36 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { fetchIdeas, getWorkshopTitle } from '../actions';
-import UserIdea from '../components/userIdea'
-import NewIdea from './newIdea'
+
+import { UserIdea } from '../components'
+import { NewIdea } from './'
 
 class IdeaGeneration extends Component {
+	constructor(props) {
+		super(props);
 
-	componentDidMount() {
+		this.update = this.update.bind(this);
+	}
+
+	componentWillMount() {
 		this.props.fetchIdeas();
 		this.props.getWorkshopTitle();
 
 	}
+
+	update() {
+		this.props.fetchIdeas();
+		this.props.getWorkshopTitle();
+	}
+
 
 	renderIdeas() {
 		return Object.keys(this.props.ideas).map((item)=>{
 			return (
 				<div key={this.props.ideas[item].id}>
 					<UserIdea
+						callback = {this.update}
+						id = {this.props.ideas[item].id}
 						title={this.props.ideas[item].title}
 
 						>{this.props.ideas[item].explanation}
@@ -28,9 +42,9 @@ class IdeaGeneration extends Component {
 	}
 
 	render() {
-		console.log('this.props.ideas=>',this.props.ideas)
+
 		return (
-			<div className='main enterWorkshop'>
+			<div className='main bg1'>
 				<div className="container-fluid">
 					<div className="row">
 						<h1 className="col-sm" style={{ textAlign: 'center', padding: '20px', color: 'white'}}>{this.props.wsTitle}</h1>
@@ -39,7 +53,7 @@ class IdeaGeneration extends Component {
 
 						<div className="col-sm-6" style={{ display: 'flex', justifyContent: 'flex-end'}}>
 							<div style={{width: '40vw'}}>
-								<NewIdea/>
+								<NewIdea callback={this.update} />
 							</div>
 						</div>
 
