@@ -37,7 +37,7 @@ class EnterWorkshop extends Component {
 
 
     return (
-      <div className='main enterWorkshop'>
+      <div className='main'>
 			<div className='wrapper'>
 				<div className='card card-big' style={{width:'80%'}}>
 					<h1 className='card-title' style={{textAlign: 'center', padding: '5%'}}>Join the workshop</h1>

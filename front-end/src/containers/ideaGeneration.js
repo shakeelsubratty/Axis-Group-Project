@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import { fetchIdeas, getWorkshopTitle } from '../actions';
-
-import { UserIdea } from '../components'
-import { NewIdea } from './'
+import { fetchIdeas, getWorkshopInfo } from '../actions';
+import UserIdea from '../components/userIdea'
+import NewIdea from './newIdea'
 
 class IdeaGeneration extends Component {
 	constructor(props) {
@@ -15,7 +14,7 @@ class IdeaGeneration extends Component {
 
 	componentWillMount() {
 		this.props.fetchIdeas();
-		this.props.getWorkshopTitle();
+		this.props.getWorkshopInfo();
 
 	}
 
@@ -44,7 +43,7 @@ class IdeaGeneration extends Component {
 	render() {
 
 		return (
-			<div className='main bg1'>
+			<div className='main'>
 				<div className="container-fluid">
 					<div className="row">
 						<h1 className="col-sm" style={{ textAlign: 'center', padding: '20px', color: 'white'}}>{this.props.wsTitle}</h1>
@@ -73,13 +72,13 @@ class IdeaGeneration extends Component {
 function mapStateToProps(state) {
 	return {
 		ideas: state.ideas,
-		wsTitle: state.app.wsTitle
+		wsTitle: state.app.wsInfo.title,
 	};
 }
 
 const mapDispatchToProps = {
   fetchIdeas,
-  getWorkshopTitle
+  getWorkshopInfo
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(IdeaGeneration);

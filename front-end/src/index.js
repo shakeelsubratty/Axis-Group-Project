@@ -11,9 +11,10 @@ import {
 } from './components';
 import {
 	EnterWorkshop,
-	Login,
-	CreateWorkshop,
-	IdeaGeneration
+  Login,
+  CreateWorkshop,
+  IdeaGeneration,
+  ModeratorWait
 } from './containers';
 
 
@@ -29,6 +30,7 @@ ReactDOM.render(
         <Route path='/login' component={Login} />
         <Route path='/create-workshop' component={CreateWorkshop} />
         <Route path='/enter-workshop' component={EnterWorkshop} />
+        <Route path='/moderator-wait' component={ModeratorWait} />
         <Route path='/' component={Home} />
       </Switch>
     </BrowserRouter>

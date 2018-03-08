@@ -4,9 +4,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/style/style.css">
     <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/48938155eb24b4ccdde09426066869504c6dab3c/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
   </head>
   <body>
     <div class="container"></div>
   </body>
   <script src="/bundle.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    function animateLeftToRight(id) {
+      if ( /^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
+        $('#'+id).addClass('animated slideInLeft').one('animationend oAnimationEnd mozAnimationEnd webkitAnimationEnd', function () {
+          $('#'+id).removeClass('slideInLeft');
+        })
+      } else {
+        $('#'+id).addClass('animated bounceInLeft').one('animationend oAnimationEnd mozAnimationEnd webkitAnimationEnd', function () {
+          $('#'+id).removeClass('bounceInLeft');
+        })
+      }
+    }
+    function animateRightToLeft(id) {
+      if ( /^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
+        $('#'+id).addClass('animated slideInRight').one('animationend oAnimationEnd mozAnimationEnd webkitAnimationEnd', function () {
+          $('#'+id).removeClass('slideInRight');
+        })
+      } else {
+        $('#'+id).addClass('animated bounceInRight').one('animationend oAnimationEnd mozAnimationEnd webkitAnimationEnd', function () {
+          $('#'+id).removeClass('bounceInRight');
+        })
+      }
+    }
+  </script>
 </html>

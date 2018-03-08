@@ -5,8 +5,10 @@ import _ from 'lodash';
 export const JOIN_WORKSHOP = 'join_workshop';
 export const FETCH_IDEAS = 'fetch_ideas';
 export const CREATE_IDEA = 'create_idea';
-export const GET_WS_TITLE = 'get_workshop_Title';
+export const GET_WS_INFO = 'get_workshop_info';
 export const CREATE_WORKSHOP = 'create_workshop';
+export const SET_WORKSHOP_TO = 'set_workshop_to';
+export const FETCH_USERS = 'fetch_users';
 export const ATTEMPT_LOGIN = 'attempt_login';
 export const LOG_OUT = 'log_out';
 export const DELETE_IDEA = 'delete_idea';
@@ -16,6 +18,7 @@ let currentData = [
 	{ id: '1', title: "I should buy a Model S", explanation:'It is quick'},
 	{ id: '2', title: "I should buy a Model X", explanation:'It is quick'},
 ];
+
 export function attemptLogIn(username, password) {
   const request = true;
 	console.log('login action called, username is ==> '+ username + ' password ==>', password);
@@ -24,7 +27,7 @@ export function attemptLogIn(username, password) {
   sessionStorage.setItem('pass', password);
 	return {
 		type: ATTEMPT_LOGIN,
-		data: request
+		payload: request
 	};
 }
 
@@ -32,9 +35,10 @@ export function logOut() {
   console.log('LOGGING OUT');
   sessionStorage.setItem('usrn', null);
   sessionStorage.setItem('pass', null);
+  sessionStorage.setItem('wsId', null);
   return {
     type: LOG_OUT,
-    data: false
+    payload: false
   };
 }
 
@@ -45,19 +49,54 @@ export function joinWorkshop(workshopId) {
 
 	return {
 		type: JOIN_WORKSHOP,
-		data: request
+		payload: request
 	};
 }
 
 export function createWorkshop(values) {
-	const request = '';
+	const request = '0123456789';
 	console.log('createWorkshop action called, values is ==> ',values);
-	// we should make the post API call here.
+
+  sessionStorage.setItem('wsId', request);
 
 	return {
 		type: CREATE_WORKSHOP,
-		data: request
+		payload: request
 	};
+}
+
+export function setWorkshopTo(id){
+  return {
+    type: SET_WORKSHOP_TO,
+    payload: id,
+  };
+}
+
+export function fetchUsers(id){
+  const request = [
+    { id: 1234567 },
+    { id: 4235433 },
+    { id: 3246346 },
+    { id: 5546473 },
+    { id: 4234254 },
+    { id: 4968573 },
+    { id: 4312142 },
+    { id: 4312143 },
+    { id: 9423342 },
+    { id: 4325463 },
+    { id: 9596734 },
+    { id: 6569234 },
+    { id: 4353452 },
+    { id: 1234552 },
+    { id: 6745634 },
+    { id: 1343242 },
+  ];
+  console.log('fetchUsers returns==>', request);
+
+  return {
+    type: FETCH_USERS,
+    payload: request,
+  }
 }
 
 export function fetchIdeas() {
@@ -87,12 +126,11 @@ export function createIdea(values, callback) {
 		}
 }
 
-export function getWorkshopTitle() {
+export function getWorkshopInfo(id) {
 
-	const request = 'Elon Musk'
-	console.log('getWorkshopTitle called->',request);
+	const request = { title: 'May the force be with you', description: 'Did you ever hear the tragedy of Darth Plagueis The Wise? I thought not. It’s not a story the Jedi would tell you. It’s a Sith legend. Darth Plagueis was a Dark Lord of the Sith, so powerful and so wise he could use the Force to influence the midichlorians to create life…'}
 	return {
-		type: GET_WS_TITLE,
+		type: GET_WS_INFO,
 		payload: request
 	}
 }

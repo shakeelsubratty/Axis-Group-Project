@@ -7,15 +7,16 @@ import { logOut, attemptLogIn, createWorkshop } from '../actions';
 class CreateWorkshop extends Component {
 
   componentWillMount(){
-    if ((sessionStorage.getItem('usrn') == 'null' || sessionStorage.getItem('pass') == 'null')) {
-      console.log('gets here');
+    if ((sessionStorage.getItem('usrn') == "null") || (sessionStorage.getItem('pass') == "null")) {
       if (!this.props.isLogged) {
+        // If you try to bypass login
         this.props.history.push('/login-failed');
       }
     } else {
       const usrn = sessionStorage.getItem('usrn');
       const pass = sessionStorage.getItem('pass');
       if (!this.props.attemptLogIn(usrn,pass)) {
+        // If you try to inject invalid login credentials
         this.props.history.push('/login-failed');
       }
     }
@@ -36,25 +37,22 @@ class CreateWorkshop extends Component {
   }
 
   onSubmit(values){
-    event.preventDefault();
     // Change to next container when ready
     this.props.createWorkshop(values);
-    this.props.logOut(); // for now, to avoid being able to enter a workshop while still logged in as moderator
-		this.props.history.push('/');
-
+		this.props.history.push('/moderator-wait');
   }
 
   render() {
     console.log(`isLogged==> ${this.props.isLogged}`)
     const { handleSubmit } = this.props;
     return (
-      <div className='main createWorkshop'>
+      <div className='main'>
         <div className='wrapper'>
           <div className='card card-big' style={{minHeight:'50%'}}>
             <h1 className='card-title' style={{textAlign:'center', width:'100%'}}> Create Workshop</h1>
             <div className='card-body'>
               <form className='form-group' style={{display:'flex',flexDirection:'column', height:'60%'}} onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-                <Field name='type' component={this.renderField} label='Type'/>
+                <Field name='title' component={this.renderField} label='Title'/>
                 <Field name='description' component={this.renderField} label='Description'/>
               <button type='submit' className='btn btn-primary' style={{margin:5}}>Submit</button>
               </form>
@@ -74,8 +72,8 @@ class CreateWorkshop extends Component {
 function validate(values) {
 	const errors = {};
 
-	if (!values.type) {
-		errors.type = "Please input a type to continue."
+	if (!values.title) {
+		errors.title = "Please input a title to continue."
 	}
 
   if (!values.description) {
