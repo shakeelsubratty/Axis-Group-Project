@@ -6,6 +6,7 @@ export const CREATE_IDEA = 'create_idea';
 export const GET_WS_INFO = 'get_workshop_info';
 export const CREATE_WORKSHOP = 'create_workshop';
 export const SET_WORKSHOP_TO = 'set_workshop_to';
+export const FETCH_USERS = 'fetch_users';
 export const ATTEMPT_LOGIN = 'attempt_login';
 export const LOG_OUT = 'log_out';
 
@@ -61,6 +62,33 @@ export function setWorkshopTo(id){
     type: SET_WORKSHOP_TO,
     payload: id,
   };
+}
+
+export function fetchUsers(id){
+  const request = [
+    { id: 1234567 },
+    { id: 4235433 },
+    { id: 3246346 },
+    { id: 5546473 },
+    { id: 4234254 },
+    { id: 4968573 },
+    { id: 4312142 },
+    { id: 4312143 },
+    { id: 9423342 },
+    { id: 4325463 },
+    { id: 9596734 },
+    { id: 6569234 },
+    { id: 4353452 },
+    { id: 1234552 },
+    { id: 6745634 },
+    { id: 1343242 },
+  ];
+  console.log('fetchUsers returns==>', request);
+
+  return {
+    type: FETCH_USERS,
+    payload: request,
+  }
 }
 
 export function fetchIdeas() {

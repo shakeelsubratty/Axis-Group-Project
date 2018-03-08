@@ -1,8 +1,13 @@
+body{
+  overflow: hidden;
+}
+
 .container{
   width: 100vw;
 	height: 100vh;
   max-width: none !important;
 	padding: 0 !important;
+  overflow: hidden;
 }
 
 .main {
@@ -41,9 +46,9 @@
 }
 
 .btn-secondary:active {
-  -moz-box-shadow: #000 0px 0px 10px 0px !important;
-  -webkit-box-shadow: #000 0px 0px 10px 0px !important;
-  box-shadow: #000 0px 0px 10px 0px !important;
+  -moz-box-shadow: #3e4042 0px 0px 10px 0px !important;
+  -webkit-box-shadow: #3e4042 0px 0px 10px 0px !important;
+  box-shadow: #3e4042 0px 0px 10px 0px !important;
 }
 
 .card-big {
@@ -103,7 +108,7 @@
 /* #moderatorWaitPanel {
   -webkit-animation-duration: 0.6s;
   -moz-animation-duration: 0.6s;
-  -o-animation-duration: 0.6s; 
+  -o-animation-duration: 0.6s;
 } */
 
 .container-fluid {
