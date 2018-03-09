@@ -15,6 +15,9 @@ import com.google.cloud.language.v1.Token;
  */
 public class Response
 {
+	private static int count;
+	private int id;
+
 	private String text;
 
 	private Syntax syntax;
@@ -30,10 +33,23 @@ public class Response
 	 */
 	public Response(String text) throws IOException, Exception
 	{
+		id = count;
+		count++;
+
 		this.text = text;
 
 		syntax = new Syntax(text);
 		categories = new Categories(text);
+	}
+
+	public int getID()
+	{
+		return id;
+	}
+
+	public String getText()
+	{
+		return text;
 	}
 
 	/**
@@ -70,14 +86,13 @@ public class Response
 		{
 			for (int j = 0; j < b.size(); j++)
 			{
-				if (a.get(i).equals(b.get(j)))
+				if (a.get(i).getLemma().equals(b.get(j).getLemma()))
 				{
 					matches.add(a.get(i));
 				}
 			}
 		}
-
-		double match = matches.size() / Math.min(a.size(), b.size());
+		double match = ((double) matches.size()) / ((double) Math.min(a.size(), b.size()));
 
 		return match;
 	}
@@ -93,7 +108,7 @@ public class Response
 	{
 		return comparison(this.getVerbs(), r.getVerbs());
 	}
-	
+
 	/**
 	 * Compare the verbs in this Response to another response.
 	 * 
@@ -105,7 +120,7 @@ public class Response
 	{
 		return comparison(this.getNouns(), r.getNouns());
 	}
-	
+
 	/**
 	 * 
 	 * @param r
@@ -115,7 +130,21 @@ public class Response
 	{
 		double nounMatch = this.compareNounsTo(r);
 		double verbMatch = this.compareVerbsTo(r);
-		
-		return ((double) (nounMatch + verbMatch) / 2.0) > 0.5;
+
+		System.out.println("Noun match = " + nounMatch + "\nVerb match = " + verbMatch);
+
+		return ((double) (nounMatch + verbMatch) / 2.0) > Constants.MATCH_PERCENTAGE;
 	}
+
+	@Override
+	public String toString()
+	{
+		return id + "";
+	}
+
+	public boolean equals(Response r)
+	{
+		return id == r.getID();
+	}
+
 }
