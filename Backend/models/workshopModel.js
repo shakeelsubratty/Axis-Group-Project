@@ -4,8 +4,6 @@ const config = require ('../config');
 //const uuid = require('uuid/v1');
 
 var workshopSchema = mongoose.Schema({
-    //_id: {type: String, default: uuid},
-    id: String,
     type: String,
     description: String
 });
