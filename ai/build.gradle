@@ -4,6 +4,7 @@ mainClassName = 'MainClass'
 dependencies
 {
 	compile 'com.google.cloud:google-cloud-language:1.14.0'
+	testCompile 'junit:junit:4.12'
 }
 repositories
 {

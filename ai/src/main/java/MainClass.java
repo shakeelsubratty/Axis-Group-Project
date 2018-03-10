@@ -18,6 +18,12 @@ import java.util.Collections;
 
 public class MainClass
 {
+	// *** IMPORTANT NOTE ***
+	// When implementing the final version, it is important to
+	// surround the creation of a response with a try/catch. If an error is caught,
+	// it means that the API failed to analyse that response or the program failed
+	// to communicate with the Google API.
+	
 	public static void main(String[] args) throws Exception
 	{
 		Response a = new Response(
@@ -56,8 +62,8 @@ public class MainClass
 
 			for (int j = 0; j < thisGroup.size(); j++)
 			{
-				System.out.println("\t" + thisGroup.get(j).getText());
-				if(j+1 != thisGroup.size())
+				System.out.println(thisGroup.get(j).getText());
+				if (j + 1 != thisGroup.size())
 				{
 					System.out.println();
 				}
