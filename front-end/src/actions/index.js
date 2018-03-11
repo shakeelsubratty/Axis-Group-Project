@@ -13,10 +13,31 @@ export const ATTEMPT_LOGIN = 'attempt_login';
 export const LOG_OUT = 'log_out';
 export const DELETE_IDEA = 'delete_idea';
 
-let currentData = [
+let currentDataIdeas = [
 	{ id: '0', title: "Elon Musk is a genious", explanation:'he has multiple successfull companies'},
 	{ id: '1', title: "I should buy a Model S", explanation:'It is quick'},
 	{ id: '2', title: "I should buy a Model X", explanation:'It is quick'},
+	{ id: '3', title: "They are taking the hobbits to Isengard", explanation:'Saruman the White lives there'},
+	{ id: '4', title: "I find your lack of faith disturbing.", explanation:'Dont be too proud of this technological terror you have constructed. The ability to destroy a planet is insignificant next to the power of the Force.'},
+];
+
+let currentDataUsers = [
+	{ id: 1234567 },
+	{ id: 4235433 },
+	{ id: 3246346 },
+	{ id: 5546473 },
+	{ id: 4234254 },
+	{ id: 4968573 },
+	{ id: 4312142 },
+	{ id: 4312143 },
+	{ id: 9423342 },
+	{ id: 4325463 },
+	{ id: 9596734 },
+	{ id: 6569234 },
+	{ id: 4353452 },
+	{ id: 1234552 },
+	{ id: 6745634 },
+	{ id: 1343242 },
 ];
 
 export function attemptLogIn(username, password) {
@@ -73,24 +94,7 @@ export function setWorkshopTo(id){
 }
 
 export function fetchUsers(id){
-  const request = [
-    { id: 1234567 },
-    { id: 4235433 },
-    { id: 3246346 },
-    { id: 5546473 },
-    { id: 4234254 },
-    { id: 4968573 },
-    { id: 4312142 },
-    { id: 4312143 },
-    { id: 9423342 },
-    { id: 4325463 },
-    { id: 9596734 },
-    { id: 6569234 },
-    { id: 4353452 },
-    { id: 1234552 },
-    { id: 6745634 },
-    { id: 1343242 },
-  ];
+  const request = currentDataUsers;
   console.log('fetchUsers returns==>', request);
 
   return {
@@ -99,9 +103,11 @@ export function fetchUsers(id){
   }
 }
 
+// TODO: need to implement one for ideas/user
+// and another for ideas/workshop
 export function fetchIdeas() {
 
-	let request = currentData;
+	let request = currentDataIdeas;
 
 	console.log('fetchIdeas is called request ==>',request);
 
