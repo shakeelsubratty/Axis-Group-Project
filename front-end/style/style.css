@@ -64,17 +64,26 @@ body{
 
 .flexRowCenter{
   flex:1;
-  display: flex;
+  display: flex !important;
   align-items: center;
   justify-content: center;
 }
 
 .flexColumnCenter {
   flex: 1;
-  display: flex;
+  display: flex !important;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.dataBox {
+  flex:1;
+  border-radius:0 !important;
+  border-bottom: none !important;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin-bottom:0 !important;
 }
 
 .userCard{
@@ -84,8 +93,7 @@ body{
   border-radius: 30px;
 }
 
-/* This is if we implement the loader  */
-
+/* Loader  */
 .loader {
   border: 16px solid #f3f3f3; /* Light grey */
   border-top: 16px solid #3498db; /* Blue */

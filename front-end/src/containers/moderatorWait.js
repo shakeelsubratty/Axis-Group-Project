@@ -122,13 +122,13 @@ class ModeratorWait extends Component {
   renderLinks(){
     return (
       <div className='button-box' style={{padding: `${this.state.showingId ? '1% 1% 0 0' : '1% 0 0 0'}`, width:'100%'}}>
-        <Link className='btn btn-success' to='/moderator-main'> Start</Link>
         <Link className='btn btn-danger' to='/' onClick={() => {
           this.props.logOut();
           clearInterval(this.intervalId);
         }}>
           Exit
         </Link>
+        <Link className='btn btn-success' to='/moderator-main'> Start</Link>
       </div>
     );
   }

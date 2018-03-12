@@ -70,6 +70,7 @@ export function logOut() {
   };
 }
 
+// TODO: Change from boolean into userId
 export function joinWorkshop(workshopId) {
 	const request = true;
 	console.log('joinWorkshop action called, id is ==> ',workshopId);
@@ -100,6 +101,7 @@ export function setWorkshopTo(wsId){
   };
 }
 
+// Api ready
 export function fetchUsers(wsId){
   const request = currentDataUsers;
   console.log('fetchUsers returns==>', request);
@@ -133,6 +135,7 @@ export function fetchAllIdeas(wsId){
 	}
 }
 
+// TODO: Add userId and wsId as a value passed return idea id
 export function createIdea(values, callback) {
 	console.log('we are sending to the api==>',values)
 		// here we send it to the API.
@@ -148,7 +151,7 @@ export function createIdea(values, callback) {
 		}
 }
 
-export function getWorkshopInfo(id) {
+export function getWorkshopInfo(wsId) {
 
 	const request = { title: 'May the force be with you', description: 'Did you ever hear the tragedy of Darth Plagueis The Wise? I thought not. It’s not a story the Jedi would tell you. It’s a Sith legend. Darth Plagueis was a Dark Lord of the Sith, so powerful and so wise he could use the Force to influence the midichlorians to create life…'}
 	return {
@@ -157,6 +160,7 @@ export function getWorkshopInfo(id) {
 	}
 }
 
+// TODO: id of idea and id of user
 export function deleteIdea(id) {
 
 	const request = 'aaaa'

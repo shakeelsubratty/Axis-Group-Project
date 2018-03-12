@@ -51,8 +51,8 @@ class Login extends Component {
               <Field name='username' component={this.renderField} type='text' placeholder='Username'/>
               <Field name='password' component={this.renderField} type='password' placeholder='Password'/>
               <div className='button-box'>
-                <button type='submit' className='btn btn-primary' style={{margin:5}}>Submit</button>
                 <Link className='btn btn-danger' to='/'> Back</Link>
+                <button type='submit' className='btn btn-primary' style={{margin:5}}>Submit</button>
               </div>
             </form>
           </div>

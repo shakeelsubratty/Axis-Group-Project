@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { WorkshopIdea, LoadingScreen } from '../components';
 import { getWorkshopInfo, setWorkshopTo, attemptLogIn, logOut, fetchAllIdeas } from '../actions';
-import _ from 'lodash';
 
 class ModeratorMain extends Component {
   constructor(props) {
@@ -42,7 +41,7 @@ class ModeratorMain extends Component {
 
   componentDidMount(){
     this.props.getWorkshopInfo(this.props.wsId);
-    this.props.fetchAllIdeas(this.props.wsId); 
+    this.props.fetchAllIdeas(this.props.wsId);
     if (this.state.isLogged) {
       var intervalWsId = setInterval(() => {
         this.props.fetchAllIdeas(this.props.wsId);
@@ -68,17 +67,23 @@ class ModeratorMain extends Component {
 
   renderDataBox(){
     return(
-      <div className='card card-big' style={{flex:1,  minHeight:'65%', borderRadius:0, borderBottom:'none', flexDirection:'column', justifyContent:'space-evenly', marginBottom:0, paddingBottom:'2%'}}>
-        <div className='card flexColumnCenter' style={{flex:1, display: 'flex !important', backgroundColor:'#f5f5f5 !important'}}> Data one </div>
-        <div className='card flexColumnCenter' style={{flex:1, display: 'flex !important', backgroundColor:'#f5f5f5 !important'}}> Data two </div>
-        <div className='card flexColumnCenter' style={{flex:1, display: 'flex !important', backgroundColor:'#f5f5f5 !important', marginBottom:0}}> Data three </div>
+      <div className='card card-big dataBox'>
+        <div className='card flexColumnCenter' style={{backgroundColor:'#f5f5f5 !important'}}>
+          Data one
+        </div>
+        <div className='card flexColumnCenter' style={{backgroundColor:'#f5f5f5 !important'}}>
+          Data two
+        </div>
+        <div className='card flexColumnCenter' style={{backgroundColor:'#f5f5f5 !important', marginBottom:0}}>
+          Data three
+        </div>
       </div>
     );
   }
 
   renderIdeaPanel(){
     return(
-      <div className='card card-big' style={{flex:1, minHeight:'60%', borderRadius:0, borderBottom:'none', marginBottom:0, paddingBottom:'2%'}}>
+      <div className='card card-big' style={{flex:1,borderRadius:0,borderBottom:'none',marginBottom:0,paddingBottom:'2%'}}>
         <div style={{textAlign:'right'}}>
           <Link className='' to='/' onClick={() => {
             this.props.logOut();
@@ -93,12 +98,15 @@ class ModeratorMain extends Component {
             {this.renderIdeas()}
           </div>
         </div>
-        <div className='flexRowCenter card' style={{flex:1, display:'flex !important', borderRadius:0, border:'none',backgroundColor:'#e8edf4 !important', marginTop:'2%', alignItems:'flex-end'}}>
-            <div style={{flex:2.5, textAlign:'right'}}>
-              <button className='btn btn-success'>
-                Submit Workshop
-              </button>
-            </div>
+        <div
+          className='flexRowCenter card'
+          style={{border:'none',backgroundColor:'#e8edf4 !important', marginTop:'2%', alignItems:'flex-end'}}
+        >
+          <div style={{flex:2.5, textAlign:'right'}}>
+            <button className='btn btn-success'>
+              Submit Workshop
+            </button>
+          </div>
         </div>
       </div>
     );
