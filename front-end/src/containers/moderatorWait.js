@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getWorkshopInfo, setWorkshopTo, attemptLogIn, logOut, fetchUsers } from '../actions';
+import { LoadingScreen } from '../components';
 
 class ModeratorWait extends Component {
   constructor(props){
@@ -35,11 +36,10 @@ class ModeratorWait extends Component {
         this.props.history.push('/login-failed');
       }
     }
-
-    this.props.getWorkshopInfo(this.props.wsId);
   }
 
   componentDidMount(){
+    this.props.getWorkshopInfo(this.props.wsId);
     var intervalId = setInterval(() => {
         if (!this.state.showingId) {
           this.props.fetchUsers(this.props.wsId);
@@ -122,40 +122,54 @@ class ModeratorWait extends Component {
   renderLinks(){
     return (
       <div className='button-box' style={{padding: `${this.state.showingId ? '1% 1% 0 0' : '1% 0 0 0'}`, width:'100%'}}>
-        <Link className='btn btn-success' to='/'> Start</Link>
-        <Link className='btn btn-danger' to='/' onClick={() => {this.props.logOut()}}>
+        <Link className='btn btn-danger' to='/' onClick={() => {
+          this.props.logOut();
+          clearInterval(this.intervalId);
+        }}>
           Exit
         </Link>
+        <Link className='btn btn-success' to='/moderator-main'> Start</Link>
       </div>
     );
   }
 
   render(){
-    return(
-      <div className='main'>
-        <div className='wrapper'>
-          <div className='card' style={{width:'80%', backgroundColor:'#e8edf4', minHeight:'8%', textAlign:'center'}}>
-            <h1>
-              {this.props.wsTitle}
-            </h1>
-          </div>
-          <div
-            id='moderatorWaitPanel'
-            className='card card-big'
-            style={{alignItems:'center', minHeight:'70%', paddingRight:0, paddingLeft:0}}
-          >
-            {this.renderContent()}
-            {this.renderLinks()}
+    if (this.props.wsInfo == '') {
+      return(
+        <div className='main'>
+          <div className='wrapper'>
+            <LoadingScreen/>
           </div>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return(
+        <div className='main'>
+          <div className='wrapper'>
+            <div className='card' style={{width:'80%', backgroundColor:'#e8edf4', minHeight:'8%', textAlign:'center'}}>
+              <h1>
+                {this.props.wsTitle}
+              </h1>
+            </div>
+            <div
+              id='moderatorWaitPanel'
+              className='card card-big'
+              style={{alignItems:'center', minHeight:'70%', paddingRight:0, paddingLeft:0}}
+            >
+              {this.renderContent()}
+              {this.renderLinks()}
+            </div>
+          </div>
+        </div>
+      );
+    }
   }
 }
 
 function mapStateToProps(state) {
   return {
     wsId: state.app.wsId,
+    wsInfo: state.app.wsInfo,
     wsTitle: state.app.wsInfo.title,
     wsDescription: state.app.wsInfo.description,
     wsUsers: state.app.wsUsers,

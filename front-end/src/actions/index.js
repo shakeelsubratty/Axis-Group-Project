@@ -4,6 +4,7 @@ import _ from 'lodash';
 
 export const JOIN_WORKSHOP = 'join_workshop';
 export const FETCH_IDEAS = 'fetch_ideas';
+export const FETCH_ALL_IDEAS = 'fetch_all_ideas';
 export const CREATE_IDEA = 'create_idea';
 export const GET_WS_INFO = 'get_workshop_info';
 export const CREATE_WORKSHOP = 'create_workshop';
@@ -13,10 +14,37 @@ export const ATTEMPT_LOGIN = 'attempt_login';
 export const LOG_OUT = 'log_out';
 export const DELETE_IDEA = 'delete_idea';
 
-let currentData = [
+let currentDataIdeas = [
 	{ id: '0', title: "Elon Musk is a genious", explanation:'he has multiple successfull companies'},
 	{ id: '1', title: "I should buy a Model S", explanation:'It is quick'},
 	{ id: '2', title: "I should buy a Model X", explanation:'It is quick'},
+];
+
+let currentAllIdeas = [
+	{ id: '0', title: "Elon Musk is a genious", explanation:'he has multiple successfull companies'},
+	{ id: '1', title: "I should buy a Model S", explanation:'It is quick'},
+	{ id: '2', title: "I should buy a Model X", explanation:'It is quick'},
+	{ id: '3', title: "They are taking the hobbits to Isengard", explanation:'Saruman the White lives there'},
+	{ id: '4', title: "I find your lack of faith disturbing.", explanation:'Dont be too proud of this technological terror you have constructed. The ability to destroy a planet is insignificant next to the power of the Force.'},
+];
+
+let currentDataUsers = [
+	{ id: 1234567 },
+	{ id: 4235433 },
+	{ id: 3246346 },
+	{ id: 5546473 },
+	{ id: 4234254 },
+	{ id: 4968573 },
+	{ id: 4312142 },
+	{ id: 4312143 },
+	{ id: 9423342 },
+	{ id: 4325463 },
+	{ id: 9596734 },
+	{ id: 6569234 },
+	{ id: 4353452 },
+	{ id: 1234552 },
+	{ id: 6745634 },
+	{ id: 1343242 },
 ];
 
 export function attemptLogIn(username, password) {
@@ -42,6 +70,7 @@ export function logOut() {
   };
 }
 
+// TODO: Change from boolean into userId
 export function joinWorkshop(workshopId) {
 	const request = true;
 	console.log('joinWorkshop action called, id is ==> ',workshopId);
@@ -65,32 +94,16 @@ export function createWorkshop(values) {
 	};
 }
 
-export function setWorkshopTo(id){
+export function setWorkshopTo(wsId){
   return {
     type: SET_WORKSHOP_TO,
-    payload: id,
+    payload: wsId,
   };
 }
 
-export function fetchUsers(id){
-  const request = [
-    { id: 1234567 },
-    { id: 4235433 },
-    { id: 3246346 },
-    { id: 5546473 },
-    { id: 4234254 },
-    { id: 4968573 },
-    { id: 4312142 },
-    { id: 4312143 },
-    { id: 9423342 },
-    { id: 4325463 },
-    { id: 9596734 },
-    { id: 6569234 },
-    { id: 4353452 },
-    { id: 1234552 },
-    { id: 6745634 },
-    { id: 1343242 },
-  ];
+// Api ready
+export function fetchUsers(wsId){
+  const request = currentDataUsers;
   console.log('fetchUsers returns==>', request);
 
   return {
@@ -99,9 +112,9 @@ export function fetchUsers(id){
   }
 }
 
-export function fetchIdeas() {
+export function fetchIdeas(userId, wsId) {
 
-	let request = currentData;
+	let request = currentDataIdeas;
 
 	console.log('fetchIdeas is called request ==>',request);
 
@@ -111,6 +124,18 @@ export function fetchIdeas() {
 	}
 }
 
+export function fetchAllIdeas(wsId){
+	let request = currentAllIdeas;
+
+	console.log('fetchAllIdeas is called request ==>',request);
+
+	return {
+		type: FETCH_ALL_IDEAS,
+		payload: request
+	}
+}
+
+// TODO: Add userId and wsId as a value passed return idea id
 export function createIdea(values, callback) {
 	console.log('we are sending to the api==>',values)
 		// here we send it to the API.
@@ -126,7 +151,7 @@ export function createIdea(values, callback) {
 		}
 }
 
-export function getWorkshopInfo(id) {
+export function getWorkshopInfo(wsId) {
 
 	const request = { title: 'May the force be with you', description: 'Did you ever hear the tragedy of Darth Plagueis The Wise? I thought not. It’s not a story the Jedi would tell you. It’s a Sith legend. Darth Plagueis was a Dark Lord of the Sith, so powerful and so wise he could use the Force to influence the midichlorians to create life…'}
 	return {
@@ -135,6 +160,7 @@ export function getWorkshopInfo(id) {
 	}
 }
 
+// TODO: id of idea and id of user
 export function deleteIdea(id) {
 
 	const request = 'aaaa'
