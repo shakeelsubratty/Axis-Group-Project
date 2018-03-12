@@ -1,25 +1,20 @@
 const Promise = require('bluebird');
 const mongoose = Promise.promisifyAll(require('mongoose'));
 const config = require ('../config');
-//const uuid = require('uuid/v1');
-
-var workshopSchema = mongoose.Schema({
-    type: String,
-    description: String
-});
-var Workshop = mongoose.model("workshop", workshopSchema);
+var Schma = require('./schema');
+var Workshop = Schma.Workshop;
 
 module.exports = {
-    createWorkshop: function(workshopType, workshopDescription) {
-        return Workshop({type: workshopType, description: workshopDescription}).saveAsync().then(function(newWorkshop) {
+    createWorkshop: function(workshopTitle, workshopDescription) {
+        return Workshop({title: workshopTitle, description: workshopDescription}).saveAsync().then(function(newWorkshop) {
             if (config.DEBUG) {
-                console.log("Created workshop with type: " + newWorkshop.type + "; and description: " + newWorkshop.description);
+                console.log("Created workshop with title: " + newWorkshop.title + "; and description: " + newWorkshop.description);
             }
-            return newWorkshop._id;
+            return newWorkshop.id;
         });
     },
-    getWorkshopDescription: function(id) {
-        return Workshop.findOneAsync({'_id': id})
+    getWorkshop: function(id) {
+        return Workshop.findById({'_id': id})
             .then(function(workshop) {
                 if (!workshop) {
                     if (config.DEBUG) {
@@ -30,7 +25,7 @@ module.exports = {
                 if (config.DEBUG) {
                     console.log("Retrieved workshop with id: " + id + "; it has description: " + workshop.description);
                 }
-                return workshop.description;
+                return { title: workshop.title, description: workshop.description };
             });
     }
 }

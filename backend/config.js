@@ -2,5 +2,6 @@ module.exports = {
     DEBUG: true, //currently used to spew a bunch of diagnostics into the console
     mongoUrl: `mongodb://${process.env.DB_PORT_27017_TCP_ADDR}:${process.env.DB_PORT_27017_TCP_PORT}/app`,
     participantRoot: "/participant", //routes for everything participant-related
-    workshopRoot: "/workshop" //routes for everything workshop-related
+    workshopRoot: "/workshop", //routes for everything workshop-related
+    testRoot: "/test" //for testing/development/debugging temporary APIs - to be disabled on production
 }
