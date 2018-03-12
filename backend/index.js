@@ -2,14 +2,12 @@ const mongoose = require('mongoose');
 const express = require('express');
 const Promise = require('bluebird');
 const _ = require('lodash');
-const participantModel = require('./models/participantModel');
-const workshopModel = require('./models/workshopModel');
 var config = require('./config');
 mongoose.connect(config.mongoUrl);
 var app = express();
 
-const participantRoutes = require('./routes/participantRoutes')(app);
-const workshopRoutes = require('./routes/workshopRoutes')(app);
+require('./routes/participantRoutes')(app);
+require('./routes/workshopRoutes')(app);
 
 var db = mongoose.connection;
 var connected = "not yet connected";
