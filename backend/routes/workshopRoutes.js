@@ -1,6 +1,7 @@
 const Promise = require('bluebird');
 const config = require('../config');
 const workshopModel = require('../models/workshopModel');
+const Schma = require('../models/schema');
 
 module.exports = function(app) {
     app.get(config.workshopRoot + '/create/:type/:description', function(req, res) {
@@ -11,6 +12,32 @@ module.exports = function(app) {
             res.writeHead(200, {"Content-Type": "text/plain"});
             res.write(newId.toString());
             res.end();
+        });
+    });
+
+    app.get('/test/work/', function(req, res) {
+        var wshp = Schma.Workshop({title: "hello", description: "aaaaaathatssixas"});
+        var usrOne = Schma.User({name: "One", workshop: wshp._id});
+        var usrTwo = Schma.User({name: "Two", workshop: wshp._id});
+        Promise.all([
+            wshp.saveAsync(),
+            usrOne.saveAsync(),
+            usrTwo.saveAsync()
+        ]).then(function(ret) {
+            res.writeHead(200, {"Content-Type": "text/plain"});
+            res.write("created shit, id is: " + wshp.id);
+            res.end();
+            console.log(ret);
+        });
+    });
+
+    app.get('/test/lau/:id', function(req, res) {
+        Schma.Workshop.findByIdAsync({_id: req.params.id}).then(function(ret) {
+            ret.findUsersAsync().then(function(ret) {
+                res.write("hi");
+                res.end();
+                console.log(ret);
+            });
         });
     });
 
