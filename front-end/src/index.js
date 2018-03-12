@@ -6,10 +6,10 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import reducers from './reducers';
 import ReduxPromise from 'redux-promise';
 import {
-	Home,
   LoginFailed
 } from './components';
 import {
+	Home,
 	EnterWorkshop,
   Login,
   CreateWorkshop,

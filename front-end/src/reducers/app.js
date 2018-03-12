@@ -1,10 +1,11 @@
-import { JOIN_WORKSHOP, CREATE_WORKSHOP, ATTEMPT_LOGIN, LOG_OUT, GET_WS_INFO, SET_WORKSHOP_TO, FETCH_USERS  } from '../actions';
+import { JOIN_WORKSHOP, CREATE_WORKSHOP, ATTEMPT_LOGIN, LOG_OUT, GET_WS_INFO, SET_WORKSHOP_TO, FETCH_USERS, FETCH_ALL_IDEAS  } from '../actions';
 
 const INITIAL_STATE = {
   isLogged: false,
   wsId: '',
   wsInfo: '',
-  wsUsers: null
+  wsUsers: null,
+  wsIdeas: ''
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -21,6 +22,8 @@ export default (state = INITIAL_STATE, action) => {
     return { ...state, wsId: action.payload}
     case FETCH_USERS:
     return { ...state, wsUsers: action.payload}
+    case FETCH_ALL_IDEAS:
+    return { ...state, wsIdeas: _.mapKeys(action.payload,'id')}
     default:
       return state;
   }

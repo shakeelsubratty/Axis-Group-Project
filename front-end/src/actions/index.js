@@ -4,6 +4,7 @@ import _ from 'lodash';
 
 export const JOIN_WORKSHOP = 'join_workshop';
 export const FETCH_IDEAS = 'fetch_ideas';
+export const FETCH_ALL_IDEAS = 'fetch_all_ideas';
 export const CREATE_IDEA = 'create_idea';
 export const GET_WS_INFO = 'get_workshop_info';
 export const CREATE_WORKSHOP = 'create_workshop';
@@ -14,6 +15,12 @@ export const LOG_OUT = 'log_out';
 export const DELETE_IDEA = 'delete_idea';
 
 let currentDataIdeas = [
+	{ id: '0', title: "Elon Musk is a genious", explanation:'he has multiple successfull companies'},
+	{ id: '1', title: "I should buy a Model S", explanation:'It is quick'},
+	{ id: '2', title: "I should buy a Model X", explanation:'It is quick'},
+];
+
+let currentAllIdeas = [
 	{ id: '0', title: "Elon Musk is a genious", explanation:'he has multiple successfull companies'},
 	{ id: '1', title: "I should buy a Model S", explanation:'It is quick'},
 	{ id: '2', title: "I should buy a Model X", explanation:'It is quick'},
@@ -86,14 +93,14 @@ export function createWorkshop(values) {
 	};
 }
 
-export function setWorkshopTo(id){
+export function setWorkshopTo(wsId){
   return {
     type: SET_WORKSHOP_TO,
-    payload: id,
+    payload: wsId,
   };
 }
 
-export function fetchUsers(id){
+export function fetchUsers(wsId){
   const request = currentDataUsers;
   console.log('fetchUsers returns==>', request);
 
@@ -103,9 +110,7 @@ export function fetchUsers(id){
   }
 }
 
-// TODO: need to implement one for ideas/user
-// and another for ideas/workshop
-export function fetchIdeas() {
+export function fetchIdeas(userId, wsId) {
 
 	let request = currentDataIdeas;
 
@@ -113,6 +118,17 @@ export function fetchIdeas() {
 
 	return {
 		type: FETCH_IDEAS,
+		payload: request
+	}
+}
+
+export function fetchAllIdeas(wsId){
+	let request = currentAllIdeas;
+
+	console.log('fetchAllIdeas is called request ==>',request);
+
+	return {
+		type: FETCH_ALL_IDEAS,
 		payload: request
 	}
 }

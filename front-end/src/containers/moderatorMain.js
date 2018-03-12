@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { WorkshopIdea } from '../components';
-import { getWorkshopInfo, setWorkshopTo, attemptLogIn, logOut, fetchIdeas } from '../actions';
+import { WorkshopIdea, LoadingScreen } from '../components';
+import { getWorkshopInfo, setWorkshopTo, attemptLogIn, logOut, fetchAllIdeas } from '../actions';
+import _ from 'lodash';
 
 class ModeratorMain extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      isLogged: false
     }
   }
 
@@ -21,6 +22,7 @@ class ModeratorMain extends Component {
     } else {
       console.log('wsId - Session ==>', sessionStorage.getItem('wsId'));
       this.props.setWorkshopTo(sessionStorage.getItem('wsId'))
+      this.setState({isLogged:true})
     } // If you refresh
 
     if ((sessionStorage.getItem('usrn') == 'null' || sessionStorage.getItem('pass') == 'null')) {
@@ -36,21 +38,27 @@ class ModeratorMain extends Component {
         this.props.history.push('/login-failed');
       }
     }
+  }
 
+  componentDidMount(){
     this.props.getWorkshopInfo(this.props.wsId);
-    this.props.fetchIdeas();
+    this.props.fetchAllIdeas(this.props.wsId); 
+    if (this.state.isLogged) {
+      var intervalWsId = setInterval(() => {
+        this.props.fetchAllIdeas(this.props.wsId);
+      }, 3000);
+    }
   }
 
   renderIdeas() {
-    console.log(this.props.ideas);
-		return Object.keys(this.props.ideas).map((item)=>{
+		return Object.keys(this.props.wsIdeas).map((item)=>{
 			return (
-				<div key={this.props.ideas[item].id}>
+				<div key={this.props.wsIdeas[item].id}>
 					<WorkshopIdea
-						id = {this.props.ideas[item].id}
-						title={this.props.ideas[item].title}
+						id = {this.props.wsIdeas[item].id}
+						title={this.props.wsIdeas[item].title}
 					>
-            {this.props.ideas[item].explanation}
+            {this.props.wsIdeas[item].explanation}
 					</WorkshopIdea>
 				</div>
 			)
@@ -72,7 +80,10 @@ class ModeratorMain extends Component {
     return(
       <div className='card card-big' style={{flex:1, minHeight:'60%', borderRadius:0, borderBottom:'none', marginBottom:0, paddingBottom:'2%'}}>
         <div style={{textAlign:'right'}}>
-          <Link className='' to='/' onClick={() => {this.props.logOut()}}>
+          <Link className='' to='/' onClick={() => {
+            this.props.logOut();
+            clearInterval(this.intervalWsId);
+          }}>
             Exit
           </Link>
         </div>
@@ -94,24 +105,35 @@ class ModeratorMain extends Component {
   }
 
   render(){
-    return(
-      <div className='main'>
-        <div className='wrapper' style={{alignItems:'stretch', padding:'2%'}}>
-          <div style={{display:'flex', flex:5.5, marginTop:'2%', flexDirection:'row'}}>
-            {this.renderDataBox()}
-            {this.renderIdeaPanel()}
+    if (this.props.wsIdeas == '') {
+      return(
+        <div className='main'>
+          <div className='wrapper'>
+            <LoadingScreen/>
           </div>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return(
+        <div className='main'>
+          <div className='wrapper' style={{alignItems:'stretch', padding:'2%'}}>
+            <div style={{display:'flex', flex:5.5, marginTop:'2%', flexDirection:'row'}}>
+              {this.renderDataBox()}
+              {this.renderIdeaPanel()}
+            </div>
+          </div>
+        </div>
+      );
+    }
   }
 }
 
 function mapStateToProps(state){
   return {
     wsId: state.app.wsId,
+    wsInfo: state.app.wsInfo,
     wsTitle: state.app.wsInfo.title,
-    ideas: state.ideas,
+    wsIdeas: state.app.wsIdeas,
   };
 }
 
@@ -120,7 +142,7 @@ const mapDispatchToProps = {
   attemptLogIn,
   logOut,
   setWorkshopTo,
-  fetchIdeas
+  fetchAllIdeas
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ModeratorMain);

@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { logOut } from '../actions';
 const axisLogo = 'https://s3.eu-west-2.amazonaws.com/axis-logo/axis_logo2.png';
 
-export default class Home extends Component {
+class Home extends Component {
+
+  componentWillMount(){
+    this.props.logOut();
+  }
+
   render() {
     return (
       <div className='main'>
@@ -24,3 +31,5 @@ export default class Home extends Component {
     );
   }
 }
+
+export default connect(null,{ logOut })(Home)
