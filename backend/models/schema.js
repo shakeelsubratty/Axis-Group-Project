@@ -27,15 +27,23 @@ var ideaSchema = mongoose.Schema({
     workshop: { type: mongoose.Schema.Types.ObjectId, ref: 'Workshop' }
 });
 
+var facilitatorSchema = mongoose.Schema({
+    username: String,
+    password: String
+});
+
 var workshopModel = mongoose.model('Workshop', workshopSchema);
 var userModel = mongoose.model('User', userSchema);
 var ideaModel = mongoose.model('Idea', ideaSchema);
+var facilitatorModel = mongoose.model('Facilitator', facilitatorSchema);
 
 module.exports = {
     WorkshopSchema: workshopSchema,
     UserSchema: userSchema,
     IdeaSchema: ideaSchema,
+    FacilitatorSchema: facilitatorSchema,
     Workshop: workshopModel,
     User: userModel,
-    Idea: ideaModel
+    Idea: ideaModel,
+    Facilitator: facilitatorModel
 }
