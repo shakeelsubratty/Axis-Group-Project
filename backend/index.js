@@ -6,9 +6,6 @@ var config = require('./config');
 mongoose.connect(config.mongoUrl);
 var app = express();
 
-require('./routes/participantRoutes')(app);
-require('./routes/workshopRoutes')(app);
-
 var db = mongoose.connection;
 var connected = "not yet connected";
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -21,6 +18,9 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
+
+require('./routes/participantRoutes')(app);
+require('./routes/workshopRoutes')(app);
 
 app.get('/', function(req, res) {
     res.writeHead(200, {"Content-Type": "text/html"});
