@@ -1,37 +1,17 @@
 const Promise = require('bluebird');
 const mongoose = Promise.promisifyAll(require('mongoose'));
 const config = require ('../config');
-//const uuid = require('uuid/v1');
-
-var participantSchema = mongoose.Schema({
-    //_id: {type: String, default: uuid},
-    name: String
-});
-var Participant = mongoose.model("participant", participantSchema);
+var Schma = require('./schema');
+var User = Schma.User;
 
 module.exports = {
-    createParticipant: function(participantName) {
-        return Participant({name: participantName}).saveAsync().then(function(newParticipant) {
+    createParticipant: function(workshopId) {
+        return User({workshop: workshopId}).saveAsync().then(function(newUser) {
             if (config.DEBUG) {
-                console.log("Created participant with name: " + newParticipant.name + "; and id: " + newParticipant._id);
+                console.log("Created participant with name: " + newUser.name + "; and id: " + newUser._id + "; attached to workshop: " + newUser.workshop);
             }
-            return newParticipant._id;
+            return newUser.id;
         });
 
     },
-    getParticipantName: function(id) {
-        return Participant.findOneAsync({'_id': id})
-            .then(function(participant) {
-                if (!participant) {
-                    if (config.DEBUG) {
-                        console.log("Attempted to retrieve participant with id: " + id + "; no such participant");
-                    }
-                    return null;
-                }
-                if (config.DEBUG) {
-                    console.log("Retrieved participant with id: " + id + "; it has name: " + participant.name);
-                }
-                return participant.name;
-            });
-    }
 }
