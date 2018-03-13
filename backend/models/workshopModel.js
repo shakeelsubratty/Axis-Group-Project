@@ -23,7 +23,7 @@ module.exports = {
                     return null;
                 }
                 if (config.DEBUG) {
-                    console.log("Retrieved workshop with id: " + id + "; it has description: " + workshop.description);
+                    console.log("Retrieved workshop with id: " + id + "; it has title: " + workshop.title);
                 }
                 return { title: workshop.title, description: workshop.description };
             });
