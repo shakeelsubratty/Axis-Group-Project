@@ -21,6 +21,7 @@ app.use(function(req, res, next) {
 
 require('./routes/participantRoutes')(app);
 require('./routes/workshopRoutes')(app);
+require('./routes/ideaRoutes')(app);
 
 app.get('/', function(req, res) {
     res.writeHead(200, {"Content-Type": "text/html"});
