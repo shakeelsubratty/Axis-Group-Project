@@ -3,5 +3,6 @@ module.exports = {
     mongoUrl: `mongodb://${process.env.DB_PORT_27017_TCP_ADDR}:${process.env.DB_PORT_27017_TCP_PORT}/app`,
     participantRoot: "/participant", //routes for everything participant-related
     workshopRoot: "/workshop", //routes for everything workshop-related
+    authRoot: "/auth", //routes for everything workshop-related
     testRoot: "/test" //for testing/development/debugging temporary APIs - to be disabled on production
 }

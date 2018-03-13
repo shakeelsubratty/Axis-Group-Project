@@ -8,6 +8,7 @@ var app = express();
 
 require('./routes/participantRoutes')(app);
 require('./routes/workshopRoutes')(app);
+require('./routes/authRoutes')(app);
 
 var db = mongoose.connection;
 var connected = "not yet connected";
