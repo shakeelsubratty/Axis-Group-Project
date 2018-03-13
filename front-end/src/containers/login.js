@@ -18,7 +18,6 @@ class Login extends Component {
   }
 
   onSubmit(values){
-    event.preventDefault();
     this.props.attemptLogIn(values.username, values.password);
     this.props.history.push('/create-workshop');
   }
@@ -40,12 +39,11 @@ class Login extends Component {
   }
 
   render() {
-    console.log(`isLogged - Login==> ${this.props.isLogged}`)
-    console.log(`isLoggedSession - Login==> ${sessionStorage.getItem('isLogged')}`)
+    console.log(`isLogged - Login==> ${this.props.isLogged}, isLoggedSession - Login==> ${sessionStorage.getItem('isLogged')}`);
     const { handleSubmit } = this.props;
 
     return (
-      <div className='main login'>
+      <div className='main'>
         <div className='wrapper'>
           <div className='card card-big'>
             <h1  className='card-title' style={{textAlign: 'center', width:'100%'}}>Login</h1>
@@ -53,8 +51,8 @@ class Login extends Component {
               <Field name='username' component={this.renderField} type='text' placeholder='Username'/>
               <Field name='password' component={this.renderField} type='password' placeholder='Password'/>
               <div className='button-box'>
-                <button type='submit' className='btn btn-primary' style={{margin:5}}>Submit</button>
                 <Link className='btn btn-danger' to='/'> Back</Link>
+                <button type='submit' className='btn btn-primary' style={{margin:5}}>Submit</button>
               </div>
             </form>
           </div>

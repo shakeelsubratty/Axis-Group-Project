@@ -1,37 +1,26 @@
+body{
+  overflow: hidden;
+}
+
 .container{
-  width: 100vw;
-	height: 100vh;
+  width: 100vw !important;
+	height: 100vh !important;
   max-width: none !important;
 	padding: 0 !important;
+  overflow: hidden;
 }
 
 .main {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 100%;
+  width: 100% !important;
+  height: 100% !important;
   align-items: center;
   justify-content: flex-start;
-}
-
-.createWorkshop, .login, .home {
   background: url('https://images.pexels.com/photos/29435/landscape-sky-night-stars-29435.jpg?w=940&h=650&dpr=2&auto=compress&cs=tinysrgb');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-}
-
-.enterWorkshop {
-  background-image: url('https://images.unsplash.com/photo-1503264116251-35a269479413');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.Home {
-  display: flex;
-  height: 500px;
-
 }
 
 .wrapper {
@@ -48,12 +37,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 10px;
   /* margin-top: 5%; */
   flex-wrap: wrap;
 }
 
-.btn-primary {
+.btn {
   margin: 2px;
+}
+
+.btn-secondary:active {
+  -moz-box-shadow: #3e4042 0px 0px 10px 0px !important;
+  -webkit-box-shadow: #3e4042 0px 0px 10px 0px !important;
+  box-shadow: #3e4042 0px 0px 10px 0px !important;
 }
 
 .card-big {
@@ -66,8 +62,38 @@
   background-color: #e8edf4 !important; /* or #d2def2 */
 }
 
-/* This is if we implement the loader  */
+.flexRowCenter{
+  flex:1;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
 
+.flexColumnCenter {
+  flex: 1;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.dataBox {
+  flex:1;
+  border-radius:0 !important;
+  border-bottom: none !important;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin-bottom:0 !important;
+}
+
+.userCard{
+  margin:1%;
+  width: 25%;
+  padding:1%;
+  border-radius: 30px;
+}
+
+/* Loader  */
 .loader {
   border: 16px solid #f3f3f3; /* Light grey */
   border-top: 16px solid #3498db; /* Blue */
@@ -77,10 +103,22 @@
   animation: spin 2s linear infinite;
 }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    25% { -webkit-transform: rotate(90deg); }
+    50% { -webkit-transform: rotate(180deg); }
+    75% { -webkit-transform: rotate(270deg); }
+    100% { -webkit-transform: rotate(360deg); }
 }
+
+/* -- END OF LOADER */
+
+/* To control the speed of the animationin ModeratorWait */
+/* #moderatorWaitPanel {
+  -webkit-animation-duration: 0.6s;
+  -moz-animation-duration: 0.6s;
+  -o-animation-duration: 0.6s;
+} */
 
 .container-fluid {
 	height: inherit;
@@ -99,4 +137,8 @@
 }
 .panel h2 {
   margin-top: 5px !important;
+}
+
+.noborder {
+	margin: none !important;
 }
