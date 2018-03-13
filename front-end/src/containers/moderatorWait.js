@@ -39,7 +39,9 @@ class ModeratorWait extends Component {
   }
 
   componentDidMount(){
-    this.props.getWorkshopInfo(this.props.wsId);
+    if (this.props.wsId != null) {
+      this.props.getWorkshopInfo(this.props.wsId);
+    }
     var intervalId = setInterval(() => {
         if (!this.state.showingId) {
           this.props.fetchUsers(this.props.wsId);

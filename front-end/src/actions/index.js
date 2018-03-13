@@ -72,6 +72,8 @@ export function logOut() {
 
 // TODO: Change from boolean into userId
 export function joinWorkshop(workshopId) {
+	const ret = axios.get(`http://localhost:3000/participant/create/${workshopID}`);
+	console.log('joinWorkshop Api -->', ret);
 	const request = true;
 	console.log('joinWorkshop action called, id is ==> ',workshopId);
 	// we should make the post API call here.
@@ -83,15 +85,38 @@ export function joinWorkshop(workshopId) {
 }
 
 export function createWorkshop(values) {
-	const request = '0123456789';
-	console.log('createWorkshop action called, values is ==> ',values);
+	// let result = null;
+	// const ret =
+	// 	console.log(response.data);
+	// 	result = data.
+  // });
+	//
+	// const request = '0123456789';
+	// console.log('createWorkshop action called, values is ==> ',values);
+	//
+  // sessionStorage.setItem('wsId', result);
+	// console.log('createWorkshop Api -->',result);
+	//
+	// return {
+	// 	type: CREATE_WORKSHOP,
+	// 	payload: result
+	// };
 
-  sessionStorage.setItem('wsId', request);
+	return (dispatch) => {
 
-	return {
-		type: CREATE_WORKSHOP,
-		payload: request
-	};
+    axios.get(`http://localhost:3000/workshop/create?title=${values.title}&description=${values.description}`).then(function (response) {
+
+			console.log('createWorkshop Api -->',response.data);
+			sessionStorage.setItem('wsId', response.data);
+
+      dispatch({
+				type: CREATE_WORKSHOP,
+				payload: response.data
+      });
+    }).catch((e) => {
+      console.log(e);
+    })
+  }
 }
 
 export function setWorkshopTo(wsId){
@@ -103,6 +128,8 @@ export function setWorkshopTo(wsId){
 
 // Api ready
 export function fetchUsers(wsId){
+	const ret = axios.get(`http://localhost:3000/workshop/view/${wsId}/users`);
+	console.log('fetchUsers Api -->', ret);
   const request = currentDataUsers;
   console.log('fetchUsers returns==>', request);
 
@@ -112,10 +139,11 @@ export function fetchUsers(wsId){
   }
 }
 
-export function fetchIdeas(userId, wsId) {
+export function fetchIdeas(userId) {
+	const ret = axios.get(`http://localhost:3000/participant/view/${userId}/ideas`);
+	console.log('fetchIdeas Api -->', ret);
 
 	let request = currentDataIdeas;
-
 	console.log('fetchIdeas is called request ==>',request);
 
 	return {
@@ -125,8 +153,10 @@ export function fetchIdeas(userId, wsId) {
 }
 
 export function fetchAllIdeas(wsId){
-	let request = currentAllIdeas;
+	const ret = axios.get(`http://localhost:3000/workshop/view/${wsId}/ideas`);
+	console.log('fetchAllIdeas Api -->', ret);
 
+	let request = currentAllIdeas;
 	console.log('fetchAllIdeas is called request ==>',request);
 
 	return {
@@ -152,6 +182,9 @@ export function createIdea(values, callback) {
 }
 
 export function getWorkshopInfo(wsId) {
+
+	const ret = axios.get(`http://localhost:3000/workshop/view/${wsId}`);
+	console.log('getWorkshopInfo Api -->', ret);
 
 	const request = { title: 'May the force be with you', description: 'Did you ever hear the tragedy of Darth Plagueis The Wise? I thought not. It’s not a story the Jedi would tell you. It’s a Sith legend. Darth Plagueis was a Dark Lord of the Sith, so powerful and so wise he could use the Force to influence the midichlorians to create life…'}
 	return {
