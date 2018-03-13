@@ -6,10 +6,6 @@ var config = require('./config');
 mongoose.connect(config.mongoUrl);
 var app = express();
 
-require('./routes/participantRoutes')(app);
-require('./routes/workshopRoutes')(app);
-require('./routes/authRoutes')(app);
-
 var db = mongoose.connection;
 var connected = "not yet connected";
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -17,6 +13,16 @@ db.once('open', function() {
     connected = "Connected to mongo successfully!";
 });
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+require('./routes/participantRoutes')(app);
+require('./routes/workshopRoutes')(app);
+require('./routes/ideaRoutes')(app);
+require('./routes/authRoutes')(app);
 
 app.get('/', function(req, res) {
     res.writeHead(200, {"Content-Type": "text/html"});

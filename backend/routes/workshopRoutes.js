@@ -36,7 +36,7 @@ module.exports = function(app) {
         Schma.Workshop.findByIdAsync(req.params.id).then(function(workshop) {
             if (config.DEBUG) console.log("[API accesssed] [workshopRoute] /view/:id/ideas; found workshop: " + workshop);
             if (workshop) {
-                workshop.findUsersAsync().then(function(ideas) {
+                workshop.findIdeasAsync().then(function(ideas) {
                     if (config.DEBUG) {
                         console.log("Found ideas in workshop:");
                         console.log(ideas);
