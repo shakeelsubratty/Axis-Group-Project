@@ -23,7 +23,7 @@ public class MainClass
 	// surround the creation of a response with a try/catch. If an error is caught,
 	// it means that the API failed to analyse that response or the program failed
 	// to communicate with the Google API.
-	
+
 	public static void main(String[] args) throws Exception
 	{
 		Response a = new Response(
@@ -38,7 +38,15 @@ public class MainClass
 				"QuietComfort® 25 headphones are engineered to sound better, be more comfortable and easier to take with you. Put them on, and suddenly everything changes. Your music is deep, powerful and balanced, and so quiet that every note sounds clearer. Even air travel becomes enjoyable, as engine roar gently fades away. No matter how noisy the world is, it's just you and your music—or simply peace and quiet.");
 		Response f = new Response(
 				"Through our multi-sector domain expertise, extensive industry relationships and diverse, experienced team of exclusive venture partners who are proven company builders, we work hands-on with our portfolio companies as trusted advisers and partners from formation to exit. We help them develop business strategy, make connections within our networks, and guide them through both smooth and turbulent times toward a successful exit.");
-
+		Response g = new Response(
+				"Amazon Echo connects to Alexa-a cloud-based voice service-to play music, make calls, set alarms and timers, ask questions, check your calendar, weather, traffic and sports scores, manage to-do and shopping lists, control compatible smart home devices, and more.");
+		Response h = new Response(
+				"Just ask for a song, artist or genre from Amazon Music, Spotify, TuneIn and more. With multi-room music, you can play music on Echo devices in different rooms, available for Amazon Music, TuneIn and Spotify; Bluetooth not supported. Echo can also play audiobooks, radio stations, news briefings and more.");
+		Response aa = new Response(
+				"Call or message anyone hands-free who also has an Echo device or the Alexa App. Also, quickly connect to other Echo devices in your home using just your voice.");
+		Response ab = new Response(
+				"New speaker with Dolby processing that fills the room with immersive, 360° omnidirectional audio, and delivers crisp vocals, deep bass, and clear highs at louder volumes.");
+	
 		ArrayList<Response> responses = new ArrayList<>();
 
 		RepetitionGrouper rg = new RepetitionGrouper();
@@ -49,10 +57,12 @@ public class MainClass
 		rg.addResponse(d);
 		rg.addResponse(e);
 		rg.addResponse(f);
+		rg.addResponse(g);
+		rg.addResponse(h);
+		rg.addResponse(aa);
+		rg.addResponse(ab);
 
 		List<List<Response>> results = rg.groupResponses();
-
-		// System.out.println(results.toString());
 
 		for (int i = 0; i < results.size(); i++)
 		{
@@ -70,6 +80,5 @@ public class MainClass
 			}
 			System.out.println("***** END OF GROUP *****\n");
 		}
-
 	}
 }

@@ -31,6 +31,11 @@ public class RepetitionGrouper
 	 */
 	public boolean addResponse(Response r)
 	{
+		// TODO: Implement method and change groupResponses() to use this method. This
+		// method should take a Response, compare it to all existing groups and insert
+		// into the group with the highest match percentage (or add to a new group if
+		// its match percentage is below the minimum match requirements).
+		
 		return responses.add(r);
 	}
 
@@ -52,6 +57,7 @@ public class RepetitionGrouper
 	 */
 	public List<List<Response>> groupResponses()
 	{
+		// TODO: Remove all print statments
 		if (responses.size() == 0)
 		{
 			return null;
