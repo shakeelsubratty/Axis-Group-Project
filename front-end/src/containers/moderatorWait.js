@@ -55,9 +55,10 @@ class ModeratorWait extends Component {
 
   renderUsers(){
     return _.map(this.props.wsUsers, id => {
+      console.log(id);
 			return (
-			  <div className='card userCard' key={id.id}>
-					{id.id}
+			  <div className='card userCard' key={id._id}>
+					{id._id}
 				</div>
 			);
 		});
