@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { joinWorkshop } from '../actions'
 
-const STRING_ID_LENGTH = 10;
+const STRING_ID_LENGTH = 24;
 
 class EnterWorkshop extends Component {
 
@@ -29,7 +29,7 @@ class EnterWorkshop extends Component {
 
 	onSubmit(values) {
 		this.props.history.push('/workshop1');
-		this.props.joinWorkshop(values);
+		this.props.joinWorkshop(values.workshopId);
 	}
 
   render() {

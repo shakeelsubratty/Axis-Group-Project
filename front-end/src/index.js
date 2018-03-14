@@ -17,9 +17,10 @@ import {
   ModeratorWait,
 	ModeratorMain
 } from './containers';
+import ReduxThunk from 'redux-thunk';
 
 
-const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
+const createStoreWithMiddleware = applyMiddleware(ReduxPromise,ReduxThunk)(createStore);
 
 ReactDOM.render(
 
