@@ -40,12 +40,22 @@ class ModeratorMain extends Component {
   }
 
   componentDidMount(){
-    this.props.getWorkshopInfo(this.props.wsId);
-    this.props.fetchAllIdeas(this.props.wsId);
+    if (this.props.wsId != '') {
+      this.props.getWorkshopInfo(this.props.wsId);
+      this.props.fetchAllIdeas(this.props.wsId);
+    }
     if (this.state.isLogged) {
       var intervalWsId = setInterval(() => {
         this.props.fetchAllIdeas(this.props.wsId);
       }, 3000);
+    }
+  }
+
+  componentWillReceiveProps(nextProps){
+    if (this.props.wsId != nextProps.wsId) {
+      console.log('componentWillReceiveProps -->',nextProps.wsId);
+      this.props.getWorkshopInfo(nextProps.wsId);
+      this.props.fetchAllIdeas(this.props.wsId);
     }
   }
 
@@ -113,7 +123,9 @@ class ModeratorMain extends Component {
   }
 
   render(){
-    if (this.props.wsIdeas == '') {
+    // I think we should take the loader OUT
+    // for the most part is just distracting and its never more than a sec
+    if (this.props.wsInfo == '' && false) {
       return(
         <div className='main'>
           <div className='wrapper'>

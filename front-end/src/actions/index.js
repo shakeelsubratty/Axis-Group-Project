@@ -61,9 +61,9 @@ export function attemptLogIn(username, password) {
 
 export function logOut() {
   console.log('LOGGING OUT');
-  sessionStorage.setItem('usrn', null);
-  sessionStorage.setItem('pass', null);
-  sessionStorage.setItem('wsId', null);
+  sessionStorage.setItem('usrn', '');
+  sessionStorage.setItem('pass', '');
+  sessionStorage.setItem('wsId', '');
   return {
     type: LOG_OUT,
     payload: false
@@ -71,17 +71,19 @@ export function logOut() {
 }
 
 // TODO: Change from boolean into userId
-export function joinWorkshop(workshopId) {
+export function joinWorkshop(workshopId, callback) {
 		return (dispatch) => {
 
 	    axios.get(`http://localhost:3000/participant/create/${workshopId}`).then(function (response) {
 
 				console.log('joinWorkshop Api -->', response);
+				sessionStorage.setItem('wsId', workshopId);
 
 	      dispatch({
 					type: JOIN_WORKSHOP,
 					payload: response,
 	      });
+				callback();
 				console.log('after createWS API and dispatch');
 	    }).catch((e) => {
 	      console.log(e);
@@ -103,15 +105,13 @@ export function createWorkshop(values, callback) {
     axios.get(`http://localhost:3000/workshop/create?title=${values.title}&description=${values.description}`).then(function (response) {
 
 			console.log('createWorkshop Api -->',response.data);
+			sessionStorage.setItem('wsId', response.data);
 
       dispatch({
 				type: CREATE_WORKSHOP,
 				payload: response.data
       });
-
 			callback();
-			sessionStorage.setItem('wsId', response.data);
-
 			console.log('after createWS API and dispatch');
     }).catch((e) => {
       console.log(e);
@@ -120,6 +120,7 @@ export function createWorkshop(values, callback) {
 }
 
 export function setWorkshopTo(wsId){
+	console.log('setWorkshopTo ->', wsId);
   return {
     type: SET_WORKSHOP_TO,
     payload: wsId,
@@ -167,7 +168,7 @@ export function fetchAllIdeas(wsId){
 
 	return {
 		type: FETCH_ALL_IDEAS,
-		payload: request
+		payload: ret.data
 	}
 }
 
@@ -196,7 +197,9 @@ export function getWorkshopInfo(wsId) {
 				type: GET_WS_INFO,
 				payload: response.data
 			});
-		});
+		}).catch((e) => {
+      console.log(e);
+    });
 	};
 }
 

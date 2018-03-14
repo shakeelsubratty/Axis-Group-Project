@@ -18,8 +18,10 @@ export default (state = INITIAL_STATE, action) => {
 		return { ...state, wsInfo: action.payload}
     case CREATE_WORKSHOP:
     return { ...state, wsId: action.payload}
-    case SET_WORKSHOP_TO:
-    return { ...state, wsId: action.payload}
+    case SET_WORKSHOP_TO:{
+      console.log('reducer with ->',action.payload);
+      return { ...state, wsId: action.payload}
+    }
     case FETCH_USERS:
     return { ...state, wsUsers: action.payload}
     case FETCH_ALL_IDEAS:

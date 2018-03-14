@@ -13,7 +13,8 @@ class ModeratorWait extends Component {
   }
 
   componentWillMount(){
-    if (sessionStorage.getItem('wsId') == 'null') {
+    if (sessionStorage.getItem('wsId') == '') {
+      console.log('gets here');
       if (!this.props.wsId) {
         // If you try to get here from login without creating a workshop
         this.props.history.push('/create-workshop')
@@ -21,9 +22,10 @@ class ModeratorWait extends Component {
     } else {
       console.log('wsId - Session ==>', sessionStorage.getItem('wsId'));
       this.props.setWorkshopTo(sessionStorage.getItem('wsId'))
+      console.log('hi friend ->', this.props.wsId);
     } // If you refresh
 
-    if ((sessionStorage.getItem('usrn') == 'null' || sessionStorage.getItem('pass') == 'null')) {
+    if ((sessionStorage.getItem('usrn') == '' || sessionStorage.getItem('pass') == '')) {
       if (!this.props.isLogged) {
         // If you try to bypass login
         this.props.history.push('/login-failed');
@@ -38,10 +40,18 @@ class ModeratorWait extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps){
+    if (this.props.wsId != nextProps.wsId) {
+      console.log('componentWillReceiveProps -->',nextProps.wsId);
+      this.props.getWorkshopInfo(nextProps.wsId);
+    }
+  }
+
   componentDidMount(){
-    if (this.props.wsId != null) {
+    if (this.props.wsId != '') {
       this.props.getWorkshopInfo(this.props.wsId);
     }
+    console.log('here with wsId->',this.props.wsId);
     var intervalId = setInterval(() => {
         if (!this.state.showingId) {
           this.props.fetchUsers(this.props.wsId);
@@ -137,7 +147,10 @@ class ModeratorWait extends Component {
   }
 
   render(){
-    if (this.props.wsInfo == '') {
+    console.log('wsInfo -->', this.props.wsInfo);
+    // I think we should take the loader OUT
+    // for the most part is just distracting and its never more than a sec
+    if (this.props.wsInfo == '' && false) {
       return(
         <div className='main'>
           <div className='wrapper'>
@@ -170,6 +183,7 @@ class ModeratorWait extends Component {
 }
 
 function mapStateToProps(state) {
+  console.log('mapStateToProps with ->',state.app.wsId);
   return {
     wsId: state.app.wsId,
     wsInfo: state.app.wsInfo,

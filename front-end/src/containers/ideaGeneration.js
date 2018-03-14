@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import { fetchIdeas, getWorkshopInfo } from '../actions';
+import { fetchIdeas, getWorkshopInfo, createWorkshop, setWorkshopTo} from '../actions';
 import UserIdea from '../components/userIdea'
 import NewIdea from './newIdea'
 
@@ -13,10 +13,40 @@ class IdeaGeneration extends Component {
 	}
 
 	componentWillMount() {
-		this.props.fetchIdeas();
-		this.props.getWorkshopInfo();
-
+		if (sessionStorage.getItem('wsId') == '') {
+      // console.log('gets here');
+      if (!this.props.wsId) {
+        this.props.history.push('/')
+      }
+    } else {
+      console.log('wsId - Session ==>', sessionStorage.getItem('wsId'));
+      this.props.setWorkshopTo(sessionStorage.getItem('wsId'))
+      console.log('hi friend ->', this.props.wsId);
+    }
 	}
+
+	componentWillReceiveProps(nextProps){
+    if (this.props.wsId != nextProps.wsId) {
+      console.log('componentWillReceiveProps -->',nextProps.wsId);
+      this.props.getWorkshopInfo(nextProps.wsId);
+			this.props.fetchIdeas(this.props.wsId);
+    }
+  }
+
+	componentDidMount(){
+    if (this.props.wsId != '') {
+      this.props.getWorkshopInfo(this.props.wsId);
+			this.props.fetchIdeas(this.props.wsId);
+    }
+    console.log('here with wsId->',this.props.wsId);
+    var intervalId = setInterval(() => {
+      this.props.fetchIdeas(this.props.wsId);
+    }, 3000);
+  }
+
+	componentWillUnmount(){
+    clearInterval(this.intervalId);
+  }
 
 	update() {
 		this.props.fetchIdeas();
@@ -73,12 +103,15 @@ function mapStateToProps(state) {
 	return {
 		ideas: state.ideas,
 		wsTitle: state.app.wsInfo.title,
+		wsId: state.app.wsId,
 	};
 }
 
 const mapDispatchToProps = {
   fetchIdeas,
-  getWorkshopInfo
+  getWorkshopInfo,
+	createWorkshop,
+	setWorkshopTo
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(IdeaGeneration);

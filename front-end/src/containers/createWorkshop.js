@@ -7,7 +7,7 @@ import { logOut, attemptLogIn, createWorkshop } from '../actions';
 class CreateWorkshop extends Component {
 
   componentWillMount(){
-    if ((sessionStorage.getItem('usrn') == "null") || (sessionStorage.getItem('pass') == "null")) {
+    if ((sessionStorage.getItem('usrn') == '') || (sessionStorage.getItem('pass') == '' )) {
       if (!this.props.isLogged) {
         // If you try to bypass login
         this.props.history.push('/login-failed');
