@@ -143,8 +143,6 @@ public class Response
 		double nounMatch = this.compareNounsTo(r);
 		double verbMatch = this.compareVerbsTo(r);
 		
-		System.out.println("\nResponse: " + r.getText() + "\n\nCompared to: " + this.getText() + "\nNoun Match: " + nounMatch + ", Verb Match: " + verbMatch);
-
 		return (double) (nounMatch + verbMatch) / 2.0;
 	}
 	
