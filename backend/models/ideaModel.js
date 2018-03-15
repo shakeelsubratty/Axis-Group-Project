@@ -1,5 +1,6 @@
 const Promise = require('bluebird');
 const mongoose = Promise.promisifyAll(require('mongoose'));
+const mongodb = require('mongodb');
 const config = require('../config');
 const Schma = require('./schema');
 const Idea = Schma.Idea;
@@ -18,7 +19,7 @@ module.exports = {
     },
     viewIdea: function(id) {
         if (config.DEBUG) {
-            console.log("accessing idea wiht ID: " + id);
+            console.log("accessing idea with ID: " + id);
             Schma.Idea.findByIdAsync(id).then(function(ret){console.log(ret);});
         }
         return Schma.Idea.findByIdAsync(id);
@@ -28,6 +29,14 @@ module.exports = {
             console.log("deleting ideas with ID: " + id);
             Schma.Idea.findAsync({_id: id}).then(function(ret){console.log(ret);});
         }
-        return Schma.Idea.remove({_id: id});
+
+        return Schma.Idea.remove({_id: new mongodb.ObjectId(id)}, function(err, result) {
+                if (err) {
+                    console.log("Unable to delete idea with ID: " + id);
+                } else {
+                    console.log("Delete of idea" + id + "is successful!");
+                }
+
+            });
     }
 }
