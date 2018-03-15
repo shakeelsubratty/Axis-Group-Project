@@ -9,24 +9,26 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-  switch (action.type) {
-    case ATTEMPT_LOGIN:
-    return { ...state, isLogged: action.payload}
-    case LOG_OUT:
-    return { ...state, isLogged: false }
-	  case GET_WS_INFO:
-		return { ...state, wsInfo: action.payload}
-    case CREATE_WORKSHOP:
-    return { ...state, wsId: action.payload}
-    case SET_WORKSHOP_TO:{
-      console.log('reducer with ->',action.payload);
-      return { ...state, wsId: action.payload}
-    }
-    case FETCH_USERS:
-    return { ...state, wsUsers: action.payload}
-    case FETCH_ALL_IDEAS:
-    return { ...state, wsIdeas: _.mapKeys(action.payload,'id')}
-    default:
-      return state;
+	switch (action.type) {
+		case JOIN_WORKSHOP:
+			return { ...state, wsUserId: action.payload }
+		case ATTEMPT_LOGIN:
+			return { ...state, isLogged: action.payload }
+		case LOG_OUT:
+			return { ...state, isLogged: false }
+		case GET_WS_INFO:
+			return { ...state, wsInfo: action.payload}
+		case CREATE_WORKSHOP:
+			return { ...state, wsId: action.payload}
+		case SET_WORKSHOP_TO:{
+			console.log('reducer with ->',action.payload);
+			return { ...state, wsId: action.payload}
+		}
+		case FETCH_USERS:
+			return { ...state, wsUsers: action.payload}
+		case FETCH_ALL_IDEAS:
+			return { ...state, wsIdeas: _.mapKeys(action.payload,'id')}
+		default:
+			return state;
   }
 };

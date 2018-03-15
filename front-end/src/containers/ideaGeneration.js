@@ -14,56 +14,57 @@ class IdeaGeneration extends Component {
 
 	componentWillMount() {
 		if (sessionStorage.getItem('wsId') == '') {
-      // console.log('gets here');
-      if (!this.props.wsId) {
-        this.props.history.push('/')
-      }
-    } else {
-      console.log('wsId - Session ==>', sessionStorage.getItem('wsId'));
-      this.props.setWorkshopTo(sessionStorage.getItem('wsId'))
-      console.log('hi friend ->', this.props.wsId);
-    }
+			// console.log('gets here');
+			if (!this.props.wsId) {
+				this.props.history.push('/')
+			}
+		} else {
+			console.log('wsId - Session ==>', sessionStorage.getItem('wsId'));
+			this.props.setWorkshopTo(sessionStorage.getItem('wsId'))
+			console.log('hi friend ->', this.props.wsId);
+		}
 	}
 
-	componentWillReceiveProps(nextProps){
-    if (this.props.wsId != nextProps.wsId) {
-      console.log('componentWillReceiveProps -->',nextProps.wsId);
-      this.props.getWorkshopInfo(nextProps.wsId);
-			this.props.fetchIdeas(this.props.wsId);
-    }
-  }
+	// componentWillReceiveProps(nextProps){
+	// 	if (this.props.wsId != nextProps.wsId) {
+	// 		console.log('componentWillReceiveProps -->',nextProps.wsId);
+	// 		this.props.getWorkshopInfo(nextProps.wsId);
+	// 		this.props.fetchIdeas(this.props.wsId);
+	// 	}
+	// }
 
 	componentDidMount(){
-    if (this.props.wsId != '') {
-      this.props.getWorkshopInfo(this.props.wsId);
+		if (this.props.wsId != '') {
+			this.props.getWorkshopInfo(this.props.wsId);
 			this.props.fetchIdeas(this.props.wsId);
-    }
-    console.log('here with wsId->',this.props.wsId);
-    var intervalId = setInterval(() => {
-      this.props.fetchIdeas(this.props.wsId);
-    }, 3000);
-  }
+		}
+		console.log('here with wsId->',this.props.wsId);
+		// var intervalId = setInterval(() => {
+		// 	this.props.fetchIdeas(this.props.wsId);
+		// }, 3000);
+	}
 
 	componentWillUnmount(){
-    clearInterval(this.intervalId);
-  }
+	//	clearInterval(this.intervalId);
+	}
 
 	update() {
-		this.props.fetchIdeas();
-		this.props.getWorkshopTitle();
+		console.log('update called');
+		this.props.fetchIdeas(this.props.wsUserId);
 	}
 
 
 	renderIdeas() {
+		console.log('ideasss=>',this.props.ideas);
 		return Object.keys(this.props.ideas).map((item)=>{
 			return (
-				<div key={this.props.ideas[item].id}>
+				<div key={this.props.ideas[item]._id}>
 					<UserIdea
 						callback = {this.update}
-						id = {this.props.ideas[item].id}
+						id = {this.props.ideas[item]._id}
 						title={this.props.ideas[item].title}
 
-						>{this.props.ideas[item].explanation}
+						>{this.props.ideas[item].description}
 					</UserIdea>
 				</div>
 			)
@@ -71,7 +72,7 @@ class IdeaGeneration extends Component {
 	}
 
 	render() {
-
+		console.log('idea generation user id',this.props.wsUserId);
 		return (
 			<div className='main'>
 				<div className="container-fluid">
@@ -82,7 +83,9 @@ class IdeaGeneration extends Component {
 
 						<div className="col-sm-6" style={{ display: 'flex', justifyContent: 'flex-end'}}>
 							<div style={{width: '40vw'}}>
-								<NewIdea callback={this.update} />
+								<NewIdea
+									callback={this.update}
+									userId={this.props.wsUserId}/>
 							</div>
 						</div>
 
@@ -104,12 +107,14 @@ function mapStateToProps(state) {
 		ideas: state.ideas,
 		wsTitle: state.app.wsInfo.title,
 		wsId: state.app.wsId,
+		wsUserId: state.app.wsUserId,
+
 	};
 }
 
 const mapDispatchToProps = {
-  fetchIdeas,
-  getWorkshopInfo,
+	fetchIdeas,
+	getWorkshopInfo,
 	createWorkshop,
 	setWorkshopTo
 }
