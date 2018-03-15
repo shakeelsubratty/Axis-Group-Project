@@ -47,16 +47,25 @@ let currentDataUsers = [
 	{ id: 1343242 },
 ];
 
-export function attemptLogIn(username, password) {
-  const request = true;
-	console.log('login action called, username is ==> '+ username + ' password ==>', password);
-	// we should make the post API call here.
-  sessionStorage.setItem('usrn', username);
-  sessionStorage.setItem('pass', password);
-	return {
-		type: ATTEMPT_LOGIN,
-		payload: request
-	};
+export function attemptLogIn(username, password, callback) {
+  return (dispatch) => {
+
+		axios.get(`http://localhost:3000/auth/login/${username}/${password}`).then(function (response) {
+
+			console.log('attemptLogIn Api -->', response.data);
+			sessionStorage.setItem('usrn', username);
+		  sessionStorage.setItem('pass', password);
+
+			dispatch({
+				type: ATTEMPT_LOGIN,
+				payload: response.data,
+			});
+			callback();
+			console.log('after createWS API and dispatch');
+		}).catch((e) => {
+			console.log(e);
+		})
+	}
 }
 
 export function logOut() {

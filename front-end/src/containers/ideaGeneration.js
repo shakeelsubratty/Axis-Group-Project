@@ -39,9 +39,9 @@ class IdeaGeneration extends Component {
 			this.props.fetchIdeas(this.props.wsId);
     }
     console.log('here with wsId->',this.props.wsId);
-    var intervalId = setInterval(() => {
-      this.props.fetchIdeas(this.props.wsId);
-    }, 3000);
+	    var intervalId = setInterval(() => {
+	      this.props.fetchIdeas(this.props.wsId);
+	    }, 3000);
   }
 
 	componentWillUnmount(){

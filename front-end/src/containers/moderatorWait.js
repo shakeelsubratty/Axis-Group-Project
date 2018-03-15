@@ -31,12 +31,16 @@ class ModeratorWait extends Component {
         this.props.history.push('/login-failed');
       }
     } else {
+      console.log('session not empty');
       const usrn = sessionStorage.getItem('usrn');
       const pass = sessionStorage.getItem('pass');
-      if (!this.props.attemptLogIn(usrn,pass)) {
-        // If you try to inject invalid login credentials
-        this.props.history.push('/login-failed');
-      }
+      this.props.attemptLogIn(usrn,pass, ()=>{
+        console.log('this.props.isLogged->',this.props.isLogged);
+        if (!this.props.isLogged) {
+          // If you try to inject invalid login credentials
+          this.props.history.push('/login-failed');
+        }
+      });
     }
   }
 
@@ -185,6 +189,7 @@ class ModeratorWait extends Component {
 function mapStateToProps(state) {
   console.log('mapStateToProps with ->',state.app.wsId);
   return {
+    isLogged: state.app.isLogged,
     wsId: state.app.wsId,
     wsInfo: state.app.wsInfo,
     wsTitle: state.app.wsInfo.title,
