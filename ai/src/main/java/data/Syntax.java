@@ -52,7 +52,6 @@ public class Syntax
 	 */
 	private List<Token> getTokens(String text) throws IOException, Exception
 	{
-		System.out.println("Accessing Google API");
 		// Instantiate the Language client
 		// com.google.cloud.language.v1.LanguageServiceClient
 		try (LanguageServiceClient language = LanguageServiceClient.create())
@@ -63,7 +62,6 @@ public class Syntax
 
 			// analyze the syntax in the given text
 			AnalyzeSyntaxResponse response = language.analyzeSyntax(request);
-			System.out.println("API call complete.");
 			return response.getTokensList();
 		}
 	}
