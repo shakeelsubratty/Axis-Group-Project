@@ -16,4 +16,10 @@ public class AIController {
         UserEngagementResponse u = new UserEngagementResponse(1,2,3,4);
         return new ResponseEntity<UserEngagementResponse>(u, HttpStatus.OK);
     }
+
+    @RequestMapping(value = '/repetition', method = RequestMethod.POST)
+    public ResponseEntity<> repetition(@RequestBody List<Participant> participants)
+    {
+        
+    }
 }

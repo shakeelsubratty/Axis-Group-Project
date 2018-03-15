@@ -48,9 +48,4 @@ public class UserEngagementResponse
         this.engaged = z;
         this.superEngaged = w;
     }
-
-//    public long getID(){return id};
-//
-//    public List<String> getResponses() {return responses};
-
 }
