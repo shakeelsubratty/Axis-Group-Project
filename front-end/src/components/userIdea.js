@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { deleteIdea } from '../actions';
 
-class UserIdea extends React.Component {
+class UserIdea extends Component {
 
     constructor(props){
         super(props)
@@ -34,7 +34,7 @@ class UserIdea extends React.Component {
         return (
             <div className={`card panel ${isExpanded ? 'is-expanded' : ''}`} >
                 <div className="card-header panel-heading" style={{display: 'flex'}} onClick={(event) => this.toggle(event)} >
-						 <h4>{title}</h4>
+						<h4>{title}</h4><span className="glyphicon glyphicon-chevron-down" style={{textAlign: 'right'}}>#x25bc</span>
                 </div>
                 <div className="panel-collapse" style={{height: currentHeight+'px'}}>
                     <div className="card-body panel-body" ref="inner" style={{padding: '3%'}}>

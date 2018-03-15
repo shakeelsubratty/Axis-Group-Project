@@ -25,13 +25,13 @@ class IdeaGeneration extends Component {
 		}
 	}
 
-	// componentWillReceiveProps(nextProps){
-	// 	if (this.props.wsId != nextProps.wsId) {
-	// 		console.log('componentWillReceiveProps -->',nextProps.wsId);
-	// 		this.props.getWorkshopInfo(nextProps.wsId);
-	// 		this.props.fetchIdeas(this.props.wsId);
-	// 	}
-	// }
+	componentWillReceiveProps(nextProps){
+		if (this.props.wsId != nextProps.wsId) {
+			console.log('componentWillReceiveProps -->',nextProps.wsId);
+			this.props.getWorkshopInfo(nextProps.wsId);
+		//	this.props.fetchIdeas(this.props.wsId);
+		}
+	}
 
 	componentDidMount(){
 		if (this.props.wsId != '') {
