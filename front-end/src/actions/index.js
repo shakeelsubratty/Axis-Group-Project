@@ -13,6 +13,7 @@ export const FETCH_USERS = 'fetch_users';
 export const ATTEMPT_LOGIN = 'attempt_login';
 export const LOG_OUT = 'log_out';
 export const DELETE_IDEA = 'delete_idea';
+export const SET_PARTICIPANT_TO = 'set_participant_to';
 
 const ROOT_URL = 'http://localhost:3000';
 
@@ -86,8 +87,9 @@ export function joinWorkshop(workshopId, callback) {
 
 		axios.get(`http://localhost:3000/participant/create/${workshopId}`).then(function (response) {
 
-			console.log('joinWorkshop Api -->', response);
+			console.log('joinWorkshop Api -->', response.data);
 			sessionStorage.setItem('wsId', workshopId);
+			sessionStorage.setItem('userId',response.data);
 
 			dispatch({
 				type: JOIN_WORKSHOP,
@@ -100,11 +102,9 @@ export function joinWorkshop(workshopId, callback) {
 		})
 	}
 
-
 	// const request = true;
 	// console.log('joinWorkshop action called, id is ==> ',workshopId);
 	// we should make the post API call here.
-
 
 }
 
@@ -136,6 +136,15 @@ export function setWorkshopTo(wsId){
 		payload: wsId,
 	};
 }
+
+export function setParticipantTo(id){
+	console.log('setParticipantTo ->', id);
+	return {
+		type: SET_PARTICIPANT_TO,
+		payload: id,
+	};
+}
+
 // Api ready
 export function fetchUsers(wsId){
 
@@ -245,4 +254,12 @@ export function deleteIdea(id) {
 			console.log(e);
 		});
 	}
+}
+
+export function cleanCache(){
+	console.log('CLEAN_CACHE');
+	sessionStorage.setItem('userId','');
+	return {
+		type: 'CLEAN_CACHE',
+	};
 }

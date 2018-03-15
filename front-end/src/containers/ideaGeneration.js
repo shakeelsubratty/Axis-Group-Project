@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import { fetchIdeas, getWorkshopInfo, createWorkshop, setWorkshopTo} from '../actions';
+import { fetchIdeas, getWorkshopInfo, createWorkshop, setWorkshopTo, setParticipantTo} from '../actions';
 import UserIdea from '../components/userIdea'
 import NewIdea from './newIdea'
 
@@ -16,12 +16,20 @@ class IdeaGeneration extends Component {
 		if (sessionStorage.getItem('wsId') == '') {
 			// console.log('gets here');
 			if (!this.props.wsId) {
-				this.props.history.push('/')
+				this.props.history.push('/enter-workshop')
 			}
 		} else {
 			console.log('wsId - Session ==>', sessionStorage.getItem('wsId'));
-			this.props.setWorkshopTo(sessionStorage.getItem('wsId'))
-			console.log('hi friend ->', this.props.wsId);
+			this.props.setWorkshopTo(sessionStorage.getItem('wsId'));
+			console.log('hi friend wsId->', this.props.wsId);
+		}
+
+		if (sessionStorage.getItem('userId') == '') {
+			this.props.history.push('/enter-workshop')
+		} else {
+			console.log('userId - Session ==>', sessionStorage.getItem('userId'));
+			this.props.setParticipantTo(sessionStorage.getItem('userId'));
+			console.log('hi friend userId->', this.props.wsId);
 		}
 	}
 
@@ -50,7 +58,7 @@ class IdeaGeneration extends Component {
 
 	update() {
 		console.log('update called');
-		this.props.fetchIdeas(this.props.wsUserId);
+		this.props.fetchIdeas(this.props.userId);
 	}
 
 
@@ -72,7 +80,7 @@ class IdeaGeneration extends Component {
 	}
 
 	render() {
-		console.log('idea generation user id',this.props.wsUserId);
+		console.log('idea generation user id',this.props.userId);
 		return (
 			<div className='main'>
 				<div className="container-fluid">
@@ -85,7 +93,7 @@ class IdeaGeneration extends Component {
 							<div style={{width: '40vw'}}>
 								<NewIdea
 									callback={this.update}
-									userId={this.props.wsUserId}/>
+									userId={this.props.userId}/>
 							</div>
 						</div>
 
@@ -107,7 +115,7 @@ function mapStateToProps(state) {
 		ideas: state.ideas,
 		wsTitle: state.app.wsInfo.title,
 		wsId: state.app.wsId,
-		wsUserId: state.app.wsUserId,
+		userId: state.app.userId,
 
 	};
 }
@@ -116,7 +124,8 @@ const mapDispatchToProps = {
 	fetchIdeas,
 	getWorkshopInfo,
 	createWorkshop,
-	setWorkshopTo
+	setWorkshopTo,
+	setParticipantTo
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(IdeaGeneration);

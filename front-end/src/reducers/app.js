@@ -1,17 +1,20 @@
-import { JOIN_WORKSHOP, CREATE_WORKSHOP, ATTEMPT_LOGIN, LOG_OUT, GET_WS_INFO, SET_WORKSHOP_TO, FETCH_USERS, FETCH_ALL_IDEAS  } from '../actions';
+import { JOIN_WORKSHOP, CREATE_WORKSHOP, ATTEMPT_LOGIN, LOG_OUT, GET_WS_INFO, SET_WORKSHOP_TO, FETCH_USERS, FETCH_ALL_IDEAS, SET_PARTICIPANT_TO  } from '../actions';
 
 const INITIAL_STATE = {
   isLogged: false,
   wsId: '',
   wsInfo: '',
   wsUsers: null,
-  wsIdeas: ''
+  wsIdeas: '',
+  userId: ''
 };
 
 export default (state = INITIAL_STATE, action) => {
 	switch (action.type) {
 		case JOIN_WORKSHOP:
-			return { ...state, wsUserId: action.payload }
+			return { ...state, userId: action.payload }
+    case SET_PARTICIPANT_TO:
+        return { ...state, userId: action.payload}
 		case ATTEMPT_LOGIN:
 			return { ...state, isLogged: action.payload }
 		case LOG_OUT:
