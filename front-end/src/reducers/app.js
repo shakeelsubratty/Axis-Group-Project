@@ -25,7 +25,7 @@ export default (state = INITIAL_STATE, action) => {
     case FETCH_USERS:
     return { ...state, wsUsers: action.payload}
     case FETCH_ALL_IDEAS:
-    return { ...state, wsIdeas: _.mapKeys(action.payload,'id')}
+    return { ...state, wsIdeas: _.mapKeys(action.payload,'_id')}
     default:
       return state;
   }

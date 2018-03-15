@@ -63,6 +63,7 @@ class ModeratorMain extends Component {
   }
 
   renderIdeas() {
+    console.log('this.props.wsIdeas ->',this.props.wsIdeas);
 		return Object.keys(this.props.wsIdeas).map((item)=>{
 			return (
 				<div key={this.props.wsIdeas[item].id}>
@@ -70,7 +71,7 @@ class ModeratorMain extends Component {
 						id = {this.props.wsIdeas[item].id}
 						title={this.props.wsIdeas[item].title}
 					>
-            {this.props.wsIdeas[item].explanation}
+            {this.props.wsIdeas[item].description}
 					</WorkshopIdea>
 				</div>
 			)

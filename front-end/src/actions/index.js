@@ -169,16 +169,20 @@ export function fetchIdeas(userId) {
 }
 
 export function fetchAllIdeas(wsId){
-	const ret = axios.get(`http://localhost:3000/workshop/view/${wsId}/ideas`);
-	console.log('fetchAllIdeas Api -->', ret);
+	return (dispatch) => {
 
-	let request = currentAllIdeas;
-	console.log('fetchAllIdeas is called request ==>',request);
+    axios.get(`http://localhost:3000/workshop/view/${wsId}/ideas`).then(function (response) {
 
-	return {
-		type: FETCH_ALL_IDEAS,
-		payload: ret.data
-	}
+			console.log('fetchAllIdeas Api -->', response.data);
+
+      dispatch({
+				type: FETCH_ALL_IDEAS,
+		    payload: response.data,
+      });
+    }).catch((e) => {
+      console.log(e);
+    })
+  }
 }
 
 // TODO: Add userId and wsId as a value passed return idea id
