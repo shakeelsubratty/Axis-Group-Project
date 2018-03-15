@@ -32,10 +32,13 @@ class ModeratorMain extends Component {
     } else {
       const usrn = sessionStorage.getItem('usrn');
       const pass = sessionStorage.getItem('pass');
-      if (!this.props.attemptLogIn(usrn,pass)) {
-        // If you try to inject invalid login credentials
-        this.props.history.push('/login-failed');
-      }
+      this.props.attemptLogIn(usrn,pass, ()=>{
+        console.log('this.props.isLogged->',this.props.isLogged);
+        if (!this.props.isLogged) {
+          // If you try to inject invalid login credentials
+          this.props.history.push('/login-failed');
+        }
+      });
     }
   }
 
@@ -60,6 +63,7 @@ class ModeratorMain extends Component {
   }
 
   renderIdeas() {
+    console.log('this.props.wsIdeas ->',this.props.wsIdeas);
 		return Object.keys(this.props.wsIdeas).map((item)=>{
 			return (
 				<div key={this.props.wsIdeas[item].id}>
@@ -67,7 +71,7 @@ class ModeratorMain extends Component {
 						id = {this.props.wsIdeas[item].id}
 						title={this.props.wsIdeas[item].title}
 					>
-            {this.props.wsIdeas[item].explanation}
+            {this.props.wsIdeas[item].description}
 					</WorkshopIdea>
 				</div>
 			)
@@ -150,6 +154,7 @@ class ModeratorMain extends Component {
 
 function mapStateToProps(state){
   return {
+    isLogged: state.app.isLogged,
     wsId: state.app.wsId,
     wsInfo: state.app.wsInfo,
     wsTitle: state.app.wsInfo.title,
