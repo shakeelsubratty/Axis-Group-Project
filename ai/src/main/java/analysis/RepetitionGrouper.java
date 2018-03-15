@@ -2,6 +2,8 @@ package analysis;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import data.Constants;
 import data.Response;
 
 /**
@@ -21,6 +23,7 @@ public class RepetitionGrouper
 	public RepetitionGrouper()
 	{
 		responses = new ArrayList<>();
+		groups = new ArrayList<>();
 	}
 
 	/**
@@ -29,14 +32,61 @@ public class RepetitionGrouper
 	 *            the response to be added
 	 * @return true if the response was added successfully.
 	 */
-	public boolean addResponse(Response r)
+	public void addResponse(Response r)
 	{
-		// TODO: Implement method and change groupResponses() to use this method. This
-		// method should take a Response, compare it to all existing groups and insert
-		// into the group with the highest match percentage (or add to a new group if
-		// its match percentage is below the minimum match requirements).
-		
-		return responses.add(r);
+		responses.add(r);
+
+		// Create a new group if this response is the first response to be added.
+		if (responses.size() == 1)
+		{
+			ArrayList<Response> newGroup = new ArrayList<>();
+			newGroup.add(r);
+			groups.add(newGroup);
+		}
+		else // Find best group for the response that is being added
+		{
+			List<Response> bestGroup = null;
+			double bestMatch = 0;
+
+			// Iterate through groups
+			for (int i = 0; i < groups.size(); i++)
+			{
+				List<Response> currentGroup = groups.get(i);
+
+				double averageMatch = 0;
+
+				// Iterate through responses in group and get match percentage
+				for (int j = 0; j < currentGroup.size(); j++)
+				{
+					Response currentResponse = currentGroup.get(j);
+
+					double temp = r.getMatchPercentage(currentResponse);
+
+					averageMatch += temp;
+				}
+
+				averageMatch /= currentGroup.size();
+
+				// If this group is the best match and it meets the minimum match percentage,
+				// save the group as the best match
+				if (averageMatch > bestMatch && averageMatch > Constants.MATCH_PERCENTAGE)
+				{
+					bestGroup = currentGroup;
+				}
+			}
+
+			// If no matching group was found, add the response to a new group
+			if (bestGroup == null)
+			{
+				ArrayList<Response> newGroup = new ArrayList<>();
+				newGroup.add(r);
+				groups.add(newGroup);
+			}
+			else // Add the response to the best matching group that was found
+			{
+				bestGroup.add(r);
+			}
+		}
 	}
 
 	/**
@@ -50,8 +100,15 @@ public class RepetitionGrouper
 		return responses.remove(r);
 	}
 
+	public List<List<Response>> getGroups()
+	{
+		return groups;
+	}
+
 	/**
-	 * Group similar responses
+	 * @deprecated
+	 * 
+	 * 			Group similar responses
 	 * 
 	 * @return the grouped responses
 	 */

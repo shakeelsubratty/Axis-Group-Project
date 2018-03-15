@@ -124,18 +124,28 @@ public class Response
 	/**
 	 * 
 	 * @param r
+	 *            the Response to compare
 	 * @return true if the responses have over 50% match
 	 */
 	public boolean matches(Response r)
 	{
-		double nounMatch = this.compareNounsTo(r);
-		double verbMatch = this.compareVerbsTo(r);
-
-		System.out.println("Noun match = " + nounMatch + "\nVerb match = " + verbMatch);
-
-		return ((double) (nounMatch + verbMatch) / 2.0) > Constants.MATCH_PERCENTAGE;
+		return this.getMatchPercentage(r) > Constants.MATCH_PERCENTAGE;
 	}
 
+	/**
+	 * 
+	 * @param r
+	 *            the Response to compare
+	 * @return the percentage match for these two responses
+	 */
+	public double getMatchPercentage(Response r)
+	{
+		double nounMatch = this.compareNounsTo(r);
+		double verbMatch = this.compareVerbsTo(r);
+		
+		return (double) (nounMatch + verbMatch) / 2.0;
+	}
+	
 	@Override
 	public String toString()
 	{

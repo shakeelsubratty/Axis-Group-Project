@@ -1,20 +1,8 @@
-import com.google.cloud.language.v1.Document;
-import com.google.cloud.language.v1.Document.Type;
-
-import data.Response;
-
-import com.google.cloud.language.v1.LanguageServiceClient;
-import com.google.cloud.language.v1.Sentiment;
-import com.google.cloud.language.v1.Token;
+import java.util.ArrayList;
+import java.util.List;
 
 import analysis.RepetitionGrouper;
-
-import com.google.cloud.language.v1.ClassificationCategory;
-
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.Collections;
+import data.Response;
 
 public class MainClass
 {
@@ -46,7 +34,7 @@ public class MainClass
 				"Call or message anyone hands-free who also has an Echo device or the Alexa App. Also, quickly connect to other Echo devices in your home using just your voice.");
 		Response ab = new Response(
 				"New speaker with Dolby processing that fills the room with immersive, 360° omnidirectional audio, and delivers crisp vocals, deep bass, and clear highs at louder volumes.");
-	
+
 		ArrayList<Response> responses = new ArrayList<>();
 
 		RepetitionGrouper rg = new RepetitionGrouper();
@@ -62,7 +50,7 @@ public class MainClass
 		rg.addResponse(aa);
 		rg.addResponse(ab);
 
-		List<List<Response>> results = rg.groupResponses();
+		List<List<Response>> results = rg.getGroups();
 
 		for (int i = 0; i < results.size(); i++)
 		{
