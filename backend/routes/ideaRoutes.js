@@ -15,7 +15,7 @@ module.exports = function(app) {
         });
     });
     app.get(config.ideaRoot + '/delete/:id', function(req, res) {
-        ideaModel.deleteIdea(id);
+        ideaModel.deleteIdea(req.query.id);
         res.sendStatus(200);
     });
 }
