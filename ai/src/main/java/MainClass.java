@@ -62,7 +62,7 @@ public class MainClass
 		rg.addResponse(aa);
 		rg.addResponse(ab);
 
-		List<List<Response>> results = rg.groupResponses();
+		List<List<Response>> results = rg.getGroups();
 
 		for (int i = 0; i < results.size(); i++)
 		{
