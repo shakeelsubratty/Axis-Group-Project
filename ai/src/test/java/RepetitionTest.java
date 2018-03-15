@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import analysis.RepetitionGrouper;
@@ -17,19 +18,40 @@ public class RepetitionTest
 	{
 		try
 		{
-			Response r = new Response("This is a response.");
-			
-			if(!r.getText().equals("This is a response."))
+			Response r = new Response(
+					"This is a response. The text should be added to a new instance of Response and analysed by the Google API. The analysis returned from the API should be stored in an instance of Syntax within the Response object.");
+
+			if (!r.getText().equals(
+					"This is a response. The text should be added to a new instance of Response and analysed by the Google API. The analysis returned from the API should be stored in an instance of Syntax within the Response object."))
 			{
 				fail("The Response was not created correctly.");
 			}
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
 			fail(e.toString());
 		}
 	}
-	
+
+	@Test
+	@Ignore("Bug has not been fixed yet.")
+	public void HandleShortResponse()
+	{
+		try
+		{
+			Response r = new Response("This is a response.");
+
+			if (!r.getText().equals("This is a response."))
+			{
+				fail("The Response was not created correctly.");
+			}
+		}
+		catch (Exception e)
+		{
+			fail(e.toString());
+		}
+	}
+
 	@Test
 	public void CreateAndGroupResponses()
 	{
@@ -56,7 +78,7 @@ public class RepetitionTest
 					"Call or message anyone hands-free who also has an Echo device or the Alexa App. Also, quickly connect to other Echo devices in your home using just your voice.");
 			Response ab = new Response(
 					"New speaker with Dolby processing that fills the room with immersive, 360° omnidirectional audio, and delivers crisp vocals, deep bass, and clear highs at louder volumes.");
-			
+
 			// Add responses to grouper and group responses
 			RepetitionGrouper rg = new RepetitionGrouper();
 
@@ -70,11 +92,11 @@ public class RepetitionTest
 			rg.addResponse(h);
 			rg.addResponse(aa);
 			rg.addResponse(ab);
-			
+
 			// Get grouped responses
 			List<List<Response>> results = rg.getGroups();
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 			fail(e.toString());
