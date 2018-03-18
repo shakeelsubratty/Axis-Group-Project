@@ -13,6 +13,9 @@ export const FETCH_USERS = 'fetch_users';
 export const ATTEMPT_LOGIN = 'attempt_login';
 export const LOG_OUT = 'log_out';
 export const DELETE_IDEA = 'delete_idea';
+export const SET_PARTICIPANT_TO = 'set_participant_to';
+
+const ROOT_URL = 'http://localhost:3000';
 
 let currentDataIdeas = [
 	{ id: '0', title: "Elon Musk is a genious", explanation:'he has multiple successfull companies'},
@@ -47,52 +50,61 @@ let currentDataUsers = [
 	{ id: 1343242 },
 ];
 
-export function attemptLogIn(username, password) {
-  const request = true;
-	console.log('login action called, username is ==> '+ username + ' password ==>', password);
-	// we should make the post API call here.
-  sessionStorage.setItem('usrn', username);
-  sessionStorage.setItem('pass', password);
-	return {
-		type: ATTEMPT_LOGIN,
-		payload: request
-	};
+export function attemptLogIn(username, password, callback) {
+  return (dispatch) => {
+
+		axios.get(`http://localhost:3000/auth/login/${username}/${password}`).then(function (response) {
+
+			console.log('attemptLogIn Api -->', response.data);
+			sessionStorage.setItem('usrn', username);
+		  sessionStorage.setItem('pass', password);
+
+			dispatch({
+				type: ATTEMPT_LOGIN,
+				payload: response.data,
+			});
+			callback();
+			console.log('after createWS API and dispatch');
+		}).catch((e) => {
+			console.log(e);
+		})
+	}
 }
 
 export function logOut() {
-  console.log('LOGGING OUT');
-  sessionStorage.setItem('usrn', null);
-  sessionStorage.setItem('pass', null);
-  sessionStorage.setItem('wsId', null);
-  return {
-    type: LOG_OUT,
-    payload: false
-  };
+	console.log('LOGGING OUT');
+	sessionStorage.setItem('usrn', '');
+	sessionStorage.setItem('pass', '');
+	sessionStorage.setItem('wsId', '');
+	return {
+		type: LOG_OUT,
+		payload: false
+	};
 }
 
-// TODO: Change from boolean into userId
-export function joinWorkshop(workshopId) {
-		return (dispatch) => {
+export function joinWorkshop(workshopId, callback) {
+	return (dispatch) => {
 
-	    axios.get(`http://localhost:3000/participant/create/${workshopId}`).then(function (response) {
+		axios.get(`http://localhost:3000/participant/create/${workshopId}`).then(function (response) {
 
-				console.log('joinWorkshop Api -->', response);
+			console.log('joinWorkshop Api -->', response.data);
+			sessionStorage.setItem('wsId', workshopId);
+			sessionStorage.setItem('userId',response.data);
 
-	      dispatch({
-					type: JOIN_WORKSHOP,
-					payload: response,
-	      });
-				console.log('after createWS API and dispatch');
-	    }).catch((e) => {
-	      console.log(e);
-	    })
-	  }
-
+			dispatch({
+				type: JOIN_WORKSHOP,
+				payload: response.data,
+			});
+			callback();
+			console.log('after createWS API and dispatch');
+		}).catch((e) => {
+			console.log(e);
+		})
+	}
 
 	// const request = true;
 	// console.log('joinWorkshop action called, id is ==> ',workshopId);
 	// we should make the post API call here.
-
 
 }
 
@@ -100,30 +112,37 @@ export function createWorkshop(values, callback) {
 
 	return (dispatch) => {
 
-    axios.get(`http://localhost:3000/workshop/create?title=${values.title}&description=${values.description}`).then(function (response) {
+		axios.get(`http://localhost:3000/workshop/create?title=${values.title}&description=${values.description}`).then(function (response) {
 
 			console.log('createWorkshop Api -->',response.data);
-
-      dispatch({
-				type: CREATE_WORKSHOP,
-				payload: response.data
-      });
-
-			callback();
 			sessionStorage.setItem('wsId', response.data);
 
+			dispatch({
+				type: CREATE_WORKSHOP,
+				payload: response.data
+			});
+			callback();
 			console.log('after createWS API and dispatch');
-    }).catch((e) => {
-      console.log(e);
-    })
-  }
+		}).catch((e) => {
+			console.log(e);
+		})
+	}
 }
 
 export function setWorkshopTo(wsId){
-  return {
-    type: SET_WORKSHOP_TO,
-    payload: wsId,
-  };
+	console.log('setWorkshopTo ->', wsId);
+	return {
+		type: SET_WORKSHOP_TO,
+		payload: wsId,
+	};
+}
+
+export function setParticipantTo(id){
+	console.log('setParticipantTo ->', id);
+	return {
+		type: SET_PARTICIPANT_TO,
+		payload: id,
+	};
 }
 
 // Api ready
@@ -131,12 +150,48 @@ export function fetchUsers(wsId){
 
 	return (dispatch) => {
 
-    axios.get(`http://localhost:3000/workshop/view/${wsId}/users`).then(function (response) {
+		axios.get(`http://localhost:3000/workshop/view/${wsId}/users`).then(function (response) {
 
 			console.log('fetchUsers Api -->', response.data);
 
-      dispatch({
+			dispatch({
 				type: FETCH_USERS,
+				payload: response.data,
+			});
+		}).catch((e) => {
+			console.log(e);
+		})
+	}
+}
+
+export function fetchIdeas(userId) {
+
+	return (dispatch) => {
+
+		axios.get(`${ROOT_URL}/participant/view/${userId}/ideas`).then(function (response) {
+
+			console.log('fecth user ideas response.data-->', response.data);
+
+			dispatch({
+				type: FETCH_IDEAS,
+				payload: response.data,
+			});
+		}).catch((e) => {
+			console.log(e);
+		});
+	}
+}
+
+
+export function fetchAllIdeas(wsId){
+	return (dispatch) => {
+
+    axios.get(`http://localhost:3000/workshop/view/${wsId}/ideas`).then(function (response) {
+
+			console.log('fetchAllIdeas Api -->', response.data);
+
+      dispatch({
+				type: FETCH_ALL_IDEAS,
 		    payload: response.data,
       });
     }).catch((e) => {
@@ -145,57 +200,39 @@ export function fetchUsers(wsId){
   }
 }
 
-export function fetchIdeas(userId) {
-	const ret = axios.get(`http://localhost:3000/participant/view/${userId}/ideas`);
-	console.log('fetchIdeas Api -->', ret);
-
-	let request = currentDataIdeas;
-	console.log('fetchIdeas is called request ==>',request);
-
-	return {
-		type: FETCH_IDEAS,
-		payload: request
-	}
-}
-
-export function fetchAllIdeas(wsId){
-	const ret = axios.get(`http://localhost:3000/workshop/view/${wsId}/ideas`);
-	console.log('fetchAllIdeas Api -->', ret);
-
-	let request = currentAllIdeas;
-	console.log('fetchAllIdeas is called request ==>',request);
-
-	return {
-		type: FETCH_ALL_IDEAS,
-		payload: request
-	}
-}
-
 // TODO: Add userId and wsId as a value passed return idea id
-export function createIdea(values, callback) {
-	console.log('we are sending to the api==>',values)
-		// here we send it to the API.
-	//	const request = axios.post().then(()=>callback);
-		const request = 'elonnnnnn'
-		currentData.push(values);
+export function createIdea(values, userId, callback) {
+	console.log('calling createIdea action==>',values,' ',userId);
 
-		console.log(currentData);
-		callback();
-		return {
-			type: CREATE_IDEA,
-			payload: request
-		}
+	return (dispatch) => {
+
+		axios.get(`${ROOT_URL}/idea/create/${userId}?title=${values.title}&description=${values.explanation}`).then(function (response) {
+
+			console.log('createIdea response.data-->', response.data);
+
+			dispatch({
+				type: CREATE_IDEA,
+				payload: response.data,
+			});
+
+			callback();
+		}).catch((e) => {
+			console.log(e);
+		});
+	}
 }
 
 export function getWorkshopInfo(wsId) {
 
 	return(dispatch) => {
-			axios.get(`http://localhost:3000/workshop/view/${wsId}`).then(function (response) {
+		axios.get(`http://localhost:3000/workshop/view/${wsId}`).then(function (response) {
 			console.log('getWorkshopInfo Api -->', response.data);
 			dispatch({
 				type: GET_WS_INFO,
 				payload: response.data
 			});
+		}).catch((e) => {
+			console.log(e);
 		});
 	};
 }
@@ -203,15 +240,26 @@ export function getWorkshopInfo(wsId) {
 // TODO: id of idea and id of user
 export function deleteIdea(id) {
 
-	const request = 'aaaa'
-	console.log('id passed ', id);
-	// make api call to delete that idea.
-	currentData.splice(id,1);
+	return (dispatch) => {
 
-	console.log('delete idea called, result array=>',currentData);
+		axios.get(`${ROOT_URL}/idea/delete/${id}`).then(function (response) {
 
-	return{
-		type: DELETE_IDEA,
-		payload: request,
+			console.log('delete idea-->', response.data);
+
+			dispatch({
+				type: FETCH_IDEAS,
+				payload: response.data,
+			});
+		}).catch((e) => {
+			console.log(e);
+		});
 	}
+}
+
+export function cleanCache(){
+	console.log('CLEAN_CACHE');
+	sessionStorage.setItem('userId','');
+	return {
+		type: 'CLEAN_CACHE',
+	};
 }

@@ -18,8 +18,9 @@ class Login extends Component {
   }
 
   onSubmit(values){
-    this.props.attemptLogIn(values.username, values.password);
-    this.props.history.push('/create-workshop');
+    this.props.attemptLogIn(values.username, values.password, () => {
+      this.props.history.push('/create-workshop');
+    });
   }
 
   renderField(field){
@@ -39,7 +40,7 @@ class Login extends Component {
   }
 
   render() {
-    console.log(`isLogged - Login==> ${this.props.isLogged}, isLoggedSession - Login==> ${sessionStorage.getItem('isLogged')}`);
+    console.log(`isLogged - Login==> ${this.props.isLogged}`);
     const { handleSubmit } = this.props;
 
     return (

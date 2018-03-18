@@ -4,7 +4,7 @@ import { FETCH_IDEAS, CREATE_IDEA } from '../actions';
 export default function(state = {}, action) {
 	switch (action.type) {
 		case FETCH_IDEAS:
-			return _.mapKeys(action.payload,'id');
+			return action.payload;
 		default:
 			return state;
 	}

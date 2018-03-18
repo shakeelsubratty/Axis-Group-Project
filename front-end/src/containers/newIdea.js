@@ -71,7 +71,8 @@ class NewPost extends Component {
 	}
 
 	onSubmit(values) {
-		this.props.createIdea(values, () => {
+		console.log('new idea user Id',this.props.userId);
+		this.props.createIdea(values, this.props.userId, () => {
 			this.props.callback();
 		});
 		this.props.reset();
@@ -97,11 +98,6 @@ class NewPost extends Component {
 								component={this.renderExplanationField}
 								label="Explanation:"
 								placeholder="Expand on your thoughts."
-								/>
-							<Field
-								name="id"
-								component={this.renderIdField}
-								label="id:"
 								/>
 							<div className="button-box" >
 								<button type="submit" className="btn btn-primary" disabled={pristine || submitting}>Save</button>

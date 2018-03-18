@@ -32,16 +32,21 @@ class ModeratorMain extends Component {
     } else {
       const usrn = sessionStorage.getItem('usrn');
       const pass = sessionStorage.getItem('pass');
-      if (!this.props.attemptLogIn(usrn,pass)) {
-        // If you try to inject invalid login credentials
-        this.props.history.push('/login-failed');
-      }
+      this.props.attemptLogIn(usrn,pass, ()=>{
+        console.log('this.props.isLogged->',this.props.isLogged);
+        if (!this.props.isLogged) {
+          // If you try to inject invalid login credentials
+          this.props.history.push('/login-failed');
+        }
+      });
     }
   }
 
   componentDidMount(){
-    this.props.getWorkshopInfo(this.props.wsId);
-    this.props.fetchAllIdeas(this.props.wsId);
+    if (this.props.wsId != '') {
+      this.props.getWorkshopInfo(this.props.wsId);
+      this.props.fetchAllIdeas(this.props.wsId);
+    }
     if (this.state.isLogged) {
       var intervalWsId = setInterval(() => {
         this.props.fetchAllIdeas(this.props.wsId);
@@ -49,7 +54,16 @@ class ModeratorMain extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps){
+    if (this.props.wsId != nextProps.wsId) {
+      console.log('componentWillReceiveProps -->',nextProps.wsId);
+      this.props.getWorkshopInfo(nextProps.wsId);
+      this.props.fetchAllIdeas(this.props.wsId);
+    }
+  }
+
   renderIdeas() {
+    console.log('this.props.wsIdeas ->',this.props.wsIdeas);
 		return Object.keys(this.props.wsIdeas).map((item)=>{
 			return (
 				<div key={this.props.wsIdeas[item].id}>
@@ -57,7 +71,7 @@ class ModeratorMain extends Component {
 						id = {this.props.wsIdeas[item].id}
 						title={this.props.wsIdeas[item].title}
 					>
-            {this.props.wsIdeas[item].explanation}
+            {this.props.wsIdeas[item].description}
 					</WorkshopIdea>
 				</div>
 			)
@@ -113,7 +127,9 @@ class ModeratorMain extends Component {
   }
 
   render(){
-    if (this.props.wsIdeas == '') {
+    // I think we should take the loader OUT
+    // for the most part is just distracting and its never more than a sec
+    if (this.props.wsInfo == '' && false) {
       return(
         <div className='main'>
           <div className='wrapper'>
@@ -138,6 +154,7 @@ class ModeratorMain extends Component {
 
 function mapStateToProps(state){
   return {
+    isLogged: state.app.isLogged,
     wsId: state.app.wsId,
     wsInfo: state.app.wsInfo,
     wsTitle: state.app.wsInfo.title,

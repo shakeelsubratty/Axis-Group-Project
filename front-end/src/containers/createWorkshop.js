@@ -7,18 +7,28 @@ import { logOut, attemptLogIn, createWorkshop } from '../actions';
 class CreateWorkshop extends Component {
 
   componentWillMount(){
-    if ((sessionStorage.getItem('usrn') == "null") || (sessionStorage.getItem('pass') == "null")) {
+    console.log('this.props.isLogged->',this.props.isLogged);
+    if ((sessionStorage.getItem('usrn') == '') || (sessionStorage.getItem('pass') == '' )) {
+
       if (!this.props.isLogged) {
         // If you try to bypass login
+        console.log('login failed');
         this.props.history.push('/login-failed');
       }
-    } else {
+    }
+    else {
+      console.log('session not empty');
       const usrn = sessionStorage.getItem('usrn');
       const pass = sessionStorage.getItem('pass');
-      if (!this.props.attemptLogIn(usrn,pass)) {
-        // If you try to inject invalid login credentials
-        this.props.history.push('/login-failed');
-      }
+      console.log('usrn-->',usrn);
+      console.log('pass-->',pass);
+      this.props.attemptLogIn(usrn,pass, ()=>{
+        console.log('this.props.isLogged->',this.props.isLogged);
+        if (!this.props.isLogged) {
+          // If you try to inject invalid login credentials
+          this.props.history.push('/login-failed');
+        }
+      });
     }
   }
 
