@@ -8,7 +8,7 @@
 const Promise = require('bluebird');
 const config = require('../config');
 const workshopModel = require('../models/workshopModel');
-const Schma = require('../models/schema');
+const schema = require('../models/schema');
 
 /**
  * workshopModel application routes
@@ -40,7 +40,7 @@ module.exports = function(app) {
   app.get(config.workshopRoot + '/view/:id/users', function(req, res) {
 
     //Fetch the workshop object from the schema using the provided ID
-    Schma.Workshop.findByIdAsync(req.params.id).then(function(workshop) {
+    schema.Workshop.findByIdAsync(req.params.id).then(function(workshop) {
 
       //Debug console outpiut
       if (config.DEBUG) console.log("[API accessed] [workshopRoute] /view/:id/users; found workshop: " + workshop);
@@ -71,7 +71,7 @@ module.exports = function(app) {
   app.get(config.workshopRoot + '/view/:id/ideas', function(req, res) {
 
     //Find the workshop through the provided workshop ID
-    Schma.Workshop.findByIdAsync(req.params.id).then(function(workshop) {
+    schema.Workshop.findByIdAsync(req.params.id).then(function(workshop) {
 
       //Debug console output
       if (config.DEBUG) console.log("[API accesssed] [workshopRoute] /view/:id/ideas; found workshop: " + workshop);

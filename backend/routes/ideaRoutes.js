@@ -7,7 +7,7 @@
 const Promise = require('bluebird');
 const config = require('../config');
 const ideaModel = require('../models/ideaModel');
-const Schma = require('../models/schema');
+const schema = require('../models/schema');
 
 /**
  * ideaModel application routes

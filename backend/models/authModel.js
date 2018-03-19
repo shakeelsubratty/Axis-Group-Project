@@ -7,8 +7,8 @@
 const Promise = require('bluebird');
 const mongoose = Promise.promisifyAll(require('mongoose'));
 const config = require ('../config');
-var Schma = require('./schema');
-var Facilitator = Schma.Facilitator; //Facilitator Schema
+var schema = require('./schema');
+var Facilitator = schema.Facilitator; //Facilitator Schema
 
 /**
  * authModel application functions

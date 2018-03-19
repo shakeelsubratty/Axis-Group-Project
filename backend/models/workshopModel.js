@@ -7,8 +7,8 @@
 const Promise = require('bluebird');
 const mongoose = Promise.promisifyAll(require('mongoose'));
 const config = require ('../config');
-var Schma = require('./schema');
-var Workshop = Schma.Workshop;
+var schema = require('./schema');
+var Workshop = schema.Workshop;
 
 /**
  * workshopModel application functions

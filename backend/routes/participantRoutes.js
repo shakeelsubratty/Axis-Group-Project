@@ -7,7 +7,7 @@
 const Promise = require('bluebird');
 const config = require('../config');
 const participantModel = require('../models/participantModel');
-const Schma = require('../models/schema');
+const schema = require('../models/schema');
 
 /**
  * participantModel application routes
@@ -40,7 +40,7 @@ module.exports = function(app) {
   app.get(config.participantRoot + '/view/:id/ideas', function(req, res) {
 
     //Locate the user object within the schema, through the provided ID
-    Schma.User.findByIdAsync(req.params.id).then(function(user) {
+    schema.User.findByIdAsync(req.params.id).then(function(user) {
 
       //Debug console output
       if (config.DEBUG) {

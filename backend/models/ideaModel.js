@@ -8,8 +8,8 @@ const Promise = require('bluebird');
 const mongoose = Promise.promisifyAll(require('mongoose'));
 const mongodb = require('mongodb');
 const config = require('../config');
-const Schma = require('./schema');
-const Idea = Schma.Idea; //Idea schema
+const schema = require('./schema');
+const Idea = schema.Idea; //Idea schema
 
 /**
  * ideaModel application functions
@@ -26,7 +26,7 @@ module.exports = {
   createIdea: function(ideaTitle, ideaDescription, userId) {
 
     //Find the user within the user database
-    return Schma.User.findByIdAsync(userId).then(function(user) {
+    return schema.User.findByIdAsync(userId).then(function(user) {
       var workshopId = user.workshop; //Get the ID of the workshop that they are in
 
       //Create the new idea with the provided details, saving in mongodb
@@ -51,9 +51,9 @@ module.exports = {
     //Debug console output
     if (config.DEBUG) {
         console.log("accessing idea with ID: " + id);
-        Schma.Idea.findByIdAsync(id).then(function(ret){console.log(ret);});
+        schema.Idea.findByIdAsync(id).then(function(ret){console.log(ret);});
     }
-    return Schma.Idea.findByIdAsync(id); //Return the idea object in mongodb
+    return schema.Idea.findByIdAsync(id); //Return the idea object in mongodb
   },
 
   /**
@@ -65,11 +65,11 @@ module.exports = {
     //Debug console output
     if (config.DEBUG) {
         console.log("deleting ideas with ID: " + id);
-        Schma.Idea.findAsync({_id: id}).then(function(ret){console.log(ret);});
+        schema.Idea.findAsync({_id: id}).then(function(ret){console.log(ret);});
     }
 
     //Remove the idea object within mongodb that has the provided ID
-    return Schma.Idea.remove({_id: new mongodb.ObjectId(id)}, function(err, result) {
+    return schema.Idea.remove({_id: new mongodb.ObjectId(id)}, function(err, result) {
 
       //Debug console output
       if(config.DEBUG) {

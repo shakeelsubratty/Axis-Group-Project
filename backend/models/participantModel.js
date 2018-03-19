@@ -7,8 +7,8 @@
 const Promise = require('bluebird');
 const mongoose = Promise.promisifyAll(require('mongoose'));
 const config = require ('../config');
-var Schma = require('./schema');
-var User = Schma.User; //User schema
+var schema = require('./schema');
+var User = schema.User; //User schema
 
 /**
  * participantModel application functions
