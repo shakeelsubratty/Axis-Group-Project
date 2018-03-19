@@ -3,7 +3,8 @@ var mongoose = Promise.promisifyAll(require('mongoose'));
 
 var workshopSchema = mongoose.Schema({
     title: String,
-    description: String
+    description: String,
+    active: { type: Boolean, default: false }
 });
 workshopSchema.methods.findUsersAsync = function() {
     return userModel.findAsync({workshop: this._id});
