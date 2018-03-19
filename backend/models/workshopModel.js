@@ -23,9 +23,12 @@ module.exports = {
                     return null;
                 }
                 if (config.DEBUG) {
-                    console.log("Retrieved workshop with id: " + id + "; it has title: " + workshop.title);
+                    console.log("Retrieved workshop with id: " + id + "; it has title: " + workshop.title, "; active: " + workshop.active);
                 }
-                return { title: workshop.title, description: workshop.description };
+                return { title: workshop.title, description: workshop.description, active:workshop.active };
             });
+    },
+    activateWorkshop: function(id) {
+        return Workshop.updateAsync({_id: id}, {active: true});
     }
 }

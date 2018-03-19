@@ -15,6 +15,15 @@ module.exports = function(app) {
         });
     });
 
+    app.get(config.workshopRoot + '/set/:id/active', function(req, res) {
+        workshopModel.activateWorkshop(req.params.id).then(function(ret){
+            if (config.DEBUG) {
+                console.log(ret);
+            }
+            res.sendStatus(200);
+        });
+    });
+
     app.get(config.workshopRoot + '/view/:id/users', function(req, res) {
         Schma.Workshop.findByIdAsync(req.params.id).then(function(workshop) {
             if (config.DEBUG) console.log("[API accessed] [workshopRoute] /view/:id/users; found workshop: " + workshop);
