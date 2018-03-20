@@ -8,11 +8,16 @@ import NewIdea from './newIdea'
 class IdeaGeneration extends Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			isInThisPage: false
+		}
 
 		this.update = this.update.bind(this);
 	}
 
 	componentWillMount() {
+		this.setState({isInThisPage: true});
+
 		if (sessionStorage.getItem('wsId') == '') {
 			// console.log('gets here');
 			if (!this.props.wsId) {
@@ -47,16 +52,18 @@ class IdeaGeneration extends Component {
 			this.props.fetchIdeas(this.props.wsId);
 		}
 		console.log('here with wsId->',this.props.wsId);
-		var intervalId = setInterval(() => {
-			if (!document.hasFocus()) {
-				// TODO: Make api call to tell the backend the user has switched tabs
-				console.log('USER SWITCHED TAB');
-			}
-		}, 1000);
+		if (this.state.isInThisPage) {
+			var intervalUserId = setInterval(() => {
+				if (!document.hasFocus()) {
+					// TODO: Make api call to tell the backend the user has switched tabs
+					console.log('USER SWITCHED TAB');
+				}
+			}, 500);
+		}
 	}
 
 	componentWillUnmount(){
-	//	clearInterval(this.intervalId);
+	clearInterval(this.intervalUserId);
 	}
 
 	update() {

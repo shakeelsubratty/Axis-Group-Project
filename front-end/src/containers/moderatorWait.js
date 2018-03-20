@@ -56,7 +56,7 @@ class ModeratorWait extends Component {
       this.props.getWorkshopInfo(this.props.wsId);
     }
     console.log('here with wsId->',this.props.wsId);
-    var intervalId = setInterval(() => {
+    var intervalWaitId = setInterval(() => {
         if (!this.state.showingId) {
           this.props.fetchUsers(this.props.wsId);
         }
@@ -64,7 +64,7 @@ class ModeratorWait extends Component {
   }
 
   componentWillUnmount(){
-    clearInterval(this.intervalId);
+    clearInterval(this.intervalWaitId);
   }
 
   renderUsers(){
@@ -141,7 +141,7 @@ class ModeratorWait extends Component {
       <div className='button-box' style={{padding: `${this.state.showingId ? '1% 1% 0 0' : '1% 0 0 0'}`, width:'100%'}}>
         <Link className='btn btn-danger' to='/' onClick={() => {
           this.props.logOut();
-          clearInterval(this.intervalId);
+          clearInterval(this.intervalWaitId);
         }}>
           Exit
         </Link>
