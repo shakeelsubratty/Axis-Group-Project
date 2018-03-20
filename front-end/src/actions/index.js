@@ -76,7 +76,6 @@ export function logOut() {
 	sessionStorage.setItem('usrn', '');
 	sessionStorage.setItem('pass', '');
 	sessionStorage.setItem('wsId', '');
-	clearInterval()
 	return {
 		type: LOG_OUT,
 		payload: false
