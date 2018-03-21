@@ -1,8 +1,5 @@
-package test;
-
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Ignore;
@@ -34,12 +31,12 @@ public class RepetitionTest
 	}
 
 	@Test
-	@Ignore("Bug has not been fixed yet.")
 	public void HandleShortResponse()
 	{
+		Response r = null;
 		try
 		{
-			Response r = new Response("This is a response.");
+			r = new Response("This is a response.");
 
 			if (!r.getText().equals("This is a response."))
 			{
@@ -53,6 +50,7 @@ public class RepetitionTest
 	}
 
 	@Test
+	// @Ignore("Takes too long.")
 	public void CreateAndGroupResponses()
 	{
 		try

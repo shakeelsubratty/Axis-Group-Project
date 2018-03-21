@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.api.gax.rpc.InvalidArgumentException;
 import com.google.cloud.language.v1.Token;
 
 /**
@@ -31,15 +32,37 @@ public class Response
 	 * @throws IOException
 	 * @throws Exception
 	 */
-	public Response(String text) throws IOException, Exception
+	public Response(String text)
 	{
 		id = count;
 		count++;
 
 		this.text = text;
 
-		syntax = new Syntax(text);
-		categories = new Categories(text);
+		try
+		{
+			syntax = new Syntax(text);
+		}
+		catch (Exception e)
+		{
+			// The response is too short to perform some analysis, but this does not impact
+			// this program's use of the API.
+		}
+
+		try
+		{
+			categories = new Categories(text);
+		}
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (Exception e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public int getID()
@@ -142,10 +165,10 @@ public class Response
 	{
 		double nounMatch = this.compareNounsTo(r);
 		double verbMatch = this.compareVerbsTo(r);
-		
+
 		return (double) (nounMatch + verbMatch) / 2.0;
 	}
-	
+
 	@Override
 	public String toString()
 	{
