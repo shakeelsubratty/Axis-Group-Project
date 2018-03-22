@@ -56,11 +56,11 @@ module.exports = {
 
       //Debug console output
       if (config.DEBUG) {
-          console.log("Retrieved workshop with id: " + id + "; it has title: " + workshop.title);
+          console.log("Retrieved workshop with id: " + id + "; it has title: " + workshop.title, "; active: " + workshop.active);
       }
 
       //Return the workshop's title and description
-      return { title: workshop.title, description: workshop.d};
+      return { title: workshop.title, description: workshop.description, active: workshop.active};
     });
   },
 
