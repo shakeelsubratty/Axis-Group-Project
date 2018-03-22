@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { deleteIdea } from '../actions';
 
@@ -52,8 +52,8 @@ class UserIdea extends Component {
 
 }
 
-UserIdea.propTypes = {
-    title: PropTypes.string,
-};
+// UserIdea.propTypes = {
+//     title: PropTypes.string,
+// };
 
 export default connect(null,{deleteIdea})(UserIdea);

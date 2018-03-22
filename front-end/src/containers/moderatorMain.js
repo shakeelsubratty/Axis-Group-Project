@@ -13,7 +13,7 @@ class ModeratorMain extends Component {
   }
 
   componentWillMount(){
-    if (sessionStorage.getItem('wsId') == 'null') {
+    if (sessionStorage.getItem('wsId') == '') {
       if (!this.props.wsId) {
         // If you try to get here from login without creating a workshop
         this.props.history.push('/create-workshop')
@@ -24,7 +24,7 @@ class ModeratorMain extends Component {
       this.setState({isLogged:true})
     } // If you refresh
 
-    if ((sessionStorage.getItem('usrn') == 'null' || sessionStorage.getItem('pass') == 'null')) {
+    if ((sessionStorage.getItem('usrn') == '' || sessionStorage.getItem('pass') == '')) {
       if (!this.props.isLogged) {
         // If you try to bypass login
         this.props.history.push('/login-failed');
@@ -60,6 +60,10 @@ class ModeratorMain extends Component {
       this.props.getWorkshopInfo(nextProps.wsId);
       this.props.fetchAllIdeas(this.props.wsId);
     }
+  }
+
+  componentWillUnmount(){
+    clearInterval(this.intervalWsId);
   }
 
   renderIdeas() {
@@ -101,6 +105,7 @@ class ModeratorMain extends Component {
         <div style={{textAlign:'right'}}>
           <Link className='' to='/' onClick={() => {
             this.props.logOut();
+            this.setState({isLogged: false})
             clearInterval(this.intervalWsId);
           }}>
             Exit
@@ -114,7 +119,7 @@ class ModeratorMain extends Component {
         </div>
         <div
           className='flexRowCenter card'
-          style={{border:'none',backgroundColor:'#e8edf4 !important', marginTop:'2%', alignItems:'flex-end'}}
+          style={{backgroundColor:'#e8edf4',border:'none', marginTop:'2%', alignItems:'flex-end'}}
         >
           <div style={{flex:2.5, textAlign:'right'}}>
             <button className='btn btn-success'>

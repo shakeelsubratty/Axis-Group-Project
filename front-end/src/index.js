@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDom from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
@@ -22,12 +22,12 @@ import ReduxThunk from 'redux-thunk';
 
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise,ReduxThunk)(createStore);
 
-ReactDOM.render(
+ReactDom.render(
 
   <Provider store={createStoreWithMiddleware(reducers)}>
     <BrowserRouter>
       <Switch>
-			<Route path='/workshop:id' component={IdeaGeneration}/>
+			  <Route path='/workshop:id' component={IdeaGeneration}/>
         <Route path='/login-failed' component={LoginFailed} />
         <Route path='/login' component={Login} />
         <Route path='/create-workshop' component={CreateWorkshop} />
