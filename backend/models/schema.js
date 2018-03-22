@@ -10,7 +10,7 @@ var mongoose = Promise.promisifyAll(require('mongoose'));
 //Schema of a workshop
 var workshopSchema = mongoose.Schema({
     title: String, //Title (question) of a workshop
-    description: String //Further information for a workshop
+    description: String, //Further information for a workshop
 
     //Whether a workshop is actively in use and open to join
     active: { type: Boolean, default: false }
