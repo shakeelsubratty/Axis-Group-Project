@@ -82,11 +82,14 @@ class NewPost extends Component {
 	render() {
 		const { handleSubmit, reset, pristine, submitting } = this.props;
 		return (
-			<div className='card'>
-				<h1 className='card-header' style={{ textAlign: 'left'}}>Ideas</h1>
-				<div className="card-body">
-					<div className='form-group' style={{padding: '1.5%'}}>
-						<form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+			<div className='card' style={{flex:1, display:'flex', flexDirection:'column', borderRadius:0,borderBottom:'none',marginBottom:0}}>
+				<h1 className='card-header' style={{ textAlign: 'left', flex:1, backgroundColor:'#e8edf4 !important', margin:0}}>Ideas</h1>
+				<div className="card-body" style={{flex:5,backgroundColor:'#e8edf4 !important'}}>
+					<div className='form-group' style={{padding: '1.5%', height:'100%'}}>
+						<form
+							onSubmit={handleSubmit(this.onSubmit.bind(this))}
+							style={{display:'flex', flexDirection:'column', justifyContent:'space-around', height:'100%', padding:'3%'}}
+						>
 							<Field
 								name="title"
 								component={this.renderTitleField}

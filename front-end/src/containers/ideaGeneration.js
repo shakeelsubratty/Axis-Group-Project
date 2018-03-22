@@ -19,7 +19,6 @@ class IdeaGeneration extends Component {
 		this.setState({isInThisPage: true});
 
 		if (sessionStorage.getItem('wsId') == '') {
-			// console.log('gets here');
 			if (!this.props.wsId) {
 				this.props.history.push('/enter-workshop')
 			}
@@ -34,22 +33,27 @@ class IdeaGeneration extends Component {
 		} else {
 			console.log('userId - Session ==>', sessionStorage.getItem('userId'));
 			this.props.setParticipantTo(sessionStorage.getItem('userId'));
-			console.log('hi friend userId->', this.props.wsId);
+			console.log('userId->', this.props.userId);
 		}
 	}
 
 	componentWillReceiveProps(nextProps){
 		if (this.props.wsId != nextProps.wsId) {
-			console.log('componentWillReceiveProps -->',nextProps.wsId);
+			console.log('componentWillReceiveProps wsId-->',nextProps.wsId);
 			this.props.getWorkshopInfo(nextProps.wsId);
-		//	this.props.fetchIdeas(this.props.wsId);
+		}
+		if (this.props.userId != nextProps.userId) {
+			console.log('componentWillReceiveProps userId -->',nextProps.userId);
+			this.props.fetchIdeas(nextProps.userId);
 		}
 	}
 
 	componentDidMount(){
 		if (this.props.wsId != '') {
 			this.props.getWorkshopInfo(this.props.wsId);
-			this.props.fetchIdeas(this.props.wsId);
+		}
+		if (this.props.userId != '') {
+			this.props.fetchIdeas(this.props.userId);
 		}
 		console.log('here with wsId->',this.props.wsId);
 		if (this.state.isInThisPage) {
@@ -67,48 +71,49 @@ class IdeaGeneration extends Component {
 	}
 
 	update() {
-		console.log('update called');
+		console.log('UPDATE CALLED');
 		this.props.fetchIdeas(this.props.userId);
 	}
 
 
 	renderIdeas() {
 		console.log('ideasss=>',this.props.ideas);
-		return Object.keys(this.props.ideas).map((item)=>{
-			return (
-				<div key={this.props.ideas[item]._id}>
-					<UserIdea
-						callback = {this.update}
-						id = {this.props.ideas[item]._id}
-						title={this.props.ideas[item].title}
+		if (_.isEmpty(this.props.ideas)) {
+			return (<div>Loading...</div>)
+		} else {
+			return Object.keys(this.props.ideas).map((item)=>{
+				return (
+					<div key={this.props.ideas[item]._id}>
+						<UserIdea
+							callback = {this.update}
+							id = {this.props.ideas[item]._id}
+							title={this.props.ideas[item].title}
 
-						>{this.props.ideas[item].description}
-					</UserIdea>
-				</div>
-			)
-		});
+							>{this.props.ideas[item].description}
+						</UserIdea>
+					</div>
+				)
+			});
+		}
 	}
 
 	render() {
 		console.log('idea generation user id',this.props.userId);
+		console.log('idea generation ws id', this.props.wsId);
 		return (
 			<div className='main'>
-				<div className="container-fluid">
-					<div className="row">
-						<h1 className="col-sm" style={{ textAlign: 'center', padding: '20px', color: 'white'}}>{this.props.wsTitle}</h1>
+				<div className='wrapper' style={{alignItems:'stretch', padding:'2%'}}>
+					<div className='card' style={{backgroundColor:'#e8edf4 !important', margin:0}}>
+						<h1 style={{ textAlign: 'center', padding: '20px'}}>{this.props.wsTitle}</h1>
 					</div>
-					<div className="row">
-
-						<div className="col-sm-6" style={{ display: 'flex', justifyContent: 'flex-end'}}>
-							<div style={{width: '40vw'}}>
-								<NewIdea
-									callback={this.update}
-									userId={this.props.userId}/>
-							</div>
-						</div>
-
-						<div className="col-sm-6">
-							<div  style={{width: '40vw'}}>
+					<div style={{display:'flex', flex:5.5, marginTop:'2%', flexDirection:'row'}}>
+						<NewIdea
+							className='card card-big dataBox'
+							callback={this.update}
+							userId={this.props.userId}
+						/>
+						<div className='card card-big' style={{flex:1,borderRadius:0,borderBottom:'none',marginBottom:0,paddingBottom:'2%'}}>
+							<div className='card-body' style={{flex:6,marginTop:'2%', alignItems:'stretch', overflowY:'scroll'}}>
 								{this.renderIdeas()}
 							</div>
 						</div>
