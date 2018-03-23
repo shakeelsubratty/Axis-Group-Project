@@ -3,6 +3,7 @@ apply plugin: 'application'
 mainClassName = 'MainClass'
 dependencies
 {
+	compile 'com.google.cloud:google-cloud-translate:1.14.0'
 	compile 'com.google.cloud:google-cloud-language:1.14.0'
 	testCompile 'junit:junit:4.12'
 }

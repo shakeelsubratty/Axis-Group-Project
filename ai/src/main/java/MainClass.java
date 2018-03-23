@@ -11,7 +11,7 @@ public class MainClass
 	// surround the creation of a response with a try/catch. If an error is caught,
 	// it means that the API failed to analyse that response or the program failed
 	// to communicate with the Google API.
-
+	
 	public static void main(String[] args) throws Exception
 	{
 		Response a = new Response(

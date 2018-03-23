@@ -16,7 +16,6 @@ import com.google.cloud.language.v1.Token;
  */
 public class Response
 {
-	private static int count;
 	private int id;
 
 	private String text;
@@ -34,9 +33,18 @@ public class Response
 	 */
 	public Response(String text)
 	{
-		id = count;
-		count++;
-
+		id = -1;
+		init(text);
+	}
+	
+	public Response(String text, int id)
+	{
+		this.id = id;
+		init(text);
+	}
+	
+	private void init(String text)
+	{
 		this.text = text;
 
 		try
