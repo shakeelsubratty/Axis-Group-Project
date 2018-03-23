@@ -1,2 +1,4 @@
-ai/bin
+ai/.gradle
 ai/build
+ai/bin
+.idea/
