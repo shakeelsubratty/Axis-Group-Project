@@ -1,4 +1,4 @@
-package hello;
+package analysis;
 
 public class UserEngagementResponse
 {
@@ -6,6 +6,8 @@ public class UserEngagementResponse
     private int superUnengaged;
     private int unengaged;
     private int engaged;
+    private int superEngaged;
+    private int overallEngagement;
 
     public int getSuperUnengaged() {
         return superUnengaged;
@@ -39,13 +41,21 @@ public class UserEngagementResponse
         this.superEngaged = superEngaged;
     }
 
-    private int superEngaged;
+    public int getOverallEngagement() {
+        return overallEngagement;
+    }
 
-    public UserEngagementResponse(int x, int y, int z, int w)
+    public void setOverallEngagement(int overallEngagement) {
+        this.overallEngagement = overallEngagement;
+    }
+
+
+    public UserEngagementResponse(int v, int w, int x, int y, int z)
     {
-        this.superUnengaged = x;
-        this.unengaged = y;
-        this.engaged = z;
-        this.superEngaged = w;
+        this.superUnengaged = v;
+        this.unengaged = w;
+        this.engaged = x;
+        this.superEngaged = y;
+        this.overallEngagement = z;
     }
 }
