@@ -143,3 +143,15 @@ gradle-app.setting
 
 
 # End of https://www.gitignore.io/api/gradle,eclipse,intellij
+
+/front-end/node_modules
+/backend/node_modules
+/backend/data
+front-end/bundle.js
+/front-end/npm-debug.log
+.DS_Store
+/node_modules/
+
+# IntelliJ
+*.iml
+/.idea
