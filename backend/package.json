@@ -5,6 +5,15 @@
     "description": "kcl salsa 3.0 app",
     "dependencies": {
         "express": "^4.16.0",
-        "mongoose": "^5.0.6"
+        "mongoose": "^5.0.6",
+        "mocha": "latest",
+        "sinon": "latest",
+        "unexpected": "latest",
+        "unexpected-express": "latest",
+        "unexpected-sinon": "latest",
+        "mockery": "latest"
+    },
+    "scripts": {
+        "test": "mocha"
     }
 }
