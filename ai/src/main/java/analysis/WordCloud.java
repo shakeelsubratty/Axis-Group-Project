@@ -1,3 +1,5 @@
+package analysis;
+
 import com.google.cloud.language.v1.Document;
 import com.google.cloud.language.v1.Document.Type;
 import com.google.cloud.language.v1.EncodingType;
@@ -8,11 +10,13 @@ import com.google.cloud.language.v1.Entity;
 
 import java.util.HashMap;
 
+import data.Word;
+
 public class WordCloud {
 	
 	private HashMap<String, Word> wordCloud = new HashMap<>();
 	
-	public void processResponce(String text) throws Exception{
+	public void processResponse(String text) throws Exception{
 		
 		try (LanguageServiceClient language = LanguageServiceClient.create()) {
 	    	  Document doc = Document.newBuilder()
@@ -44,29 +48,29 @@ public class WordCloud {
 		return wordCloud;
 	}
 	
-	public static void main(String[] args) throws Exception {
-		WordCloud cloud = new WordCloud();
-		
-		String a = "I love this coursework! Its the best!";
-		cloud.processResponce(a);
-		for(Word word : cloud.wordCloud.values()) {
-			System.out.println(word.getName() + " " + word.getColour() + " " +  word.getCount() + " " +  word.getSentiment() + "\n");
-		}
-		System.out.print("---------------------" + "\n");
-		
-		String b = "I hate this coursework! Its the worst";
-		cloud.processResponce(b);
-		for(Word word : cloud.wordCloud.values()) {
-			System.out.println(word.getName() + " " + word.getColour() + " " +  word.getCount() + " " +  word.getSentiment() + "\n");
-		}
-		System.out.print("---------------------" + "\n");
-		
-		String c ="I really believe I love salsa, but hate ketchup";
-		cloud.processResponce(c);
-		for(Word word : cloud.wordCloud.values()) {
-			System.out.println(word.getName() + " " + word.getColour() + " " +  word.getCount() + " " +  word.getSentiment() + "\n");
-		}
-		System.out.print("---------------------" + "\n");
-		
-    }
+//	public static void main(String[] args) throws Exception {
+//		WordCloud cloud = new WordCloud();
+//
+//		String a = "I love this coursework! Its the best!";
+//		cloud.processResponce(a);
+//		for(Word word : cloud.wordCloud.values()) {
+//			System.out.println(word.getName() + " " + word.getColour() + " " +  word.getCount() + " " +  word.getSentiment() + "\n");
+//		}
+//		System.out.print("---------------------" + "\n");
+//
+//		String b = "I hate this coursework! Its the worst";
+//		cloud.processResponce(b);
+//		for(Word word : cloud.wordCloud.values()) {
+//			System.out.println(word.getName() + " " + word.getColour() + " " +  word.getCount() + " " +  word.getSentiment() + "\n");
+//		}
+//		System.out.print("---------------------" + "\n");
+//
+//		String c ="I really believe I love salsa, but hate ketchup";
+//		cloud.processResponce(c);
+//		for(Word word : cloud.wordCloud.values()) {
+//			System.out.println(word.getName() + " " + word.getColour() + " " +  word.getCount() + " " +  word.getSentiment() + "\n");
+//		}
+//		System.out.print("---------------------" + "\n");
+//
+//    }
 }
