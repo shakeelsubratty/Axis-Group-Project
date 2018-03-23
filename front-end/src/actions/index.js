@@ -71,11 +71,15 @@ export function attemptLogIn(username, password, callback) {
 	}
 }
 
-export function logOut() {
+export function logOut(callback) {
 	console.log('LOGGING OUT');
 	sessionStorage.setItem('usrn', '');
 	sessionStorage.setItem('pass', '');
 	sessionStorage.setItem('wsId', '');
+	if (typeof callback === 'function') {
+		console.log('Callback is function');
+		callback();
+	}
 	return {
 		type: LOG_OUT,
 		payload: false

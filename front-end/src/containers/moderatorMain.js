@@ -9,7 +9,8 @@ class ModeratorMain extends Component {
     super(props);
     this.state = {
       isLogged: false
-    }
+    };
+    var intervalWsId = '';
   }
 
   componentWillMount(){
@@ -48,7 +49,7 @@ class ModeratorMain extends Component {
       this.props.fetchAllIdeas(this.props.wsId);
     }
     if (this.state.isLogged) {
-      var intervalWsId = setInterval(() => {
+      window.intervalWsId = setInterval(() => {
         this.props.fetchAllIdeas(this.props.wsId);
       }, 3000);
     }
@@ -63,7 +64,7 @@ class ModeratorMain extends Component {
   }
 
   componentWillUnmount(){
-    clearInterval(this.intervalWsId);
+    clearInterval(window.intervalWsId);
   }
 
   renderIdeas() {
@@ -104,9 +105,10 @@ class ModeratorMain extends Component {
       <div className='card card-big' style={{flex:1,borderRadius:0,borderBottom:'none',marginBottom:0,paddingBottom:'2%'}}>
         <div style={{textAlign:'right'}}>
           <Link className='' to='/' onClick={() => {
-            this.props.logOut();
-            this.setState({isLogged: false})
-            clearInterval(this.intervalWsId);
+            this.props.logOut(() => {
+              console.log('CLEARING');
+              clearInterval(this.intervalWsId);
+            });
           }}>
             Exit
           </Link>
