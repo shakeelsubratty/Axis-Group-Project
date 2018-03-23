@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import { fetchIdeas, getWorkshopInfo, createWorkshop, setWorkshopTo, setParticipantTo} from '../actions';
+import { deleteIdea, fetchIdeas, getWorkshopInfo, createWorkshop, setWorkshopTo, setParticipantTo} from '../actions';
 import UserIdea from '../components/userIdea'
 import NewIdea from './newIdea'
 
@@ -67,11 +67,12 @@ class IdeaGeneration extends Component {
 	}
 
 	componentWillUnmount(){
-	clearInterval(this.intervalUserId);
+		clearInterval(this.intervalUserId);
 	}
 
-	update() {
+	update(childId) {
 		console.log('UPDATE CALLED');
+		this.props.deleteIdea(childId)
 		this.props.fetchIdeas(this.props.userId);
 	}
 
@@ -136,6 +137,7 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = {
+	deleteIdea,
 	fetchIdeas,
 	getWorkshopInfo,
 	createWorkshop,
