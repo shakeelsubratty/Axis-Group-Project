@@ -11,7 +11,6 @@ class IdeaGeneration extends Component {
 		this.state = {
 			isInThisPage: false
 		}
-
 		this.update = this.update.bind(this);
 	}
 
@@ -57,17 +56,17 @@ class IdeaGeneration extends Component {
 		}
 		console.log('here with wsId->',this.props.wsId);
 		if (this.state.isInThisPage) {
-			var intervalUserId = setInterval(() => {
+			window.intervalUserId = setInterval(() => {
 				if (!document.hasFocus()) {
 					// TODO: Make api call to tell the backend the user has switched tabs
 					console.log('USER SWITCHED TAB');
 				}
-			}, 500);
+			}, 1000);
 		}
 	}
 
 	componentWillUnmount(){
-		clearInterval(this.intervalUserId);
+	clearInterval(window.intervalUserId);
 	}
 
 	update(childId) {
@@ -76,11 +75,14 @@ class IdeaGeneration extends Component {
 		this.props.fetchIdeas(this.props.userId);
 	}
 
-
 	renderIdeas() {
 		console.log('ideasss=>',this.props.ideas);
 		if (_.isEmpty(this.props.ideas)) {
-			return (<div>Loading...</div>)
+			return (
+				<div className='card card-big' style={{textAlign:'center', width:'100%'}}>
+					Loading...
+				</div>
+			)
 		} else {
 			return Object.keys(this.props.ideas).map((item)=>{
 				return (
@@ -113,8 +115,8 @@ class IdeaGeneration extends Component {
 							callback={this.update}
 							userId={this.props.userId}
 						/>
-						<div className='card card-big' style={{flex:1,borderRadius:0,borderBottom:'none',marginBottom:0,paddingBottom:'2%'}}>
-							<div className='card-body' style={{flex:6,marginTop:'2%', alignItems:'stretch', overflowY:'scroll'}}>
+						<div className='card' style={{flex:1,borderRadius:0,borderBottom:'none',marginBottom:0,paddingBottom:'2%', padding:'3%'}}>
+							<div className='card-body' style={{flex:6,marginTop:'2%', alignItems:'stretch', overflowY:'scroll', backgroundColor:'#fff'}}>
 								{this.renderIdeas()}
 							</div>
 						</div>
