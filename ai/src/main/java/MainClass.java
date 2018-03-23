@@ -1,3 +1,11 @@
+
+import com.google.cloud.language.v1.Document;
+import com.google.cloud.language.v1.Document.Type;
+import com.google.cloud.language.v1.LanguageServiceClient;
+import com.google.cloud.language.v1.Sentiment;
+import com.google.cloud.language.v1.ClassificationCategory;
+
+import java.util.List;
 import java.util.ArrayList;
 import java.util.List;
 
