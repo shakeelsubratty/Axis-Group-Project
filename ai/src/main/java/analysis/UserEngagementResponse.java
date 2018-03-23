@@ -1,15 +1,17 @@
 package analysis;
 
+import java.util.ArrayList;
+
 public class UserEngagementResponse
 {
 
-    private int superUnengaged;
-    private int unengaged;
-    private int engaged;
-    private int superEngaged;
-    private int overallEngagement;
+    private double superUnengaged;
+    private double unengaged;
+    private double engaged;
+    private double superEngaged;
+    private double overallEngagement;
 
-    public int getSuperUnengaged() {
+    public double getSuperUnengaged() {
         return superUnengaged;
     }
 
@@ -17,7 +19,7 @@ public class UserEngagementResponse
         this.superUnengaged = superUnengaged;
     }
 
-    public int getUnengaged() {
+    public double getUnengaged() {
         return unengaged;
     }
 
@@ -25,7 +27,7 @@ public class UserEngagementResponse
         this.unengaged = unengaged;
     }
 
-    public int getEngaged() {
+    public double getEngaged() {
         return engaged;
     }
 
@@ -33,7 +35,7 @@ public class UserEngagementResponse
         this.engaged = engaged;
     }
 
-    public int getSuperEngaged() {
+    public double getSuperEngaged() {
         return superEngaged;
     }
 
@@ -41,7 +43,7 @@ public class UserEngagementResponse
         this.superEngaged = superEngaged;
     }
 
-    public int getOverallEngagement() {
+    public double getOverallEngagement() {
         return overallEngagement;
     }
 
@@ -50,12 +52,12 @@ public class UserEngagementResponse
     }
 
 
-    public UserEngagementResponse(int v, int w, int x, int y, int z)
+    public UserEngagementResponse(ArrayList<Double> arr)
     {
-        this.superUnengaged = v;
-        this.unengaged = w;
-        this.engaged = x;
-        this.superEngaged = y;
-        this.overallEngagement = z;
+        this.superUnengaged = arr.get(0);
+        this.unengaged = arr.get(1);
+        this.engaged = arr.get(2);
+        this.superEngaged = arr.get(3);
+        //this.overallEngagement = z;
     }
 }

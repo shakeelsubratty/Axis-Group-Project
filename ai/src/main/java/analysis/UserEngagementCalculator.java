@@ -1,9 +1,13 @@
+package analysis;
+
 import java.text.DecimalFormat;
+import java.util.List;
 import java.util.ArrayList;
+import analysis.Participant;
 
 public class UserEngagementCalculator {
 	
-	private ArrayList<Participant> participants;
+	private List<Participant> participants;
 	private double numParticipants;
 	private double workshopTotalResp;
 	private double workshopAverage;
@@ -13,7 +17,7 @@ public class UserEngagementCalculator {
 	private double numEngaged;
 	private double totalTimeOfWorkshop = 120.0;
 
-	public UserEngagementCalculator(ArrayList<Participant> x)
+	public UserEngagementCalculator(List<Participant> x)
 	{
      	participants = x;
 		numParticipants = participants.size();
@@ -116,10 +120,10 @@ public class UserEngagementCalculator {
 			}
 		}
 		
-		numTerrible = numTerrible/7;
-		numUn = numUn/7;
-		numEng = numEng/7;
-		numSuper = numSuper/7;
+		numTerrible = numTerrible/numParticipants;
+		numUn = numUn/numParticipants;
+		numEng = numEng/numParticipants;
+		numSuper = numSuper/numParticipants;
 		
 		ArrayList<Double> retArrList = new ArrayList<Double>();
 		retArrList.add(numTerrible);

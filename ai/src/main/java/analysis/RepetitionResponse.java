@@ -2,24 +2,22 @@ package analysis;
 
 import java.util.List;
 import java.util.Map;
+import data.Response;
 
 public class RepetitionResponse
 {
-    private Map<Integer, List<String>> map;
-//    private List<Participant> participants;
-//    private List<String> responses;
-//
-    public RepetitionResponse(Map<Integer, List<String>> map)
+    private List<List<Response>> groups;
+
+    public RepetitionResponse(List<List<Response>> groups)
     {
-        this.map = map;
+        this.groups = groups;
     }
 
-    public Map<Integer, List<String>> getMap() {
-        return map;
+    public List<List<Response>> getGroups() {
+        return groups;
     }
 
-    public void setMap(Map<Integer, List<String>> map) {
-        this.map = map;
+    public void setGroups(List<List<Response>> groups) {
+        this.groups = groups;
     }
-
 }
