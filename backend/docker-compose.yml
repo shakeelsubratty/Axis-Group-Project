@@ -1,13 +1,13 @@
 app:
     build: .
     command: node index.js
-    net: "host"
     volumes:
         - .:/app
     ports:
         - '3000:3000'
+    links:
+        - db
 db:
     image: mongo
-    net: "host"
     volumes:
        - ./data:/data/db
