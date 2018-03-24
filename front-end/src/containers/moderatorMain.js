@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { WorkshopIdea, LoadingScreen } from '../components';
 import { getWorkshopInfo, setWorkshopTo, attemptLogIn, logOut, fetchAllIdeas } from '../actions';
 
-class ModeratorMain extends Component {
+export class ModeratorMain extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,7 +20,7 @@ class ModeratorMain extends Component {
         this.props.history.push('/create-workshop')
       }
     } else {
-      console.log('wsId - Session ==>', sessionStorage.getItem('wsId'));
+      // console.log('wsId - Session ==>', sessionStorage.getItem('wsId'));
       this.props.setWorkshopTo(sessionStorage.getItem('wsId'))
       this.setState({isLogged:true})
     } // If you refresh
@@ -34,7 +34,7 @@ class ModeratorMain extends Component {
       const usrn = sessionStorage.getItem('usrn');
       const pass = sessionStorage.getItem('pass');
       this.props.attemptLogIn(usrn,pass, ()=>{
-        console.log('this.props.isLogged->',this.props.isLogged);
+        // console.log('this.props.isLogged->',this.props.isLogged);
         if (!this.props.isLogged) {
           // If you try to inject invalid login credentials
           this.props.history.push('/login-failed');
@@ -57,7 +57,7 @@ class ModeratorMain extends Component {
 
   componentWillReceiveProps(nextProps){
     if (this.props.wsId != nextProps.wsId) {
-      console.log('componentWillReceiveProps -->',nextProps.wsId);
+      //console.log('componentWillReceiveProps -->',nextProps.wsId);
       this.props.getWorkshopInfo(nextProps.wsId);
       this.props.fetchAllIdeas(this.props.wsId);
     }
@@ -68,7 +68,7 @@ class ModeratorMain extends Component {
   }
 
   renderIdeas() {
-    console.log('this.props.wsIdeas ->',this.props.wsIdeas);
+   // console.log('this.props.wsIdeas ->',this.props.wsIdeas);
 		return Object.keys(this.props.wsIdeas).map((item)=>{
 			return (
 				<div key={this.props.wsIdeas[item].id}>
@@ -104,9 +104,9 @@ class ModeratorMain extends Component {
     return(
       <div className='card card-big' style={{flex:1,borderRadius:0,borderBottom:'none',marginBottom:0,paddingBottom:'2%'}}>
         <div style={{textAlign:'right'}}>
-          <Link className='' to='/' onClick={() => {
+          <Link className='btn btn-danger' to='/' onClick={() => {
             this.props.logOut(() => {
-              console.log('CLEARING');
+             // console.log('CLEARING');
               clearInterval(this.intervalWsId);
             });
           }}>

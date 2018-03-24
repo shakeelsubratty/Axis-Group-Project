@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import { Field, reduxForm, reset } from 'redux-form';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createIdea, fetchIdeas} from '../actions'
 import { renderIdeas } from './ideaGeneration'
 
 
-class NewPost extends Component {
+export class NewIdea extends Component {
 	constructor(props) {
 		super(props)
 
@@ -50,25 +50,6 @@ class NewPost extends Component {
 		);
 	}
 
-	renderIdField(field) {
-		const { meta: {touched, error}} = field;
-		const className = `${touched && error ? 'has-danger' : ''}`
-		return(
-			<div className={className} style={{marginTop: '10px'}}>
-				<label>{field.label}</label>
-				<input
-					type='number'
-					placeholder={field.placeholder}
-					min="0"
-					max="100"
-					{...field.input}
-					/>
-				<div className="text-help">
-					{touched ? error : ''}
-				</div>
-			</div>
-		);
-	}
 
 	onSubmit(values) {
 		console.log('new idea user Id',this.props.userId);
@@ -133,5 +114,5 @@ export default reduxForm({
 	validate,
 	form: 'CreateIdea'
 })(
-	withRouter(connect(null, {createIdea})(NewPost))
+	withRouter(connect(null, {createIdea})(NewIdea))
 );
