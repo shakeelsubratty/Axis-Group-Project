@@ -10,5 +10,5 @@ module.exports = {
     ideaRoot: "/idea",
     authRoot: "/auth", //routes for everything workshop-related
     analysisRoot: "/analysis",
-    aiUrl: "http://localhost:25565"
+    aiUrl: "http://172.17.0.1:25565"
 }
