@@ -1,4 +1,4 @@
-import { JOIN_WORKSHOP, CREATE_WORKSHOP, ATTEMPT_LOGIN, LOG_OUT, GET_WS_INFO, SET_WORKSHOP_TO, FETCH_USERS, FETCH_ALL_IDEAS, SET_PARTICIPANT_TO, USER_ENGAGEMENT  } from '../actions';
+import { JOIN_WORKSHOP, CREATE_WORKSHOP, ATTEMPT_LOGIN, LOG_OUT, GET_WS_INFO, SET_WORKSHOP_TO, FETCH_USERS, FETCH_ALL_IDEAS, SET_PARTICIPANT_TO, USER_ENGAGEMENT, WORD_CLOUD } from '../actions';
 
 const INITIAL_STATE = {
   isLogged: false,
@@ -7,7 +7,8 @@ const INITIAL_STATE = {
   wsUsers: null,
   wsIdeas: '',
   userId: '',
-  userEngagement:''
+  userEngagement:'',
+  wordCloudData: null,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -32,6 +33,8 @@ export default (state = INITIAL_STATE, action) => {
 			return { ...state, wsIdeas: _.mapKeys(action.payload,'_id')}
     case USER_ENGAGEMENT:
       return { ...state, userEngagement: action.payload}
+    case WORD_CLOUD:
+      return { ...state, wordCloudData: action.payload}
 		default:
 			return state;
   }

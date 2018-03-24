@@ -11,24 +11,16 @@ const data = [
   { value: "CSS3", count: 20 }
 ];
 
-const SimpleCloud = () => (
-  <TagCloud
-    minSize={12}
-    maxSize={35}
-    tags={data}
-    disableRandomColor={false}
-    onClick={tag => alert(`'${tag.value}' was selected!`)}
-    style={{textAlign:'center'}}
-  />
-);
-
 class WordCloud extends Component {
+  constructor(props){
+    super(props);
+  }
 
   render(){
     return(
       <TagCloud minSize={12}
                 maxSize={35}
-                tags={data}
+                tags={this.props.data}
                 onClick={tag => alert(`'${tag.value}' was selected!`)} />
     );
   }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { WorkshopIdea, LoadingScreen, WordCloud } from '../components';
-import { getWorkshopInfo, setWorkshopTo, attemptLogIn, logOut, fetchAllIdeas, getUserEngagement } from '../actions';
+import { getWorkshopInfo, setWorkshopTo, attemptLogIn, logOut, fetchAllIdeas, getUserEngagement, getWordCloudData } from '../actions';
 
 export class ModeratorMain extends Component {
   constructor(props) {
@@ -45,11 +45,13 @@ export class ModeratorMain extends Component {
     if (this.props.wsId != '') {
       this.props.getWorkshopInfo(this.props.wsId);
       this.props.fetchAllIdeas(this.props.wsId);
+      this.props.getWordCloudData(this.props.wsId);
     }
     if (this.state.isLogged) {
       window.intervalWsId = setInterval(() => {
         this.props.fetchAllIdeas(this.props.wsId);
         this.props.getUserEngagement(this.props.wsId);
+        this.props.getWordCloudData(this.props.wsId);
       }, 3000);
     }
   }
@@ -72,6 +74,7 @@ export class ModeratorMain extends Component {
 					<WorkshopIdea
 						id = {this.props.wsIdeas[item].id}
 						title={this.props.wsIdeas[item].title}
+            data={this.props.wordCloudData}
 					>
             {this.props.wsIdeas[item].description}
 					</WorkshopIdea>
@@ -125,14 +128,26 @@ export class ModeratorMain extends Component {
     }
   }
 
+  renderWordCloud(){
+    if (!this.props.wordCloudData) {
+      return(
+        <div>Loading...</div>
+      );
+    } else {
+      return(
+        <WordCloud className='tag-cloud' data={this.props.wordCloudData}/>
+      );
+    }
+  }
+
 
   renderDataBox(){
 
     return(
       <div className='card card-big dataBox'>
         {this.renderUserEngagementData()}
-        <div className='card flexColumnCenter' style={{flex:1, backgroundColor:'#f5f5f5 !important'}}>
-          <WordCloud className='tag-cloud'/>
+        <div className='card flexColumnCenter' style={{flex:1, backgroundColor:'#f5f5f5 !important', padding:'3%'}}>
+          {this.renderWordCloud()}
         </div>
         <div className='card flexColumnCenter' style={{flex:1, backgroundColor:'#f5f5f5 !important', marginBottom:0}}>
           Data three
@@ -215,7 +230,8 @@ function mapStateToProps(state){
     wsInfo: state.app.wsInfo,
     wsTitle: state.app.wsInfo.title,
     wsIdeas: state.app.wsIdeas,
-    userEngagement: state.app.userEngagement
+    userEngagement: state.app.userEngagement,
+    wordCloudData: state.app.wordCloudData
   };
 }
 
@@ -225,7 +241,8 @@ const mapDispatchToProps = {
   logOut,
   setWorkshopTo,
   fetchAllIdeas,
-  getUserEngagement
+  getUserEngagement,
+  getWordCloudData
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ModeratorMain);
