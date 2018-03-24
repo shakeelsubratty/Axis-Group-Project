@@ -9,5 +9,6 @@ module.exports = {
     workshopRoot: "/workshop", //routes for everything workshop-related
     ideaRoot: "/idea",
     authRoot: "/auth", //routes for everything workshop-related
-    analysisRoot: "/analysis"
+    analysisRoot: "/analysis",
+    aiUrl: "http://localhost:25565"
 }
