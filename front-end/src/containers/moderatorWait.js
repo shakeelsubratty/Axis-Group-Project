@@ -64,8 +64,8 @@ export class ModeratorWait extends Component {
   renderUsers(){
     return _.map(this.props.wsUsers, id => {
 			return (
-			  <div className='card userCard' key={id._id}>
-					{id._id}
+			  <div className='card userCard' style={{minWidth:'30%'}} key={id._id}>
+					<span style={{fontSize:'11pt'}}>{id._id}</span>
 				</div>
 			);
 		});
@@ -75,7 +75,7 @@ export class ModeratorWait extends Component {
     if (this.state.showingId) {
       return (
         <div className='card-body flexRowCenter' style={{alignItems:'stretch', width:'100%', paddingLeft:'3%'}}>
-          <div className='flexColumnCenter' style={{justifyContent:'space-around', marginLeft:'2.5%'}}>
+          <div className='flexColumnCenter' style={{justifyContent:'space-around', alignItems:'stretch', marginLeft:'2.5%'}}>
             <div style={{flex:1,textAlign:'center', marginTop:'5%'}}>
               <h4 className='wsIdTitle'><u>Workshop Id</u></h4>
               <h2>
@@ -84,7 +84,7 @@ export class ModeratorWait extends Component {
             </div>
             <div style={{flex:2,textAlign:'center', marginTop:'3%'}}>
               <h4 className='wsDesTitle'><u>Description</u></h4>
-              <div style={{textAlign:'-webkit-auto', padding:'1% 3%'}}>
+              <div style={{textAlign:'center', padding:'1% 3%'}}>
                 {this.props.wsDescription}
               </div>
             </div>

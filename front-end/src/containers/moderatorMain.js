@@ -144,7 +144,8 @@ export class ModeratorMain extends Component {
   renderIdeaPanel(){
     return(
       <div className='card card-big' style={{flex:1,borderRadius:0,borderBottom:'none',marginBottom:0,paddingBottom:'2%'}}>
-        <div style={{textAlign:'right'}}>
+        {/* To use if we turn the close workshop into a submit or a link to another scene  */}
+        {/* <div style={{textAlign:'right'}}>
           <Link to='/' onClick={() => {
             this.props.logOut(() => {
               clearInterval(this.intervalWsId);
@@ -152,7 +153,7 @@ export class ModeratorMain extends Component {
           }}>
             Exit
           </Link>
-        </div>
+        </div> */}
         <h3 className='card-title' style={{textAlign:'left'}}><u>{this.props.wsTitle}</u></h3>
         <div className='card-body' style={{flex:6,marginTop:'2%', alignItems:'stretch', overflowY:'scroll'}}>
           <div style={{flex:1}}>
@@ -164,8 +165,16 @@ export class ModeratorMain extends Component {
           style={{backgroundColor:'#e8edf4',border:'none', marginTop:'2%', alignItems:'flex-end'}}
         >
           <div style={{flex:2.5, textAlign:'right'}}>
-            <button className='btn btn-success'>
-              Submit Workshop
+            <button className='btn btn-danger' style={{fontSize:'12pt'}} onClick={() => {
+              var r = confirm("Are you sure you want to close the workshop?\nYou won't be able to open it again...");
+              if (r == true) {
+                this.props.logOut(() => {
+                  clearInterval(this.intervalWsId);
+                });
+                this.props.history.push('/');
+              }
+            }}>
+              Close Workshop
             </button>
           </div>
         </div>

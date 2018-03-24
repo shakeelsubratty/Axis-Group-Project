@@ -1,16 +1,11 @@
 import React, {Component} from 'react';
 import { Field, reduxForm, reset } from 'redux-form';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { createIdea, fetchIdeas} from '../actions'
-import { renderIdeas } from './ideaGeneration'
-
+import { createIdea, fetchIdeas} from '../actions';
+import { renderIdeas } from './ideaGeneration';
 
 export class NewIdea extends Component {
-	constructor(props) {
-		super(props)
-
-	}
 
 	renderTitleField(field) {
 		const { meta: {touched, error}} = field;
@@ -84,8 +79,15 @@ export class NewIdea extends Component {
 								placeholder="Expand on your thoughts."
 								/>
 							<div className="button-box" >
-								<button type="submit" className="btn btn-primary" disabled={pristine || submitting}>Save</button>
-								<button type="button" className="btn btn-danger" onClick={reset} disabled={pristine || submitting} >Clear Values</button>
+								<button type="submit" className="btn btn-primary" disabled={pristine || submitting}>Submit</button>
+								<button type="button" className="btn btn-danger" onClick={()=> {
+									var r = confirm("Are you sure you want to exit this workshop?");
+									if (r == true) {
+										this.props.history.push('/enter-workshop');
+									}
+								}}>
+									Exit Workshop
+								</button>
 							</div>
 						</form>
 					</div>

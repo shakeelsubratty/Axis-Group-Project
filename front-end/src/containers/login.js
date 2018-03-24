@@ -11,8 +11,12 @@ export class Login extends Component {
   }
 
   onSubmit(values){
-    this.props.attemptLogIn(values.username, values.password, () => {
-      this.props.history.push('/create-workshop');
+    this.props.attemptLogIn(values.username, values.password, (result) => {
+      if (result == true) {
+        this.props.history.push('/create-workshop');
+      } else {
+        this.props.history.push('/login-failed');
+      }
     });
   }
 

@@ -64,7 +64,7 @@ export function attemptLogIn(username, password, callback) {
 				type: ATTEMPT_LOGIN,
 				payload: response.data,
 			});
-			callback();
+			callback(response.data);
 			console.log('after createWS API and dispatch');
 		}).catch((e) => {
 			console.log(e);

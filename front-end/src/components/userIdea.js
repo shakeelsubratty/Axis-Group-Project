@@ -37,7 +37,6 @@ export default class UserIdea extends Component {
                     <div className="card-body panel-body" ref="inner" style={{padding: '3%'}}>
                         {children}
 								<div className='button-box' style={{display: 'flex', justifyContent:'flex-end'}}>
-									<button type='button' disabled='true' className='btn btn-primary'>Edit</button>
 									<button type='button' className='btn btn-danger' onClick={this.deleteClick.bind(this)} >Delete</button>
 								</div>
                     </div>
