@@ -9,6 +9,16 @@ module.exports = function(app) {
             if (config.DEBUG) {
                 console.log("[API accessed] [analysisRoute] /userengagement/:workshopId, got the following engagement: " + JSON.stringify(ret));
             }
+            /*********TODO: remove mock and reinstate proper API call***********/
+            var mockRet = {
+                veryUnengaged: 10,
+                unengaged: 20,
+                engaged: 50,
+                veryEngaged: 30,
+                averageEngagement: 57
+            };
+            res.json(mockRet);
+            /*
             request.post(
                 config.aiUrl + "/analysis/userengagement",
                 {json: {myKey: "myValue"}},
@@ -18,7 +28,7 @@ module.exports = function(app) {
                     }
                     res.json(body);
                 }
-            );
+            );*/
         });
     });
 }
