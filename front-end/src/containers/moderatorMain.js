@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { WorkshopIdea, LoadingScreen } from '../components';
-import { getWorkshopInfo, setWorkshopTo, attemptLogIn, logOut, fetchAllIdeas } from '../actions';
+import { getWorkshopInfo, setWorkshopTo, attemptLogIn, logOut, fetchAllIdeas, getUserEngagement } from '../actions';
 
 export class ModeratorMain extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLogged: false
+      isLogged: false,
+      userEngagementColor: 'black'
     };
     var intervalWsId = '';
   }
@@ -49,6 +50,7 @@ export class ModeratorMain extends Component {
     if (this.state.isLogged) {
       window.intervalWsId = setInterval(() => {
         this.props.fetchAllIdeas(this.props.wsId);
+        this.props.getUserEngagement(this.props.wsId);
       }, 3000);
     }
   }
@@ -79,17 +81,62 @@ export class ModeratorMain extends Component {
 		});
 	}
 
+  renderUserEngagementData(){
+    if (!this.props.userEngagement) {
+      return(
+        <div className='card flexColumnCenter' style={{flex:1, backgroundColor:'#f5f5f5 !important', padding:'2%', alignItems:'stretch'}}>
+          <h5 style={{textAlign:'center'}}>Loading...</h5>
+        </div>
+      );
+    } else {
+
+      if (this.props.userEngagement.overallEngagement > 0.7) {
+        this.setState({userEngagementColor:'green'})
+      } else if (this.props.userEngagement.overallEngagement < 0.4) {
+        this.setState({userEngagementColor:'red'})
+      } else {
+        this.setState({userEngagementColor:'black'})
+      }
+
+      return(
+        <div className='card flexRowCenter' style={{flex:1, backgroundColor:'#f5f5f5 !important', padding:'3%', alignItems:'stretch'}}>
+          <div className='flexColumnCenter' style={{flex:1, alignItems:'stretch', borderRight:'1px solid black '}}>
+            <div style={{flex:1, textAlign:'left', display:'flex'}}>
+              <span style={{flex:3, fontSize:'11pt', textAlign:'left'}}>Really Engaged:</span>
+              <span style={{flex:1}}>{this.props.userEngagement.superEngaged * 100 + '%'}</span>
+            </div>
+            <div style={{flex:1, textAlign:'left', display:'flex'}}>
+              <span style={{flex:3,fontSize:'11pt', textAlign:'left'}}>Engaged:</span>
+              <span style={{flex:1}}>{this.props.userEngagement.engaged * 100 + '%'}</span>
+            </div>
+            <div style={{flex:1, textAlign:'left', display:'flex'}}>
+              <span style={{flex:3,fontSize:'11pt', textAlign:'left'}}>Unengaged:</span>
+              <span style={{flex:1}}>{this.props.userEngagement.unengaged * 100 + '%'}</span>
+            </div>
+            <div style={{flex:1, textAlign:'left', display:'flex'}}>
+              <span style={{flex:3,fontSize:'11pt', textAlign:'left'}}>Really Unengaged:</span>
+              <span style={{flex:1}}>{this.props.userEngagement.superUnengaged * 100 + '%'}</span>
+            </div>
+          </div>
+          <div className='flexColumnCenter' style={{flex:1}}>
+            <h3 style={{color:this.state.userEngagementColor}}>{this.props.userEngagement.overallEngagement * 100 + '%'}</h3>
+            <h5>Overall</h5>
+          </div>
+        </div>
+      );
+    }
+  }
+
 
   renderDataBox(){
+
     return(
       <div className='card card-big dataBox'>
-        <div className='card flexColumnCenter' style={{backgroundColor:'#f5f5f5 !important'}}>
-          Data one
-        </div>
-        <div className='card flexColumnCenter' style={{backgroundColor:'#f5f5f5 !important'}}>
+        {this.renderUserEngagementData()}
+        <div className='card flexColumnCenter' style={{flex:1, backgroundColor:'#f5f5f5 !important'}}>
           Data two
         </div>
-        <div className='card flexColumnCenter' style={{backgroundColor:'#f5f5f5 !important', marginBottom:0}}>
+        <div className='card flexColumnCenter' style={{flex:1, backgroundColor:'#f5f5f5 !important', marginBottom:0}}>
           Data three
         </div>
       </div>
@@ -161,6 +208,7 @@ function mapStateToProps(state){
     wsInfo: state.app.wsInfo,
     wsTitle: state.app.wsInfo.title,
     wsIdeas: state.app.wsIdeas,
+    userEngagement: state.app.userEngagement
   };
 }
 
@@ -169,7 +217,8 @@ const mapDispatchToProps = {
   attemptLogIn,
   logOut,
   setWorkshopTo,
-  fetchAllIdeas
+  fetchAllIdeas,
+  getUserEngagement
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ModeratorMain);

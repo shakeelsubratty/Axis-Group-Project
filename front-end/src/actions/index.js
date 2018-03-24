@@ -14,6 +14,7 @@ export const ATTEMPT_LOGIN = 'attempt_login';
 export const LOG_OUT = 'log_out';
 export const DELETE_IDEA = 'delete_idea';
 export const SET_PARTICIPANT_TO = 'set_participant_to';
+export const USER_ENGAGEMENT = 'user_engagement';
 
 const ROOT_URL = 'http://localhost:3000';
 
@@ -268,4 +269,21 @@ export function cleanCache(){
 	return {
 		type: 'CLEAN_CACHE',
 	};
+}
+
+export function getUserEngagement(wsId){
+	return (dispatch) => {
+
+		axios.get(`${ROOT_URL}/analysis/userengagement/${wsId}`).then(function (response) {
+
+			console.log('getUserEngagement API-->', response.data);
+
+			dispatch({
+				type: USER_ENGAGEMENT,
+				payload: response.data,
+			});
+		}).catch((e) => {
+			console.log(e);
+		});
+	}
 }
