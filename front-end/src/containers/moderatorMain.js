@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { WorkshopIdea, LoadingScreen } from '../components';
+import { WorkshopIdea, LoadingScreen, WordCloud } from '../components';
 import { getWorkshopInfo, setWorkshopTo, attemptLogIn, logOut, fetchAllIdeas } from '../actions';
 
 class ModeratorMain extends Component {
@@ -87,8 +87,8 @@ class ModeratorMain extends Component {
   renderDataBox(){
     return(
       <div className='card card-big dataBox'>
-        <div className='card flexColumnCenter' style={{backgroundColor:'#f5f5f5 !important'}}>
-          Data one
+        <div className='card flexColumnCenter' style={{backgroundColor:'#f5f5f5 !important', padding:'2%'}}>
+          <WordCloud className='tag-cloud'/>
         </div>
         <div className='card flexColumnCenter' style={{backgroundColor:'#f5f5f5 !important'}}>
           Data two
