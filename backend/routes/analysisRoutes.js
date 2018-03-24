@@ -11,11 +11,11 @@ module.exports = function(app) {
             }
             /*********TODO: remove mock and reinstate proper API call***********/
             var mockRet = {
-                veryUnengaged: 10,
-                unengaged: 20,
-                engaged: 50,
-                veryEngaged: 30,
-                averageEngagement: 57
+                superUnengaged: 0.2,
+                unengaged: 0.3,
+                engaged: 0.4,
+                superEngaged: 0.1,
+                overallEngagement: 0.6
             };
             res.json(mockRet);
             /*
