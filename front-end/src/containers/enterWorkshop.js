@@ -6,7 +6,7 @@ import { joinWorkshop, cleanCache } from '../actions'
 
 const STRING_ID_LENGTH = 24;
 
-class EnterWorkshop extends Component {
+export class EnterWorkshop extends Component {
 
 	componentWillMount(){
 		this.props.cleanCache();
@@ -45,7 +45,7 @@ class EnterWorkshop extends Component {
       <div className='main'>
 			<div className='wrapper'>
 				<div className='card card-big' style={{width:'80%'}}>
-					<h1 className='card-title' style={{textAlign: 'center', padding: '5%'}}>Join the workshop</h1>
+					<h1 className='card-title' style={{textAlign: 'center', padding: '5%'}}>Join Workshop</h1>
 					<div className="card-body">
 						<div className='form-group'>
 							<form onSubmit={handleSubmit(this.onSubmit.bind(this))}>

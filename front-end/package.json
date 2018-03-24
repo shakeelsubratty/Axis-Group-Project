@@ -1,16 +1,16 @@
 {
-  "name": "redux-simple-starter",
+  "name": "Axis-Workshops-Analytics-Web-Application",
   "version": "1.0.0",
-  "description": "Simple starter package for Redux with React and Babel support",
+  "description": "Changes the way you approach a workshop, making it interactive, quick and full of aid for the facilitator.",
   "main": "index.js",
-  "repository": "git@github.com:StephenGrider/ReduxSimpleStarter.git",
+  "repository": "axis-workshops/kcl-salsa-3",
   "scripts": {
     "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "test": "jest",
     "test:watch": "npm run test -- --watch"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "SALSA 3.0",
+  "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.2.1",
     "babel-jest": "^22.4.3",
@@ -20,6 +20,7 @@
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "jest": "^22.4.3",
+    "jest-localstorage-mock": "^2.2.0",
     "jsdom": "^8.1.0",
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.14.0"

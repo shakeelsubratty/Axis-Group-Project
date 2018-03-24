@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { attemptLogIn, logOut } from '../actions';
 
-class Login extends Component {
+export class Login extends Component {
 
   constructor(props){
     super(props);
@@ -40,7 +40,7 @@ class Login extends Component {
   }
 
   render() {
-    console.log(`isLogged - Login==> ${this.props.isLogged}`);
+   // console.log(`isLogged - Login==> ${this.props.isLogged}`);
     const { handleSubmit } = this.props;
 
     return (
@@ -52,7 +52,7 @@ class Login extends Component {
               <Field name='username' component={this.renderField} type='text' placeholder='Username'/>
               <Field name='password' component={this.renderField} type='password' placeholder='Password'/>
               <div className='button-box'>
-                <Link className='btn btn-danger' to='/'> Back</Link>
+                <Link className='btn btn-danger' to='/'>Back</Link>
                 <button type='submit' className='btn btn-primary' style={{margin:5}}>Submit</button>
               </div>
             </form>
