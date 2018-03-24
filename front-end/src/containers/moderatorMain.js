@@ -9,7 +9,6 @@ class ModeratorMain extends Component {
     super(props);
     this.state = {
       isLogged: false,
-      userEngagementColor: 'black'
     };
     var intervalWsId = '';
   }
@@ -92,13 +91,12 @@ class ModeratorMain extends Component {
         </div>
       );
     } else {
+      let userEngagementColor = 'black';
 
       if (this.props.userEngagement.overallEngagement > 0.7) {
-        this.setState({userEngagementColor:'green'})
+        userEngagementColor = 'green';
       } else if (this.props.userEngagement.overallEngagement < 0.4) {
-        this.setState({userEngagementColor:'red'})
-      } else {
-        this.setState({userEngagementColor:'black'})
+        userEngagementColor = 'red';
       }
 
       return(
@@ -122,7 +120,7 @@ class ModeratorMain extends Component {
             </div>
           </div>
           <div className='flexColumnCenter' style={{flex:1}}>
-            <h3 style={{color:this.state.userEngagementColor}}>{this.props.userEngagement.overallEngagement * 100 + '%'}</h3>
+            <h3 style={{color:userEngagementColor}}>{this.props.userEngagement.overallEngagement * 100 + '%'}</h3>
             <h5>Overall</h5>
           </div>
         </div>
