@@ -147,7 +147,7 @@ export class ModeratorMain extends Component {
     return(
       <div className='card card-big' style={{flex:1,borderRadius:0,borderBottom:'none',marginBottom:0,paddingBottom:'2%'}}>
         <div style={{textAlign:'right'}}>
-          <Link className='btn btn-danger' to='/' onClick={() => {
+          <Link to='/' onClick={() => {
             this.props.logOut(() => {
               clearInterval(this.intervalWsId);
             });
