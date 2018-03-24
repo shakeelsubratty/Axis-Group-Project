@@ -85,7 +85,7 @@ public class UserEngagementCalculator {
 				numEngaged++;
 			}
 		}
-		double percentage = ((numEngaged/numParticipants)*100);
+		double percentage = ((numEngaged/numParticipants));
 		DecimalFormat df = new DecimalFormat("##.##");      
 		percentage = Double.valueOf(df.format(percentage));
 		return percentage;
@@ -130,6 +130,7 @@ public class UserEngagementCalculator {
 		retArrList.add(numUn);
 		retArrList.add(numEng);
 		retArrList.add(numSuper);
+		retArrList.add(calculateOverAllEngagement());
 		
 		return retArrList;
 	}

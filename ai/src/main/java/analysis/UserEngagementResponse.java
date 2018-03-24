@@ -58,6 +58,6 @@ public class UserEngagementResponse
         this.unengaged = arr.get(1);
         this.engaged = arr.get(2);
         this.superEngaged = arr.get(3);
-        //this.overallEngagement = z;
+        this.overallEngagement = arr.get(4);
     }
 }
