@@ -99,7 +99,9 @@ export function joinWorkshop(workshopId, callback) {
 				type: JOIN_WORKSHOP,
 				payload: response.data,
 			});
-			callback();
+			if (response.data != 'null') {
+				callback();
+			}
 			console.log('after createWS API and dispatch');
 		}).catch((e) => {
 			console.log(e);
