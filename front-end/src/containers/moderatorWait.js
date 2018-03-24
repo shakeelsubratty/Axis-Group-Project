@@ -15,15 +15,12 @@ export class ModeratorWait extends Component {
 
   componentWillMount(){
     if (sessionStorage.getItem('wsId') == '') {
-      //console.log('gets here');
       if (!this.props.wsId) {
         // If you try to get here from login without creating a workshop
         this.props.history.push('/create-workshop')
       }
     } else {
-      //console.log('wsId - Session ==>', sessionStorage.getItem('wsId'));
       this.props.setWorkshopTo(sessionStorage.getItem('wsId'))
-      //console.log('hi friend ->', this.props.wsId);
     } // If you refresh
 
     if ((sessionStorage.getItem('usrn') == '' || sessionStorage.getItem('pass') == '')) {
@@ -32,11 +29,9 @@ export class ModeratorWait extends Component {
         this.props.history.push('/login-failed');
       }
     } else {
-      //console.log('session not empty');
       const usrn = sessionStorage.getItem('usrn');
       const pass = sessionStorage.getItem('pass');
       this.props.attemptLogIn(usrn,pass, ()=>{
-      //  console.log('this.props.isLogged->',this.props.isLogged);
         if (!this.props.isLogged) {
           // If you try to inject invalid login credentials
           this.props.history.push('/login-failed');
@@ -47,7 +42,6 @@ export class ModeratorWait extends Component {
 
   componentWillReceiveProps(nextProps){
     if (this.props.wsId != nextProps.wsId) {
-      //console.log('componentWillReceiveProps -->',nextProps.wsId);
       this.props.getWorkshopInfo(nextProps.wsId);
     }
   }
@@ -56,7 +50,6 @@ export class ModeratorWait extends Component {
     if (this.props.wsId != '') {
       this.props.getWorkshopInfo(this.props.wsId);
     }
-   // console.log('here with wsId->',this.props.wsId);
     window.intervalWaitId = setInterval(() => {
         if (!this.state.showingId) {
           this.props.fetchUsers(this.props.wsId);
@@ -70,7 +63,6 @@ export class ModeratorWait extends Component {
 
   renderUsers(){
     return _.map(this.props.wsUsers, id => {
-      //console.log(id);
 			return (
 			  <div className='card userCard' key={id._id}>
 					{id._id}
@@ -80,7 +72,6 @@ export class ModeratorWait extends Component {
   }
 
   renderContent(){
-   // console.log('showingId==>', this.state.showingId);
     if (this.state.showingId) {
       return (
         <div className='card-body flexRowCenter' style={{alignItems:'stretch', width:'100%', paddingLeft:'3%'}}>
@@ -154,7 +145,6 @@ export class ModeratorWait extends Component {
   }
 
   render(){
-   // console.log('wsInfo -->', this.props.wsInfo);
     // I think we should take the loader OUT
     // for the most part is just distracting and its never more than a sec
     if (this.props.wsInfo == '' && false) {
@@ -190,7 +180,6 @@ export class ModeratorWait extends Component {
 }
 
 function mapStateToProps(state) {
-  //console.log('mapStateToProps with ->',state.app.wsId);
   return {
     isLogged: state.app.isLogged,
     wsId: state.app.wsId,

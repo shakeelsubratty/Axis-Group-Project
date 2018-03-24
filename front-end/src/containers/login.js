@@ -6,13 +6,6 @@ import { attemptLogIn, logOut } from '../actions';
 
 export class Login extends Component {
 
-  constructor(props){
-    super(props);
-    this.state={
-
-    }
-  }
-
   componentWillMount(){
     this.props.logOut();
   }
@@ -40,7 +33,7 @@ export class Login extends Component {
   }
 
   render() {
-   // console.log(`isLogged - Login==> ${this.props.isLogged}`);
+   console.log(`isLogged - Login==> ${this.props.isLogged}`);
     const { handleSubmit } = this.props;
 
     return (
