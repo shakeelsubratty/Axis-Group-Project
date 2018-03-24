@@ -80,7 +80,6 @@ class ModeratorWait extends Component {
   }
 
   renderContent(){
-    console.log('showingId==>', this.state.showingId);
     if (this.state.showingId) {
       return (
         <div className='card-body flexRowCenter' style={{alignItems:'stretch', width:'100%', paddingLeft:'3%'}}>
@@ -154,7 +153,6 @@ class ModeratorWait extends Component {
   }
 
   render(){
-    console.log('wsInfo -->', this.props.wsInfo);
     // I think we should take the loader OUT
     // for the most part is just distracting and its never more than a sec
     if (this.props.wsInfo == '' && false) {
@@ -190,7 +188,6 @@ class ModeratorWait extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log('mapStateToProps with ->',state.app.wsId);
   return {
     isLogged: state.app.isLogged,
     wsId: state.app.wsId,
