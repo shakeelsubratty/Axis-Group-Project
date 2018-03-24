@@ -8,5 +8,7 @@ module.exports = {
     participantRoot: "/participant", //routes for everything participant-related
     workshopRoot: "/workshop", //routes for everything workshop-related
     ideaRoot: "/idea",
-    authRoot: "/auth" //routes for everything workshop-related
+    authRoot: "/auth", //routes for everything workshop-related
+    analysisRoot: "/analysis",
+    aiUrl: "http://172.17.0.1:25565"
 }

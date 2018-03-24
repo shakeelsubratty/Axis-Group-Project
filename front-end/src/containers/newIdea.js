@@ -1,16 +1,11 @@
 import React, {Component} from 'react';
 import { Field, reduxForm, reset } from 'redux-form';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { createIdea, fetchIdeas} from '../actions'
-import { renderIdeas } from './ideaGeneration'
+import { createIdea, fetchIdeas} from '../actions';
+import { renderIdeas } from './ideaGeneration';
 
-
-class NewPost extends Component {
-	constructor(props) {
-		super(props)
-
-	}
+export class NewIdea extends Component {
 
 	renderTitleField(field) {
 		const { meta: {touched, error}} = field;
@@ -50,25 +45,6 @@ class NewPost extends Component {
 		);
 	}
 
-	renderIdField(field) {
-		const { meta: {touched, error}} = field;
-		const className = `${touched && error ? 'has-danger' : ''}`
-		return(
-			<div className={className} style={{marginTop: '10px'}}>
-				<label>{field.label}</label>
-				<input
-					type='number'
-					placeholder={field.placeholder}
-					min="0"
-					max="100"
-					{...field.input}
-					/>
-				<div className="text-help">
-					{touched ? error : ''}
-				</div>
-			</div>
-		);
-	}
 
 	onSubmit(values) {
 		console.log('new idea user Id',this.props.userId);
@@ -103,8 +79,15 @@ class NewPost extends Component {
 								placeholder="Expand on your thoughts."
 								/>
 							<div className="button-box" >
-								<button type="submit" className="btn btn-primary" disabled={pristine || submitting}>Save</button>
-								<button type="button" className="btn btn-danger" onClick={reset} disabled={pristine || submitting} >Clear Values</button>
+								<button type="submit" className="btn btn-primary" disabled={pristine || submitting}>Submit</button>
+								<button type="button" className="btn btn-danger" onClick={()=> {
+									var r = confirm("Are you sure you want to exit this workshop?");
+									if (r == true) {
+										this.props.history.push('/enter-workshop');
+									}
+								}}>
+									Exit Workshop
+								</button>
 							</div>
 						</form>
 					</div>
@@ -133,5 +116,5 @@ export default reduxForm({
 	validate,
 	form: 'CreateIdea'
 })(
-	withRouter(connect(null, {createIdea})(NewPost))
+	withRouter(connect(null, {createIdea})(NewIdea))
 );

@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginFailed Component matches snapshot 1`] = `
+<div
+  className="main"
+>
+  <div
+    className="wrapper"
+  >
+    <div
+      className="card card-big"
+    >
+      <h2
+        style={
+          Object {
+            "textAlign": "center",
+          }
+        }
+      >
+        Oops...It looks like you are not logged in...
+      </h2>
+      <div
+        className="card-body"
+        style={
+          Object {
+            "textAlign": "center",
+            "width": "100%",
+          }
+        }
+      >
+        <a
+          className="btn btn-primary"
+          href="/login"
+          onClick={[Function]}
+          style={
+            Object {
+              "margin": "5%",
+              "width": "50%",
+            }
+          }
+        >
+          Log in now
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;

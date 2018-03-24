@@ -4,26 +4,19 @@ import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { logOut, attemptLogIn, createWorkshop } from '../actions';
 
-class CreateWorkshop extends Component {
+export class CreateWorkshop extends Component {
 
   componentWillMount(){
-    console.log('this.props.isLogged->',this.props.isLogged);
     if ((sessionStorage.getItem('usrn') == '') || (sessionStorage.getItem('pass') == '' )) {
-
       if (!this.props.isLogged) {
         // If you try to bypass login
-        console.log('login failed');
         this.props.history.push('/login-failed');
       }
     }
     else {
-      console.log('session not empty');
       const usrn = sessionStorage.getItem('usrn');
       const pass = sessionStorage.getItem('pass');
-      console.log('usrn-->',usrn);
-      console.log('pass-->',pass);
       this.props.attemptLogIn(usrn,pass, ()=>{
-        console.log('this.props.isLogged->',this.props.isLogged);
         if (!this.props.isLogged) {
           // If you try to inject invalid login credentials
           this.props.history.push('/login-failed');
@@ -54,13 +47,12 @@ class CreateWorkshop extends Component {
   }
 
   render() {
-    console.log(`isLogged==> ${this.props.isLogged}`)
     const { handleSubmit } = this.props;
     return (
       <div className='main'>
         <div className='wrapper'>
           <div className='card card-big' style={{minHeight:'50%'}}>
-            <h1 className='card-title' style={{textAlign:'center', width:'100%'}}> Create Workshop</h1>
+            <h1 className='card-title' style={{textAlign:'center', width:'100%'}}>Create Workshop</h1>
             <div className='card-body'>
               <form className='form-group' style={{display:'flex',flexDirection:'column', height:'60%'}} onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                 <Field name='title' component={this.renderField} label='Title'/>

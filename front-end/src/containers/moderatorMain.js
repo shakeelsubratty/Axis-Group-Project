@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { WorkshopIdea, LoadingScreen, WordCloud } from '../components';
-import { getWorkshopInfo, setWorkshopTo, attemptLogIn, logOut, fetchAllIdeas } from '../actions';
+import { getWorkshopInfo, setWorkshopTo, attemptLogIn, logOut, fetchAllIdeas, getUserEngagement } from '../actions';
 
-class ModeratorMain extends Component {
+export class ModeratorMain extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLogged: false
+      isLogged: false,
     };
     var intervalWsId = '';
   }
@@ -20,7 +20,6 @@ class ModeratorMain extends Component {
         this.props.history.push('/create-workshop')
       }
     } else {
-      console.log('wsId - Session ==>', sessionStorage.getItem('wsId'));
       this.props.setWorkshopTo(sessionStorage.getItem('wsId'))
       this.setState({isLogged:true})
     } // If you refresh
@@ -34,7 +33,6 @@ class ModeratorMain extends Component {
       const usrn = sessionStorage.getItem('usrn');
       const pass = sessionStorage.getItem('pass');
       this.props.attemptLogIn(usrn,pass, ()=>{
-        console.log('this.props.isLogged->',this.props.isLogged);
         if (!this.props.isLogged) {
           // If you try to inject invalid login credentials
           this.props.history.push('/login-failed');
@@ -51,13 +49,13 @@ class ModeratorMain extends Component {
     if (this.state.isLogged) {
       window.intervalWsId = setInterval(() => {
         this.props.fetchAllIdeas(this.props.wsId);
+        this.props.getUserEngagement(this.props.wsId);
       }, 3000);
     }
   }
 
   componentWillReceiveProps(nextProps){
     if (this.props.wsId != nextProps.wsId) {
-      console.log('componentWillReceiveProps -->',nextProps.wsId);
       this.props.getWorkshopInfo(nextProps.wsId);
       this.props.fetchAllIdeas(this.props.wsId);
     }
@@ -68,7 +66,6 @@ class ModeratorMain extends Component {
   }
 
   renderIdeas() {
-    console.log('this.props.wsIdeas ->',this.props.wsIdeas);
 		return Object.keys(this.props.wsIdeas).map((item)=>{
 			return (
 				<div key={this.props.wsIdeas[item].id}>
@@ -83,17 +80,61 @@ class ModeratorMain extends Component {
 		});
 	}
 
+  renderUserEngagementData(){
+    if (!this.props.userEngagement) {
+      return(
+        <div className='card flexColumnCenter' style={{flex:1, backgroundColor:'#f5f5f5 !important', padding:'2%', alignItems:'stretch'}}>
+          <h5 style={{textAlign:'center'}}>Loading...</h5>
+        </div>
+      );
+    } else {
+      let userEngagementColor = 'black';
+
+      if (this.props.userEngagement.overallEngagement > 0.7) {
+        userEngagementColor = 'green';
+      } else if (this.props.userEngagement.overallEngagement < 0.4) {
+        userEngagementColor = 'red';
+      }
+
+      return(
+        <div className='card flexRowCenter' style={{flex:1, backgroundColor:'#f5f5f5 !important', padding:'3%', alignItems:'stretch'}}>
+          <div className='flexColumnCenter' style={{flex:1, alignItems:'stretch', borderRight:'1px solid black '}}>
+            <div style={{flex:1, textAlign:'left', display:'flex'}}>
+              <span style={{flex:3, fontSize:'11pt', textAlign:'left'}}>Really Engaged:</span>
+              <span style={{flex:1}}>{this.props.userEngagement.superEngaged * 100 + '%'}</span>
+            </div>
+            <div style={{flex:1, textAlign:'left', display:'flex'}}>
+              <span style={{flex:3,fontSize:'11pt', textAlign:'left'}}>Engaged:</span>
+              <span style={{flex:1}}>{this.props.userEngagement.engaged * 100 + '%'}</span>
+            </div>
+            <div style={{flex:1, textAlign:'left', display:'flex'}}>
+              <span style={{flex:3,fontSize:'11pt', textAlign:'left'}}>Unengaged:</span>
+              <span style={{flex:1}}>{this.props.userEngagement.unengaged * 100 + '%'}</span>
+            </div>
+            <div style={{flex:1, textAlign:'left', display:'flex'}}>
+              <span style={{flex:3,fontSize:'11pt', textAlign:'left'}}>Really Unengaged:</span>
+              <span style={{flex:1}}>{this.props.userEngagement.superUnengaged * 100 + '%'}</span>
+            </div>
+          </div>
+          <div className='flexColumnCenter' style={{flex:1}}>
+            <h3 style={{color:userEngagementColor}}>{this.props.userEngagement.overallEngagement * 100 + '%'}</h3>
+            <h5>Overall</h5>
+          </div>
+        </div>
+      );
+    }
+  }
+
 
   renderDataBox(){
+
     return(
       <div className='card card-big dataBox'>
-        <div className='card flexColumnCenter' style={{backgroundColor:'#f5f5f5 !important', padding:'2%'}}>
+        {this.renderUserEngagementData()}
+        <div className='card flexColumnCenter' style={{flex:1, backgroundColor:'#f5f5f5 !important'}}>
           <WordCloud className='tag-cloud'/>
         </div>
-        <div className='card flexColumnCenter' style={{backgroundColor:'#f5f5f5 !important'}}>
-          Data two
-        </div>
-        <div className='card flexColumnCenter' style={{backgroundColor:'#f5f5f5 !important', marginBottom:0}}>
+        <div className='card flexColumnCenter' style={{flex:1, backgroundColor:'#f5f5f5 !important', marginBottom:0}}>
           Data three
         </div>
       </div>
@@ -103,16 +144,16 @@ class ModeratorMain extends Component {
   renderIdeaPanel(){
     return(
       <div className='card card-big' style={{flex:1,borderRadius:0,borderBottom:'none',marginBottom:0,paddingBottom:'2%'}}>
-        <div style={{textAlign:'right'}}>
-          <Link className='' to='/' onClick={() => {
+        {/* To use if we turn the close workshop into a submit or a link to another scene  */}
+        {/* <div style={{textAlign:'right'}}>
+          <Link to='/' onClick={() => {
             this.props.logOut(() => {
-              console.log('CLEARING');
               clearInterval(this.intervalWsId);
             });
           }}>
             Exit
           </Link>
-        </div>
+        </div> */}
         <h3 className='card-title' style={{textAlign:'left'}}><u>{this.props.wsTitle}</u></h3>
         <div className='card-body' style={{flex:6,marginTop:'2%', alignItems:'stretch', overflowY:'scroll'}}>
           <div style={{flex:1}}>
@@ -124,8 +165,16 @@ class ModeratorMain extends Component {
           style={{backgroundColor:'#e8edf4',border:'none', marginTop:'2%', alignItems:'flex-end'}}
         >
           <div style={{flex:2.5, textAlign:'right'}}>
-            <button className='btn btn-success'>
-              Submit Workshop
+            <button className='btn btn-danger' style={{fontSize:'12pt'}} onClick={() => {
+              var r = confirm("Are you sure you want to close the workshop?\nYou won't be able to open it again...");
+              if (r == true) {
+                this.props.logOut(() => {
+                  clearInterval(this.intervalWsId);
+                });
+                this.props.history.push('/');
+              }
+            }}>
+              Close Workshop
             </button>
           </div>
         </div>
@@ -166,6 +215,7 @@ function mapStateToProps(state){
     wsInfo: state.app.wsInfo,
     wsTitle: state.app.wsInfo.title,
     wsIdeas: state.app.wsIdeas,
+    userEngagement: state.app.userEngagement
   };
 }
 
@@ -174,7 +224,8 @@ const mapDispatchToProps = {
   attemptLogIn,
   logOut,
   setWorkshopTo,
-  fetchAllIdeas
+  fetchAllIdeas,
+  getUserEngagement
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ModeratorMain);

@@ -35,6 +35,7 @@ require('./routes/participantRoutes')(app);
 require('./routes/workshopRoutes')(app);
 require('./routes/ideaRoutes')(app);
 require('./routes/authRoutes')(app);
+require('./routes/analysisRoutes')(app);
 
 //Return placeholder on direct access to index.js
 app.get('/', function(req, res) {

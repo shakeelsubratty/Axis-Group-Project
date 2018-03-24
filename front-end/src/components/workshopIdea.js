@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-//import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 class WorkshopIdea extends Component {
 
@@ -39,8 +39,8 @@ class WorkshopIdea extends Component {
 
 }
 
-// WorkshopIdea.propTypes = {
-//     title: PropTypes.string,
-// };
+WorkshopIdea.propTypes = {
+    title: PropTypes.string,
+};
 
 export default WorkshopIdea;
