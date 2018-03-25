@@ -50,7 +50,7 @@ public class AIController {
 
         JsonArray participants = parser.parse(json).getAsJsonArray();
 
-        List<Participant> participants = new ArrayList<Participant>;
+        List<Participant> participants = new ArrayList<Participant>();
 
         for(JsonElement e : participants)
         {
