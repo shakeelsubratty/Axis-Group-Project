@@ -63,11 +63,11 @@ public class AIController {
                 JsonArray ideaArray = idea.getAsJsonArray();
                 try{
                     Response r = new Response(g.fromJson(ideaArray.get(0),String.class),g.fromJson(ideaArray.get(1),String.class));
-                } catch(Exception e)
+                    responses.add(r);
+                } catch(Exception excep)
                 {
-                    e.printStackTrace();
+                    excep.printStackTrace();
                 }
-                responses.add(r);
             }
 
             Participant participant = new Participant(g.fromJson(elementArray.get(0),String.class),responses);
