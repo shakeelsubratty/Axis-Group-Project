@@ -15,41 +15,9 @@ export const LOG_OUT = 'log_out';
 export const DELETE_IDEA = 'delete_idea';
 export const SET_PARTICIPANT_TO = 'set_participant_to';
 export const USER_ENGAGEMENT = 'user_engagement';
+export const WORD_CLOUD = 'word_cloud';
 
 const ROOT_URL = 'http://localhost:3000';
-
-let currentDataIdeas = [
-	{ id: '0', title: "Elon Musk is a genious", explanation:'he has multiple successfull companies'},
-	{ id: '1', title: "I should buy a Model S", explanation:'It is quick'},
-	{ id: '2', title: "I should buy a Model X", explanation:'It is quick'},
-];
-
-let currentAllIdeas = [
-	{ id: '0', title: "Elon Musk is a genious", explanation:'he has multiple successfull companies'},
-	{ id: '1', title: "I should buy a Model S", explanation:'It is quick'},
-	{ id: '2', title: "I should buy a Model X", explanation:'It is quick'},
-	{ id: '3', title: "They are taking the hobbits to Isengard", explanation:'Saruman the White lives there'},
-	{ id: '4', title: "I find your lack of faith disturbing.", explanation:'Dont be too proud of this technological terror you have constructed. The ability to destroy a planet is insignificant next to the power of the Force.'},
-];
-
-let currentDataUsers = [
-	{ id: 1234567 },
-	{ id: 4235433 },
-	{ id: 3246346 },
-	{ id: 5546473 },
-	{ id: 4234254 },
-	{ id: 4968573 },
-	{ id: 4312142 },
-	{ id: 4312143 },
-	{ id: 9423342 },
-	{ id: 4325463 },
-	{ id: 9596734 },
-	{ id: 6569234 },
-	{ id: 4353452 },
-	{ id: 1234552 },
-	{ id: 6745634 },
-	{ id: 1343242 },
-];
 
 export function attemptLogIn(username, password, callback) {
   return (dispatch) => {
@@ -280,6 +248,23 @@ export function getUserEngagement(wsId){
 
 			dispatch({
 				type: USER_ENGAGEMENT,
+				payload: response.data,
+			});
+		}).catch((e) => {
+			console.log(e);
+		});
+	}
+}
+
+export function getWordCloudData(wsId){
+	return (dispatch) => {
+
+		axios.get(`${ROOT_URL}/analysis/wordcloud/${wsId}`).then(function (response) {
+
+			console.log('getWordCloudData API-->', response.data);
+
+			dispatch({
+				type: WORD_CLOUD,
 				payload: response.data,
 			});
 		}).catch((e) => {
