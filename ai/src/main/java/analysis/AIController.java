@@ -37,7 +37,7 @@ public class AIController {
     public ResponseEntity<String> userEngagement(@RequestBody List<Participant> participants)
     {
 
-        return new ResponseEntity<String>("Hi there! Participant: " + participants.get(0).getID(),HttpStatus.OK);
+        return new ResponseEntity<String>("Hi there! Participant: ",HttpStatus.OK);
 //        System.out.println(participants.get(0).getID());
 //
 //        UserEngagementCalculator uec = new UserEngagementCalculator(participants);
