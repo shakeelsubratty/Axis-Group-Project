@@ -11,7 +11,9 @@ import java.io.IOException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
 import org.springframework.http.HttpEntity;
+
 import org.springframework.web.bind.annotation.*;
 
 import analysis.RepetitionGrouper;
@@ -34,7 +36,7 @@ public class AIController {
 //        System.out.println("UserEngagement: Returning" + u.getEngagementResponse());
 //        return new ResponseEntity<UserEngagementResponse>(u, HttpStatus.OK);
 //    }
-    @RequestMapping(value = "/userengagement", method = RequestMethod.POST, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/userengagement", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String userEngagement(HttpEntity<String> s)
     {
