@@ -33,7 +33,7 @@ public class AIController {
         uec.calculateLevel();
 
         UserEngagementResponse u = new UserEngagementResponse(uec.returnAverageArr());
-        System.out.println("UserEngagement: Returning" + u.getEngagementResponse());
+       // System.out.println("UserEngagement: Returning" + u.getEngagementResponse());
         return new ResponseEntity<UserEngagementResponse>(u, HttpStatus.OK);
     }
 //    @RequestMapping(value = "/userengagement", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
