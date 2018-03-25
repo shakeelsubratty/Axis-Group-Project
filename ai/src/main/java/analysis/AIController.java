@@ -20,18 +20,33 @@ import data.Response;
 @RestController
 public class AIController {
 
+//    @RequestMapping(value = "/userengagement", method = RequestMethod.POST)
+//    public ResponseEntity<UserEngagementResponse> userEngagement(@RequestBody List<Participant> participants)
+//    {
+//        System.out.println(participants.get(0).getID());
+//
+//        UserEngagementCalculator uec = new UserEngagementCalculator(participants);
+//
+//        uec.calculateLevel();
+//
+//        UserEngagementResponse u = new UserEngagementResponse(uec.returnAverageArr());
+//        System.out.println("UserEngagement: Returning" + u.getEngagementResponse());
+//        return new ResponseEntity<UserEngagementResponse>(u, HttpStatus.OK);
+//    }
     @RequestMapping(value = "/userengagement", method = RequestMethod.POST)
-    public ResponseEntity<UserEngagementResponse> userEngagement(@RequestBody List<Participant> participants)
+    public ResponseEntity<String> userEngagement(@RequestBody List<Participant> participants)
     {
-        System.out.println(participants.get(0).getID());
 
-        UserEngagementCalculator uec = new UserEngagementCalculator(participants);
-
-        uec.calculateLevel();
-
-        UserEngagementResponse u = new UserEngagementResponse(uec.returnAverageArr());
-        System.out.println("UserEngagement: Returning" + u.getEngagementResponse());
-        return new ResponseEntity<UserEngagementResponse>(u, HttpStatus.OK);
+        return new ResponseEntity<String>("Hi there! Participant: " + participants.get(0).getID(),HttpStatus.OK);
+//        System.out.println(participants.get(0).getID());
+//
+//        UserEngagementCalculator uec = new UserEngagementCalculator(participants);
+//
+//        uec.calculateLevel();
+//
+//        UserEngagementResponse u = new UserEngagementResponse(uec.returnAverageArr());
+//        System.out.println("UserEngagement: Returning" + u.getEngagementResponse());
+//        return new ResponseEntity<List<Double>>(u.getEngagementResponse(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/repetition", method = RequestMethod.POST)
