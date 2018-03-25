@@ -13,7 +13,7 @@ describe('Facilitator APIs', function() {
                 return Promise.resolve(user+pass);
             },
             authenticate: function(user, pass) {
-              return Promise.resolve(user+pass);
+              return Promise.resolve((user=="facilitator1" && pass=="password1") ? true : false);
             }
         });
         mockery.registerSubstitute('../config', '../test/testConfig');
@@ -40,17 +40,17 @@ describe('Facilitator APIs', function() {
         });
     });
 
-    // describe('#authenticate', function() {
-    //     it('should return true when called with correct parameters', function() {
-    //         expect(app, 'to yield exchange satisfying', {
-    //             request: {
-    //                 url: 'auth/login/testuser/testpassword'
-    //             },
-    //             response: {
-    //                 statusCode: 200,
-    //                 body: 'true'
-    //             }
-    //         });
-    //     });
-    // });
+    describe('#authenticate', function() {
+        it('should return true when called with correct parameters', function() {
+            expect(app, 'to yield exchange satisfying', {
+                request: {
+                    url: 'auth/login/facilitator1/password1'
+                },
+                response: {
+                    statusCode: 200,
+                    body: 'true'
+                }
+            });
+        });
+    });
 });

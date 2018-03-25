@@ -8,6 +8,18 @@ describe('User APIs', function() {
 
     before(function createAppAndMocks() {
         mockery.enable({warnOnUnregistered: false});
+        mockery.registerMock('../models/schema', {
+          User: {
+            findByIdAsync: function() {
+              var ret = {
+                findIdeasAsync: function() {
+                  return Promise.resolve({title: "Test idea", description: "Test description", user: "user01", workshop: "workshop01"});
+                }
+              };
+              return Promise.resolve(ret);
+            }
+          }
+        });
         mockery.registerMock('../models/participantModel', {
             createParticipant: function(workshop) {
                 return Promise.resolve(true).then(function() { return workshop });
@@ -36,4 +48,18 @@ describe('User APIs', function() {
             });
         });
     });
+
+      describe('#viewParticipantIdeas', function() {
+          it('should return mocked ID when called with parameters', function() {
+              expect(app, 'to yield exchange satisfying', {
+                  request: {
+                      url: 'participant/view/123456789/ideas'
+                  },
+                  response: {
+                      statusCode: 200,
+                      body: '{"title":"Test idea","description":"Test description","user":"user01","workshop":"workshop01"}'
+                  }
+              });
+          });
+      });
 });
