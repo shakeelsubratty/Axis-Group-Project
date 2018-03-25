@@ -1,4 +1,5 @@
 module.exports = {
     DEBUG: false,
-    participantRoot: '/participant'
+    participantRoot: '/participant',
+    workshopRoot: '/workshop'
 }

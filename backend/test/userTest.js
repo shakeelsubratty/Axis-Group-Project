@@ -10,7 +10,6 @@ describe('User APIs', function() {
         mockery.enable({warnOnUnregistered: false});
         mockery.registerMock('../models/participantModel', {
             createParticipant: function(workshop) {
-                console.log("ran mock lol");
                 return Promise.resolve(true).then(function() { return workshop });
             }
         });
