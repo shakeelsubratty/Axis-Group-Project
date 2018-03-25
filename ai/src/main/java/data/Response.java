@@ -27,21 +27,27 @@ public class Response
 	 * 
 	 * @param text
 	 *            the response to be analysed.
-	 * @throws IOException
-	 * @throws Exception
 	 */
 	public Response(String text)
 	{
 		id = -1;
 		init(text);
 	}
-	
+
+	/**
+	 * Response constructor with ID given
+	 * 
+	 * @param text
+	 *            the response to be analysed.
+	 * @param id
+	 *            the ID of the response.
+	 */
 	public Response(String text, int id)
 	{
 		this.id = id;
 		init(text);
 	}
-	
+
 	private void init(String text)
 	{
 		this.text = text;
@@ -57,11 +63,19 @@ public class Response
 		}
 	}
 
+	/**
+	 * 
+	 * @return the ID of the response.
+	 */
 	public int getID()
 	{
 		return id;
 	}
 
+	/**
+	 * 
+	 * @return the text of the response.
+	 */
 	public String getText()
 	{
 		return text;
@@ -162,11 +176,20 @@ public class Response
 	}
 
 	@Override
+	/**
+	 * Returns the ID of the response as a String.
+	 */
 	public String toString()
 	{
 		return id + "";
 	}
-	
+
+	/**
+	 * 
+	 * @param r
+	 *            the response to compare.
+	 * @return true if the ID of the responses are the same.
+	 */
 	public boolean equals(Response r)
 	{
 		return id == r.getID();

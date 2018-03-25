@@ -30,7 +30,6 @@ public class RepetitionGrouper
 	 * 
 	 * @param r
 	 *            the response to be added
-	 * @return true if the response was added successfully.
 	 */
 	public void addResponse(Response r)
 	{
