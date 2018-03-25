@@ -41,8 +41,8 @@ public class Response
 
 		//groupID = UUID.randomUID().toString();
 
-		syntax = new Syntax(text);
-		categories = new Categories(text);
+		syntax = new Syntax(description);
+		categories = new Categories(description);
 	}
 
 	public String getID()
