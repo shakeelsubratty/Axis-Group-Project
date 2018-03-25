@@ -55,14 +55,16 @@ public class AIController {
 
         for(JsonElement e : participantsArray)
         {
-            JsonArray elementArray = e.getAsJsonArray();
+            //JsonArray elementArray = e.getAsJsonArray();
+            JsonObject elementObject = e.getAsJsonObject();
             List<Response> responses = new ArrayList<>();
 
-            for(JsonElement idea : elementArray.get(1).getAsJsonArray())
+            for(JsonElement idea : elementObject.get("responses").getAsJsonArray())
             {
-                JsonArray ideaArray = idea.getAsJsonArray();
+                //JsonArray ideaArray = idea.getAsJsonArray();
+                JsonObject ideaObject = idea.getAsJsonObject()
                 try{
-                    Response r = new Response(g.fromJson(ideaArray.get(0),String.class),g.fromJson(ideaArray.get(1),String.class));
+                    Response r = new Response(g.fromJson(ideaObject.get("id"),String.class),g.fromJson(ideaObject.get("description"),String.class));
                     responses.add(r);
                 } catch(Exception excep)
                 {
@@ -70,7 +72,7 @@ public class AIController {
                 }
             }
 
-            Participant participant = new Participant(g.fromJson(elementArray.get(0),String.class),responses);
+            Participant participant = new Participant(g.fromJson(elementObject.get("id"),String.class),responses);
 
             participants.add(participant);
         }
