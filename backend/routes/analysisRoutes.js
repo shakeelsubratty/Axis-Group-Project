@@ -30,10 +30,10 @@ module.exports = function(app) {
                 console.log("[API accessed] [analysisRoute] /wordcloud/:workshopId, currently aggregated the following user data: " + JSON.stringify(ret));
             }
             var mockRet = [
-                { "name": "Potato", "count": 1, "colour": "#00ff00", "sentiment": 1 },
-                { "name": "Ireland", "count": 1, "colour": "#ff0000", "sentiment": -1 },
-                { "name": "Manuel", "count": 1, "colour": "#f0f000", "sentiment": 0.5 },
-                { "name": "Alex", "count": 2, "colour": "#0f0f00", "sentiment": -0.8 }
+                { "value": "Potato", "count": 1, "color": "#00ff00"},
+                { "value": "Ireland", "count": 1, "color": "#ff0000"},
+                { "value": "Manuel", "count": 1, "color": "#f0f000"},
+                { "value": "Alex", "count": 2, "color": "#0f0f00"}
             ];
             res.json(mockRet);
         });
