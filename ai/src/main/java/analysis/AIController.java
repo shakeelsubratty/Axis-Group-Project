@@ -49,51 +49,51 @@ public class AIController {
 //        return new ResponseEntity<List<Double>>(u.getEngagementResponse(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/repetition", method = RequestMethod.POST)
-    public ResponseEntity<RepetitionResponse> repetition(@RequestBody List<Participant> participants)
-    {
-        RepetitionGrouper rg = new RepetitionGrouper();
-
-        for(Participant p : participants)
-        {
-            for(Response r : p.getResponses())
-            {
-                try{
-                    rg.addResponse(r);
-                } catch (Exception i){
-                    i.printStackTrace();
-                }
-            }
-        }
-
-        //TODO: DO ID
-
-        RepetitionResponse r = new RepetitionResponse(rg.getGroups());
-
-        return new ResponseEntity<RepetitionResponse>(r,HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/wordcloud", method = RequestMethod.POST)
-    public ResponseEntity<WordCloudResponse> wordCloud(@RequestBody List<Participant> participants)
-    {
-        WordCloud wc = new WordCloud();
-
-        for(Participant p : participants)
-        {
-            for(String r : p.getResponsesString())
-            {
-                try {
-                    wc.processResponse(r);
-                } catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        WordCloudResponse w = new WordCloudResponse(wc.getHashMap());
-
-        return new ResponseEntity<WordCloudResponse>(w,HttpStatus.OK);
-    }
+//    @RequestMapping(value = "/repetition", method = RequestMethod.POST)
+//    public ResponseEntity<RepetitionResponse> repetition(@RequestBody List<Participant> participants)
+//    {
+//        RepetitionGrouper rg = new RepetitionGrouper();
+//
+//        for(Participant p : participants)
+//        {
+//            for(Response r : p.getResponses())
+//            {
+//                try{
+//                    rg.addResponse(r);
+//                } catch (Exception i){
+//                    i.printStackTrace();
+//                }
+//            }
+//        }
+//
+//        //TODO: DO ID
+//
+//        RepetitionResponse r = new RepetitionResponse(rg.getGroups());
+//
+//        return new ResponseEntity<RepetitionResponse>(r,HttpStatus.OK);
+//    }
+//
+//    @RequestMapping(value = "/wordcloud", method = RequestMethod.POST)
+//    public ResponseEntity<WordCloudResponse> wordCloud(@RequestBody List<Participant> participants)
+//    {
+//        WordCloud wc = new WordCloud();
+//
+//        for(Participant p : participants)
+//        {
+//            for(String r : p.getResponsesString())
+//            {
+//                try {
+//                    wc.processResponse(r);
+//                } catch (Exception e){
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//
+//        WordCloudResponse w = new WordCloudResponse(wc.getHashMap());
+//
+//        return new ResponseEntity<WordCloudResponse>(w,HttpStatus.OK);
+//    }
 
 
 }
