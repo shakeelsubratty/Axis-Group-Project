@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
-//import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { deleteIdea } from '../actions';
+import PropTypes from 'prop-types';
 
-class UserIdea extends Component {
+export default class UserIdea extends Component {
 
     constructor(props){
         super(props)
@@ -23,8 +21,7 @@ class UserIdea extends Component {
 	 deleteClick() {
 		 console.log('onclick called');
 		 console.log(this.props.id);
-		this.props.deleteIdea(this.props.id);
-		this.props.callback();
+		this.props.callback(this.props.id);
 	 }
 
     render(){
@@ -34,13 +31,12 @@ class UserIdea extends Component {
         return (
             <div className={`card panel ${isExpanded ? 'is-expanded' : ''}`} >
                 <div className="card-header panel-heading" style={{display: 'flex'}} onClick={(event) => this.toggle(event)} >
-						<h4>{title}</h4><span className="glyphicon glyphicon-chevron-down" style={{textAlign: 'right'}}>#x25bc</span>
+						<h4>{title}</h4>
                 </div>
                 <div className="panel-collapse" style={{height: currentHeight+'px'}}>
                     <div className="card-body panel-body" ref="inner" style={{padding: '3%'}}>
                         {children}
 								<div className='button-box' style={{display: 'flex', justifyContent:'flex-end'}}>
-									<button type='button' disabled='true' className='btn btn-primary'>Edit</button>
 									<button type='button' className='btn btn-danger' onClick={this.deleteClick.bind(this)} >Delete</button>
 								</div>
                     </div>
@@ -52,8 +48,6 @@ class UserIdea extends Component {
 
 }
 
-// UserIdea.propTypes = {
-//     title: PropTypes.string,
-// };
-
-export default connect(null,{deleteIdea})(UserIdea);
+UserIdea.propTypes = {
+    title: PropTypes.string,
+};
