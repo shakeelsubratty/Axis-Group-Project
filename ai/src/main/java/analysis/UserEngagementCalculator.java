@@ -71,6 +71,10 @@ public class UserEngagementCalculator {
 			{
 				y.setStringLevel("Superstar- give them a raise!");
 			}
+			else
+			{
+				y.setStringLevel("None");
+			}
 
 		}
 
