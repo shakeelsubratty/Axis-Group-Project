@@ -53,7 +53,7 @@ public class AIController {
 //        UserEngagementResponse u = new UserEngagementResponse(uec.returnAverageArr());
 //        System.out.println("UserEngagement: Returning" + u.getEngagementResponse());
 //        return new ResponseEntity<List<Double>>(u.getEngagementResponse(), HttpStatus.OK);
-    }
+  //  }
 
 //    @RequestMapping(value = "/repetition", method = RequestMethod.POST)
 //    public ResponseEntity<RepetitionResponse> repetition(@RequestBody List<Participant> participants)
