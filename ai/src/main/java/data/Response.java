@@ -39,13 +39,13 @@ public class Response
 		this.id = id;
 		this.text = text;
 
-		groupID = UUID.randomUID().toString();
+		//groupID = UUID.randomUID().toString();
 
 		syntax = new Syntax(text);
 		categories = new Categories(text);
 	}
 
-	public int getID()
+	public String getID()
 	{
 		return id;
 	}
@@ -157,7 +157,7 @@ public class Response
 
 	public boolean equals(Response r)
 	{
-		return id == r.getID();
+		return id.equals(r.getID());
 	}
 
 }

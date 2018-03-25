@@ -1,6 +1,7 @@
 package analysis;
 
 import java.util.List;
+import java.util.ArrayList;
 import data.Response;
 
 public class Participant
@@ -44,7 +45,7 @@ public class Participant
         return averageLength;
     }
 
-    public long getID(){return id;}
+    public String getID(){return id;}
 
     public List<String> getResponses() {return responses;}
 
