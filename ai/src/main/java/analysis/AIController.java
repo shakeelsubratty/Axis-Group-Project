@@ -56,7 +56,7 @@ public class AIController {
 
         for(Participant p : participants)
         {
-            for(Response r : p.getResponsesList())
+            for(Response r : p.getResponses())
             {
                 try{
                     rg.addResponse(r);
@@ -80,7 +80,7 @@ public class AIController {
 
         for(Participant p : participants)
         {
-            for(String r : p.getResponses())
+            for(String r : p.getResponsesString())
             {
                 try {
                     wc.processResponse(r);
