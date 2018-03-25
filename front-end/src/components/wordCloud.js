@@ -21,6 +21,7 @@ class WordCloud extends Component {
       <TagCloud minSize={12}
                 maxSize={35}
                 tags={this.props.data}
+                shuffle={false}
                 onClick={tag => alert(`'${tag.value}' was selected!`)} />
     );
   }
