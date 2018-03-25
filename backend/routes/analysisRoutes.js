@@ -11,7 +11,7 @@ module.exports = function(app) {
             }
             /*********TODO: remove mock and reinstate proper API call***********/
             request.post(
-                config.aiUrl + "/analysis/userengagement",
+                config.aiUrl + "/userengagement",
                 //{json: {myKey: "myValue"}},
                 {json: ret},
                 function(error, response, body) {
