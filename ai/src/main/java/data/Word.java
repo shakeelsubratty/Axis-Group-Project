@@ -47,7 +47,7 @@ public class Word {
 		green = green*255;
 		blue = blue*255;
 		
-		colour = String.format("#%02x%02x%02x", (int)red, (int)green, (int)blue);;
+		colour = String.format("#%02x%02x%02x", (int)red, (int)green, (int)blue);
 	}
 	
 	public float getSentiment() {

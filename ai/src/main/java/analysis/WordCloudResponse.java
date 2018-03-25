@@ -9,18 +9,23 @@ import data.Word;
 public class WordCloudResponse
 {
 
-    private Map<String,Word> cloud;
+    private List<Word> cloud;
 
-    public WordCloudResponse(Map<String,Word> cloud)
+    public WordCloudResponse(HashMap<String,Word> map)
     {
-        this.cloud = cloud;
+        List<Word> l = new ArrayList<>();
+        for(Word x : map.values())
+        {
+            l.add(x);
+        }
+        this.cloud = l;
     }
 
-    public Map<String, Word> getCloud() {
+    public List<Word>  getCloud() {
         return cloud;
     }
 
-    public void setCloud(Map<String, Word> cloud) {
+    public void setCloud(List<Word> cloud) {
         this.cloud = cloud;
     }
 

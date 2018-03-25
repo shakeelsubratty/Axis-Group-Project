@@ -3,6 +3,7 @@ package data;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import com.google.cloud.language.v1.Token;
 
@@ -15,8 +16,9 @@ import com.google.cloud.language.v1.Token;
  */
 public class Response
 {
-	private static int count;
-	private int id;
+	//private static int count;
+	private final String id;
+	private String groupID;
 
 	private String text;
 
@@ -31,12 +33,13 @@ public class Response
 	 * @throws IOException
 	 * @throws Exception
 	 */
-	public Response(String text) throws IOException, Exception
+	public Response(String id,String text) throws IOException, Exception
 	{
-		id = count;
-		count++;
-
+		//count++;
+		this.id = id;
 		this.text = text;
+
+		groupID = UUID.randomUID().toString();
 
 		syntax = new Syntax(text);
 		categories = new Categories(text);

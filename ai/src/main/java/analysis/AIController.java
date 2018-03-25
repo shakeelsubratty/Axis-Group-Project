@@ -37,16 +37,12 @@ public class AIController {
     {
         RepetitionGrouper rg = new RepetitionGrouper();
 
-
-//        List<List<Response>> fake1 = new ArrayList<>();
-//        List<Response> fake2 = new ArrayList<>();
-
         for(Participant p : participants)
         {
-            for(String r : p.getResponses())
+            for(Response r : p.getResponsesList())
             {
                 try{
-                    rg.addResponse(new Response(r));
+                    rg.addResponse(r);
                 } catch (Exception i){
                     i.printStackTrace();
                 }
@@ -54,7 +50,6 @@ public class AIController {
         }
 
         //TODO: DO ID
-
 
         RepetitionResponse r = new RepetitionResponse(rg.getGroups());
 
@@ -79,7 +74,8 @@ public class AIController {
         }
 
         WordCloudResponse w = new WordCloudResponse(wc.getHashMap());
-        return new ResponseEntity<WordCloudResponse>(w,HttpStatus.OK);
+
+        return new ResponseEntity<WordCloudResponse>(l,HttpStatus.OK);
     }
 
 

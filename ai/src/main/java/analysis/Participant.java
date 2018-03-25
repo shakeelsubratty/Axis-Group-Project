@@ -5,8 +5,9 @@ import data.Response;
 
 public class Participant
 {
-    private final long id;
-    private List<String> responses;
+    private final String id;
+    private List<Response> responsesList;
+    private List<String> responses;     //For userEngagement and WordCloud
 
     private int sumOfLengths;
     private int numberOfResponses;
@@ -14,10 +15,15 @@ public class Participant
     private double averageLength;
     private String stringLevel;
 
-    public Participant(long id, List<String> responses)
+    public Participant(String id, List<Response> responses)
     {
         this.id = id;
-        this.responses = responses;
+        this.responsesList = responses;
+        this.responses = new ArrayList<>();
+        for(Response r : responses)
+        {
+            this.responses.add(r);
+        }
         numberOfResponses = responses.size();
 
     }
@@ -41,6 +47,8 @@ public class Participant
     public long getID(){return id;}
 
     public List<String> getResponses() {return responses;}
+
+    public List<Response> getResponsesList() {return responsesList;}
 
     public double fetchAverage(){
         return averageLength;
