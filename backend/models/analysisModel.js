@@ -16,7 +16,12 @@ module.exports = {
                     }).then(function(ideas) {
                         acc.push({
                             id: el,
-                            responses: ideas.map(idea => idea.description)
+                            responses: ideas.map(function(idea) {
+                                return {
+                                    id: idea._id,
+                                    description: idea.description
+                                };
+                            })
                         });
                         return acc;
                     })
