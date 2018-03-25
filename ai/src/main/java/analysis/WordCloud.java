@@ -17,26 +17,26 @@ import java.util.HashMap;
  * The Class WordCloud.
  */
 public class WordCloud {
-	
+
 	/** The word cloud to be displayed. */
 	private HashMap<String, Word> wordCloud;
-	
+
 	/**
 	 * Instantiates a new word cloud.
 	 */
 	public WordCloud() {
 		wordCloud = new HashMap<>();
 	}
-	
+
 	/**
 	 * Process user response. Add the word entities to the wordCloud variable.
 	 * Then go through the entities in the wordClouds and calculate their colour.
-	 * 
+	 *
 	 * @param text the text
 	 * @throws Exception the exception
 	 */
 	public void processResponse(String text) throws Exception{
-		
+
 		try (LanguageServiceClient language = LanguageServiceClient.create()) {
 	    	  Document doc = Document.newBuilder()
 			      .setContent(text).setType(Type.PLAIN_TEXT).build();
@@ -46,7 +46,7 @@ public class WordCloud {
 			  AnalyzeEntitySentimentResponse response = language.analyzeEntitySentiment(request);
 
 			  for(Entity entity : response.getEntitiesList()) {
-				  
+
 				if(wordCloud.isEmpty() || !wordCloud.containsKey(entity.getName())) {
 					Word word = new Word(entity.getName(), entity.getSentiment().getScore());
 					wordCloud.put(word.getName(), word);
@@ -54,15 +54,15 @@ public class WordCloud {
 	                Word value = wordCloud.get(entity.getName());
 	                value.incrementCount();
 	                value.calculateSentiment(entity.getSentiment().getScore());
-				}	
+				}
 			  }
 	    	}
-		
+
 		for(Word word : wordCloud.values()) {
 			word.calculateColour();
 		}
 	}
-	
+
 	/**
 	 * Returns the wordCloud hashMap.
 	 *
