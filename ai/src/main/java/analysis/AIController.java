@@ -1,6 +1,7 @@
 package analysis;
 
 import java.util.List;
+import java.util.Collection;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.ArrayList;
@@ -48,21 +49,23 @@ public class AIController {
 
         JsonParser parser = new JsonParser();
 
-        JsonArray participants = parser.parse(json).getAsJsonArray();
+        JsonArray participantsArray = parser.parse(json).getAsJsonArray();
 
         List<Participant> participants = new ArrayList<Participant>();
 
-        for(JsonElement e : participants)
+        for(JsonElement e : participantsArray)
         {
+            JsonArray elementArray = e.getAsJsonArray();
             List<Response> responses = new ArrayList<>();
 
-            for(JsonElement idea : e.get(1).getAsJsonArray())
+            for(JsonElement idea : elementArray.get(1).getAsJsonArray())
             {
-                Response r = new Response(g.fromJson(idea.get(0),String.class),g.fromJson(idea.get(1),String.class));
+                JsonArray ideaArray = idea.getAsJsonArray();
+                Response r = new Response(g.fromJson(ideaArray.get(0),String.class),g.fromJson(ideaArray.get(1),String.class));
                 responses.add(r);
             }
 
-            Participant participant = new Participant(g.fromJson(e.get(0),String.class),responses);
+            Participant participant = new Participant(g.fromJson(elementArray.get(0),String.class),responses);
 
             participants.add(participant);
         }
