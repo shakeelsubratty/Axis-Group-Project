@@ -8,12 +8,30 @@ describe('Workshop APIs', function() {
 
     before(function createAppAndMocks() {
         mockery.enable({warnOnUnregistered: false});
+        mockery.registerMock('../models/schema', {
+          Workshop: {
+            findByIdAsync: function() {
+              var ret = {
+                findIdeasAsync: function() {
+                  return Promise.resolve({idea: "This is my idea"});
+                },
+                findUsersAsync: function() {
+                  return Promise.resolve({user: "user001"})
+                }
+              };
+              return Promise.resolve(ret);
+            }
+          }
+        });
         mockery.registerMock('../models/workshopModel', {
           createWorkshop: function(workshopTitle, workshopDescription) {
             return Promise.resolve(workshopTitle+workshopDescription);
           },
           activateWorkshop: function(workshopID) {
             return Promise.resolve(workshopID);
+          },
+          getWorkshop: function(workshopID) {
+            return Promise.resolve({title: "This is a title", description: "This is the description"});
           }
         });
         mockery.registerSubstitute('../config', '../test/testConfig');
@@ -49,6 +67,48 @@ describe('Workshop APIs', function() {
                 response: {
                     statusCode: 200,
                     body: 'OK'
+                }
+            });
+        });
+    });
+
+    describe('#getWorkshop', function() {
+        it('should return workshop when called with parameters', function() {
+            expect(app, 'to yield exchange satisfying', {
+                request: {
+                    url: 'workshop/view/123456789'
+                },
+                response: {
+                    statusCode: 200,
+                    body: '{"title":"This is a title","description":"This is the description"}'
+                }
+            });
+        });
+    });
+
+    describe('#viewIdeas', function() {
+        it('should return json encoded idea when called with parameters', function() {
+            expect(app, 'to yield exchange satisfying', {
+                request: {
+                    url: 'workshop/view/123456789/ideas'
+                },
+                response: {
+                    statusCode: 200,
+                    body: '{"idea":"This is my idea"}'
+                }
+            });
+        });
+    });
+
+    describe('#viewUsers', function() {
+        it('should return workshop when called with parameters', function() {
+            expect(app, 'to yield exchange satisfying', {
+                request: {
+                    url: 'workshop/view/123456789/users'
+                },
+                response: {
+                    statusCode: 200,
+                    body: '{"user":"user001"}'
                 }
             });
         });
