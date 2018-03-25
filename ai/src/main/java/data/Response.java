@@ -21,7 +21,6 @@ public class Response
 	private String text;
 
 	private Syntax syntax;
-	private Categories categories;
 
 	/**
 	 * Response constructor
@@ -55,21 +54,6 @@ public class Response
 		{
 			// The response is too short to perform some analysis, but this does not impact
 			// this program's use of the API.
-		}
-
-		try
-		{
-			categories = new Categories(text);
-		}
-		catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (Exception e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 

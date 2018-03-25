@@ -91,7 +91,7 @@ public class RepetitionGrouper
 
 	/**
 	 * 
-	 * @return the grouped responses.
+	 * @return the grouped responses
 	 */
 	public List<List<Response>> getGroups()
 	{

@@ -6,6 +6,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import analysis.RepetitionGrouper;
+import data.Constants;
 import data.Response;
 
 public class RepetitionTest
@@ -183,6 +184,7 @@ public class RepetitionTest
 		}
 	}
 	
+	@Test
 	public void CheckEqualsImplementation()
 	{
 		Response a = new Response("This is a response.", 42);
