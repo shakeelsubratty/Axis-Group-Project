@@ -29,25 +29,25 @@ public class Participant
 
     }
 
-    public double computeAverage()
-    {
-
-        for (String x: responsesString)
-        {
-            sumOfLengths += x.length();
-        }
-
-        if (responsesString.size()!=0)
-        {
-            averageLength = ( sumOfLengths /( responsesString.size() ));
-        }
-
-        return averageLength;
-    }
+//    public double computeAverage()
+//    {
+//
+//        for (String x: responsesString)
+//        {
+//            sumOfLengths += x.length();
+//        }
+//
+//        if (responsesString.size()!=0)
+//        {
+//            averageLength = ( sumOfLengths /( responsesString.size() ));
+//        }
+//
+//        return averageLength;
+//    }
 
     public String getID(){return id;}
 
-    public List<String> getResponsesString() {return responsesString;}
+//    public List<String> getResponsesString() {return responsesString;}
 
     public List<Response> getResponses() {return responses;}
 
@@ -55,10 +55,10 @@ public class Participant
         return averageLength;
     }
 
-    public int getNumResponses()
-    {
-        return responsesString.size();
-    }
+//    public int getNumResponses()
+//    {
+//        return responsesString.size();
+//    }
 
     public void setLevel(double x)
     {
@@ -70,10 +70,10 @@ public class Participant
         return engagementLevel;
     }
 
-    public double getSize()
-    {
-        return responsesString.size();
-    }
+//    public double getSize()
+//    {
+//        return responsesString.size();
+//    }
 
     public void setStringLevel(String a)
     {
