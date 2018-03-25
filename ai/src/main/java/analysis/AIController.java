@@ -75,7 +75,7 @@ public class AIController {
 
         WordCloudResponse w = new WordCloudResponse(wc.getHashMap());
 
-        return new ResponseEntity<WordCloudResponse>(l,HttpStatus.OK);
+        return new ResponseEntity<WordCloudResponse>(w,HttpStatus.OK);
     }
 
 
