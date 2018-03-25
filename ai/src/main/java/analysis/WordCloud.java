@@ -47,30 +47,5 @@ public class WordCloud {
 	public HashMap<String, Word> getHashMap() {
 		return wordCloud;
 	}
-	
-//	public static void main(String[] args) throws Exception {
-//		WordCloud cloud = new WordCloud();
-//
-//		String a = "I love this coursework! Its the best!";
-//		cloud.processResponce(a);
-//		for(Word word : cloud.wordCloud.values()) {
-//			System.out.println(word.getName() + " " + word.getColour() + " " +  word.getCount() + " " +  word.getSentiment() + "\n");
-//		}
-//		System.out.print("---------------------" + "\n");
-//
-//		String b = "I hate this coursework! Its the worst";
-//		cloud.processResponce(b);
-//		for(Word word : cloud.wordCloud.values()) {
-//			System.out.println(word.getName() + " " + word.getColour() + " " +  word.getCount() + " " +  word.getSentiment() + "\n");
-//		}
-//		System.out.print("---------------------" + "\n");
-//
-//		String c ="I really believe I love salsa, but hate ketchup";
-//		cloud.processResponce(c);
-//		for(Word word : cloud.wordCloud.values()) {
-//			System.out.println(word.getName() + " " + word.getColour() + " " +  word.getCount() + " " +  word.getSentiment() + "\n");
-//		}
-//		System.out.print("---------------------" + "\n");
-//
-//    }
+
 }

@@ -11,6 +11,7 @@ import java.io.IOException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.*;
 
 import analysis.RepetitionGrouper;
@@ -33,11 +34,14 @@ public class AIController {
 //        System.out.println("UserEngagement: Returning" + u.getEngagementResponse());
 //        return new ResponseEntity<UserEngagementResponse>(u, HttpStatus.OK);
 //    }
-    @RequestMapping(value = "/userengagement", method = RequestMethod.POST)
-    public ResponseEntity<String> userEngagement(@RequestBody List<Participant> participants)
+    @RequestMapping(value = "/userengagement", method = RequestMethod.POST, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String userEngagement(HttpEntity<String> s)
     {
+        String json = s.getBody();
 
-        return new ResponseEntity<String>("Hi there! Participant: ",HttpStatus.OK);
+        return json;
+//        return new ResponseEntity<String>("Hi there! Participant: ",HttpStatus.OK);
 //        System.out.println(participants.get(0).getID());
 //
 //        UserEngagementCalculator uec = new UserEngagementCalculator(participants);
