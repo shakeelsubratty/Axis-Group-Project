@@ -1,7 +1,6 @@
 import axios from 'axios';
 import _ from 'lodash';
 
-
 export const JOIN_WORKSHOP = 'join_workshop';
 export const FETCH_IDEAS = 'fetch_ideas';
 export const FETCH_ALL_IDEAS = 'fetch_all_ideas';
@@ -156,7 +155,6 @@ export function fetchIdeas(userId) {
 		});
 	}
 }
-
 
 export function fetchAllIdeas(wsId){
 	return (dispatch) => {
