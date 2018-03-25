@@ -3,6 +3,9 @@
 
 ### Eclipse ###
 
+/.gradle/
+*.json
+MainClass.java
 .metadata
 bin/
 tmp/

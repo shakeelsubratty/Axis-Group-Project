@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.api.gax.rpc.InvalidArgumentException;
 import com.google.cloud.language.v1.Token;
 
 /**
@@ -15,38 +16,66 @@ import com.google.cloud.language.v1.Token;
  */
 public class Response
 {
-	private static int count;
 	private int id;
 
 	private String text;
 
 	private Syntax syntax;
-	private Categories categories;
 
 	/**
 	 * Response constructor
 	 * 
 	 * @param text
 	 *            the response to be analysed.
-	 * @throws IOException
-	 * @throws Exception
 	 */
-	public Response(String text) throws IOException, Exception
+	public Response(String text)
 	{
-		id = count;
-		count++;
-
-		this.text = text;
-
-		syntax = new Syntax(text);
-		categories = new Categories(text);
+		id = -1;
+		init(text);
 	}
 
+	/**
+	 * Response constructor with ID given
+	 * 
+	 * @param text
+	 *            the response to be analysed.
+	 * @param id
+	 *            the ID of the response.
+	 */
+	public Response(String text, int id)
+	{
+		this.id = id;
+		init(text);
+	}
+
+	private void init(String text)
+	{
+		this.text = text;
+
+		try
+		{
+			syntax = new Syntax(text);
+		}
+		catch (Exception e)
+		{
+			// The response is too short to perform some analysis, but this does not impact
+			// this program's use of the API.
+		}
+	}
+
+	/**
+	 * 
+	 * @return the ID of the response.
+	 */
 	public int getID()
 	{
 		return id;
 	}
 
+	/**
+	 * 
+	 * @return the text of the response.
+	 */
 	public String getText()
 	{
 		return text;
@@ -142,16 +171,25 @@ public class Response
 	{
 		double nounMatch = this.compareNounsTo(r);
 		double verbMatch = this.compareVerbsTo(r);
-		
+
 		return (double) (nounMatch + verbMatch) / 2.0;
 	}
-	
+
 	@Override
+	/**
+	 * Returns the ID of the response as a String.
+	 */
 	public String toString()
 	{
 		return id + "";
 	}
 
+	/**
+	 * 
+	 * @param r
+	 *            the response to compare.
+	 * @return true if the ID of the responses are the same.
+	 */
 	public boolean equals(Response r)
 	{
 		return id == r.getID();
