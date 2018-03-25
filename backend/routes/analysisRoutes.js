@@ -25,7 +25,7 @@ module.exports = function(app) {
                 {json: ret},
                 function(error, response, body) {
                     if (config.DEBUG) {
-                        console.log("[AI request made] userengagement, received error: " + error + "; and response: " + response + "; and body: " + body);
+                        console.log("[AI request made] userengagement, received error: " + error + "; and response: " + JSON.stringify(response) + "; and body: " + JSON.stringify(body));
                     }
                     res.json(body);
                 }
