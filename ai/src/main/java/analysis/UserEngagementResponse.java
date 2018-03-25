@@ -11,6 +11,16 @@ public class UserEngagementResponse
     private double superEngaged;
     private double overallEngagement;
 
+    public List<Double> getEngagementResponse() {
+        return engagementResponse;
+    }
+
+    public void setEngagementResponse(List<Double> engagementResponse) {
+        this.engagementResponse = engagementResponse;
+    }
+
+    private List<Double> engagementResponse;
+
     public double getSuperUnengaged() {
         return superUnengaged;
     }
@@ -59,5 +69,11 @@ public class UserEngagementResponse
         this.engaged = arr.get(2);
         this.superEngaged = arr.get(3);
         this.overallEngagement = arr.get(4);
+
+        engagementResponse.add(superUnengaged);
+        engagementResponse.add(unengaged);
+        engagementResponse.add(engaged);
+        engagementResponse.add(superEngaged);
+
     }
 }

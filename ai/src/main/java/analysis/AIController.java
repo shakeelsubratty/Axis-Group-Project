@@ -29,7 +29,8 @@ public class AIController {
         uec.calculateLevel();
 
         UserEngagementResponse u = new UserEngagementResponse(uec.returnAverageArr());
-        return new ResponseEntity<UserEngagementResponse>(u, HttpStatus.OK);
+        System.out.println("UserEngagement: Returning" + u.getEngagementResponse());
+        return new ResponseEntity<UserEngagementResponse>(u.getEngagementResponse(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/repetition", method = RequestMethod.POST)

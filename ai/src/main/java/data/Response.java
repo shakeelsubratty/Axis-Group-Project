@@ -20,7 +20,7 @@ public class Response
 	private final String id;
 	private String groupID;
 
-	private String text;
+	private String description;
 
 	private Syntax syntax;
 	private Categories categories;
@@ -33,11 +33,11 @@ public class Response
 	 * @throws IOException
 	 * @throws Exception
 	 */
-	public Response(String id,String text) throws IOException, Exception
+	public Response(String id,String description) throws IOException, Exception
 	{
 		//count++;
 		this.id = id;
-		this.text = text;
+		this.description = description;
 
 		//groupID = UUID.randomUID().toString();
 
@@ -52,7 +52,7 @@ public class Response
 
 	public String getText()
 	{
-		return text;
+		return description;
 	}
 
 	/**
