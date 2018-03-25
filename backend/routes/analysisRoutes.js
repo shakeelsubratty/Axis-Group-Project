@@ -10,6 +10,7 @@ module.exports = function(app) {
                 console.log("[API accessed] [analysisRoute] /userengagement/:workshopId, currently aggregated the following user data: " + JSON.stringify(ret));
             }
             /*********TODO: remove mock and reinstate proper API call***********/
+            console.log(JSON.stringify(ret));
             var mockRet = {
                 superUnengaged: 0.2,
                 unengaged: 0.3,
