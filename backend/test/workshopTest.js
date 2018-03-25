@@ -45,7 +45,7 @@ describe('Workshop APIs', function() {
     });
 
     describe('#createWorkshop', function() {
-        it('should return mocked ID when called with parameters', function() {
+        it('should return mocked workshop title and description when called with correct parameters', function() {
             expect(app, 'to yield exchange satisfying', {
                 request: {
                     url: 'workshop/create?title=hello&description=testworkshop'
@@ -101,7 +101,7 @@ describe('Workshop APIs', function() {
     });
 
     describe('#viewUsers', function() {
-        it('should return workshop when called with parameters', function() {
+        it('should return users in workshop when called with parameters', function() {
             expect(app, 'to yield exchange satisfying', {
                 request: {
                     url: 'workshop/view/123456789/users'

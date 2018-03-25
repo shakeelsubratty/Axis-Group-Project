@@ -25,7 +25,7 @@ describe('Idea APIs', function() {
     });
 
     describe('#createIdea', function() {
-        it('should return mocked idea when called with parameters', function() {
+        it('should return mocked idea title, description and user userid when called with parameters', function() {
             expect(app, 'to yield exchange satisfying', {
                 request: {
                     url: 'idea/create/123456789?title=test&description=idea'
@@ -39,7 +39,7 @@ describe('Idea APIs', function() {
     });
 
     describe('#deleteIdea', function() {
-        it('should return mocked idea when called with parameters', function() {
+        it('should return OK when deleting a valid idea', function() {
             expect(app, 'to yield exchange satisfying', {
                 request: {
                     url: 'idea/delete/123456789'

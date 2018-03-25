@@ -27,7 +27,7 @@ describe('Facilitator APIs', function() {
     });
 
     describe('#createFacilitator', function() {
-        it('should return mocked ID when called with parameters', function() {
+        it('should return mocked facilitator details when called with parameters', function() {
             expect(app, 'to yield exchange satisfying', {
                 request: {
                     url: 'auth/create/testuser/testpassword'
