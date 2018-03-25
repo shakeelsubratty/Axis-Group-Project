@@ -23,7 +23,7 @@ public class Participant
         this.responses = new ArrayList<>();
         for(Response r : responses)
         {
-            this.responses.add(r);
+            this.responses.add(r.getText());
         }
         numberOfResponses = responses.size();
 
