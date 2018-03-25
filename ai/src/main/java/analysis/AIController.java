@@ -37,13 +37,14 @@ public class AIController {
 //        return new ResponseEntity<UserEngagementResponse>(u, HttpStatus.OK);
 //    }
     @RequestMapping(value = "/userengagement", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public String userEngagement(HttpEntity<String> s)
+    public ResponseEntity<Participant> userEngagement(@RequestBody List<Participant> participants)
     {
-        String json = s.getBody();
-        
-        return json;
+//        String json = s.getBody();
+//
+//        return json;
 
+        return new ResponseEntity<Participant>(participants.get(0),HttpStatus.OK);
+        
 //        return new ResponseEntity<String>("Hi there! Participant: ",HttpStatus.OK);
 //        System.out.println(participants.get(0).getID());
 //
