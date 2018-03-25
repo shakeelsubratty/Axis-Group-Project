@@ -177,3 +177,13 @@ body{
     transition: transform 300ms; }
   .Collapsible__trigger.is-open:after {
     transform: rotateZ(180deg); }
+
+.ideaGenerationPanel{
+  flex:1;
+  display:flex !important;
+  flex-direction:column;
+  border-bottom: none !important;
+  margin-bottom:0 !important;
+  padding:3%;
+  background-color:#e8edf4 !important;
+}
