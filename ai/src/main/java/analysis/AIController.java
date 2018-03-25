@@ -62,7 +62,7 @@ public class AIController {
             for(JsonElement idea : elementObject.get("responses").getAsJsonArray())
             {
                 //JsonArray ideaArray = idea.getAsJsonArray();
-                JsonObject ideaObject = idea.getAsJsonObject()
+                JsonObject ideaObject = idea.getAsJsonObject();
                 try{
                     Response r = new Response(g.fromJson(ideaObject.get("id"),String.class),g.fromJson(ideaObject.get("description"),String.class));
                     responses.add(r);
