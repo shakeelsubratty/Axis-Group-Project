@@ -8,7 +8,7 @@ public class Participant
 {
     private final String id;
     private List<Response> responses;
-    private List<String> responsesString;     //For userEngagement and WordCloud
+    //private List<String> responsesString;     //For userEngagement and WordCloud
 
     private int sumOfLengths;
     private int numberOfResponses;
@@ -20,11 +20,11 @@ public class Participant
     {
         this.id = id;
         this.responses = responses;
-        this.responsesString = new ArrayList<>();
-        for(Response r : responses)
-        {
-            this.responsesString.add(r.getText());
-        }
+//        this.responsesString = new ArrayList<>();
+//        for(Response r : responses)
+//        {
+//            this.responsesString.add(r.getText());
+//        }
         numberOfResponses = responses.size();
 
     }
