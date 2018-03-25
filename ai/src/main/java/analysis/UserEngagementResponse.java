@@ -12,15 +12,15 @@ public class UserEngagementResponse
     private double superEngaged;
     private double overallEngagement;
 
-    public List<Double> getEngagementResponse() {
-        return engagementResponse;
-    }
+//    public List<Double> getEngagementResponse() {
+//        return engagementResponse;
+//    }
+//
+//    public void setEngagementResponse(List<Double> engagementResponse) {
+//        this.engagementResponse = engagementResponse;
+//    }
 
-    public void setEngagementResponse(List<Double> engagementResponse) {
-        this.engagementResponse = engagementResponse;
-    }
-
-    private List<Double> engagementResponse;
+//    private List<Double> engagementResponse;
 
     public double getSuperUnengaged() {
         return superUnengaged;

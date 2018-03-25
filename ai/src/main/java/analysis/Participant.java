@@ -8,7 +8,7 @@ public class Participant
 {
     private final String id;
     private List<Response> responses;
-    //private List<String> responsesString;     //For userEngagement and WordCloud
+    private List<String> responsesString;     //For userEngagement and WordCloud
 
     private int sumOfLengths;
     private int numberOfResponses;
@@ -20,34 +20,34 @@ public class Participant
     {
         this.id = id;
         this.responses = responses;
-//        this.responsesString = new ArrayList<>();
-//        for(Response r : responses)
-//        {
-//            this.responsesString.add(r.getText());
-//        }
+        this.responsesString = new ArrayList<>();
+        for(Response r : responses)
+        {
+            this.responsesString.add(r.getText());
+        }
         numberOfResponses = responses.size();
 
     }
 
-//    public double computeAverage()
-//    {
-//
-//        for (String x: responsesString)
-//        {
-//            sumOfLengths += x.length();
-//        }
-//
-//        if (responsesString.size()!=0)
-//        {
-//            averageLength = ( sumOfLengths /( responsesString.size() ));
-//        }
-//
-//        return averageLength;
-//    }
+    public double computeAverage()
+    {
+
+        for (String x: responsesString)
+        {
+            sumOfLengths += x.length();
+        }
+
+        if (responsesString.size()!=0)
+        {
+            averageLength = ( sumOfLengths /( responsesString.size() ));
+        }
+
+        return averageLength;
+    }
 
     public String getID(){return id;}
 
-//    public List<String> getResponsesString() {return responsesString;}
+    public List<String> getResponsesString() {return responsesString;}
 
     public List<Response> getResponses() {return responses;}
 
@@ -55,10 +55,10 @@ public class Participant
         return averageLength;
     }
 
-//    public int getNumResponses()
-//    {
-//        return responsesString.size();
-//    }
+    public int getNumResponses()
+    {
+        return responsesString.size();
+    }
 
     public void setLevel(double x)
     {
@@ -70,10 +70,10 @@ public class Participant
         return engagementLevel;
     }
 
-//    public double getSize()
-//    {
-//        return responsesString.size();
-//    }
+    public double getSize()
+    {
+        return responsesString.size();
+    }
 
     public void setStringLevel(String a)
     {

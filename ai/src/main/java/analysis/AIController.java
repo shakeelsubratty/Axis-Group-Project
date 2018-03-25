@@ -23,29 +23,29 @@ import data.Response;
 @RestController
 public class AIController {
 
-//    @RequestMapping(value = "/userengagement", method = RequestMethod.POST)
-//    public ResponseEntity<UserEngagementResponse> userEngagement(@RequestBody List<Participant> participants)
-//    {
-//        System.out.println(participants.get(0).getID());
-//
-//        UserEngagementCalculator uec = new UserEngagementCalculator(participants);
-//
-//        uec.calculateLevel();
-//
-//        UserEngagementResponse u = new UserEngagementResponse(uec.returnAverageArr());
-//        System.out.println("UserEngagement: Returning" + u.getEngagementResponse());
-//        return new ResponseEntity<UserEngagementResponse>(u, HttpStatus.OK);
-//    }
-    @RequestMapping(value = "/userengagement", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public String userEngagement(HttpEntity<String> s)
+    @RequestMapping(value = "/userengagement", method = RequestMethod.POST)
+    public ResponseEntity<UserEngagementResponse> userEngagement(@RequestBody List<Participant> participants)
     {
-        String json = s.getBody();
+        //System.out.println(participants.get(0).getID());
 
-        return json;
-//        return new ResponseEntity<String>("Hi there! Participant: ",HttpStatus.OK);
-//        System.out.println(participants.get(0).getID());
-//
+        UserEngagementCalculator uec = new UserEngagementCalculator(participants);
+
+        uec.calculateLevel();
+
+        UserEngagementResponse u = new UserEngagementResponse(uec.returnAverageArr());
+        System.out.println("UserEngagement: Returning" + u.getEngagementResponse());
+        return new ResponseEntity<UserEngagementResponse>(u, HttpStatus.OK);
+    }
+//    @RequestMapping(value = "/userengagement", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+//    //@ResponseBody
+//    public String userEngagement(HttpEntity<String> s)
+//    {
+////        String json = s.getBody();
+////
+////        return json;
+////        return new ResponseEntity<String>("Hi there! Participant: ",HttpStatus.OK);
+////        System.out.println(participants.get(0).getID());
+////
 //        UserEngagementCalculator uec = new UserEngagementCalculator(participants);
 //
 //        uec.calculateLevel();
