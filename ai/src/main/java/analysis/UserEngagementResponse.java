@@ -71,10 +71,10 @@ public class UserEngagementResponse
         this.superEngaged = arr.get(3);
         this.overallEngagement = arr.get(4);
 
-        engagementResponse.add(superUnengaged);
-        engagementResponse.add(unengaged);
-        engagementResponse.add(engaged);
-        engagementResponse.add(superEngaged);
+//        engagementResponse.add(superUnengaged);
+//        engagementResponse.add(unengaged);
+//        engagementResponse.add(engaged);
+//        engagementResponse.add(superEngaged);
 
     }
 }

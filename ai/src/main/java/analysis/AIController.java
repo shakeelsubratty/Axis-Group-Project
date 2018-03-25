@@ -21,8 +21,9 @@ import data.Response;
 public class AIController {
 
     @RequestMapping(value = "/userengagement", method = RequestMethod.POST)
-    public ResponseEntity<List<Double>> userEngagement(@RequestBody List<Participant> participants)
+    public ResponseEntity<UserEngagementResponse> userEngagement(@RequestBody List<Participant> participants)
     {
+        System.out.println(participants.get(0).getID());
 
         UserEngagementCalculator uec = new UserEngagementCalculator(participants);
 
@@ -30,7 +31,7 @@ public class AIController {
 
         UserEngagementResponse u = new UserEngagementResponse(uec.returnAverageArr());
         System.out.println("UserEngagement: Returning" + u.getEngagementResponse());
-        return new ResponseEntity<List<Double>>(u.getEngagementResponse(), HttpStatus.OK);
+        return new ResponseEntity<UserEngagementResponse>(u, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/repetition", method = RequestMethod.POST)
