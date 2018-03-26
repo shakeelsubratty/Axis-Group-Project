@@ -23,7 +23,7 @@ public class WordCloudResponse
         this.cloud = l;
     }
 
-    public List<Word>  getCloud() {
+    public List<Word> getCloud() {
         return cloud;
     }
 

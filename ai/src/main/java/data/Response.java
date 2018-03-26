@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+//import com.google.api.gax.rpc.InvalidArgumentException;
 import com.google.cloud.language.v1.Token;
 
 /**
@@ -23,27 +24,76 @@ public class Response
 	private String description;
 
 	private Syntax syntax;
-	private Categories categories;
+	//private Categories categories;
+
+//	/**
+//	 * Response constructor
+//	 *
+//	 * @param text
+//	 *            the response to be analysed.
+//	 * @throws IOException
+//	 * @throws Exception
+//	 */
+//	public Response(String id,String description) throws IOException, Exception
+//	{
+//		//count++;
+//		this.id = id;
+//		this.description = description;
+//
+//		//groupID = UUID.randomUID().toString();
+//
+//		syntax = new Syntax(description);
+//		categories = new Categories(description);
+//	}
+
 
 	/**
 	 * Response constructor
-	 * 
+	 *
 	 * @param text
 	 *            the response to be analysed.
-	 * @throws IOException
-	 * @throws Exception
 	 */
-	public Response(String id,String description) throws IOException, Exception
+	public Response(String text)
 	{
-		//count++;
-		this.id = id;
-		this.description = description;
-
-		//groupID = UUID.randomUID().toString();
-
-		syntax = new Syntax(description);
-		categories = new Categories(description);
+		id = "";
+		init(text);
 	}
+
+	/**
+	 * Response constructor with ID given
+	 *
+	 * @param text
+	 *            the response to be analysed.
+	 * @param id
+	 *            the ID of the response.
+	 */
+//	public Response(String text, String id)
+//	{
+//		this.id = id;
+//		init(text);
+//	}
+
+	public Response(String id, String text)
+	{
+		this.id = id;
+		init(text);
+	}
+
+	private void init(String text)
+	{
+		this.description = text;
+
+		try
+		{
+			syntax = new Syntax(text);
+		}
+		catch (Exception e)
+		{
+			// The response is too short to perform some analysis, but this does not impact
+			// this program's use of the API.
+		}
+	}
+
 
 	public String getID()
 	{

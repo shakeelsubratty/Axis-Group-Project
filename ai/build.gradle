@@ -22,12 +22,17 @@ bootJar {
 
 repositories {
     mavenCentral()
+    maven {
+        url 'https://repo.spring.io/libs-milestone'
+    }
 }
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
+    compile group: 'io.netty', name: 'netty-all', version: '4.1.22.Final'
+    compile 'org.springframework.cloud:spring-cloud-gcp:1.0.0.M2'
     compile 'com.google.code.gson:gson:2.8.2'
     compile 'com.google.cloud:google-cloud-language:1.14.0'
     testCompile 'junit:junit:4.12'

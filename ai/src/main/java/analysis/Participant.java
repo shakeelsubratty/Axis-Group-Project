@@ -7,8 +7,8 @@ import data.Response;
 public class Participant
 {
     private final String id;
-    private List<Response> responses;
-    private List<String> responsesString;     //For userEngagement and WordCloud
+    //private List<Response> responses;
+    private List<String> responses;     //For userEngagement and WordCloud
 
     private int sumOfLengths;
     private int numberOfResponses;
@@ -19,11 +19,11 @@ public class Participant
     public Participant(String id, List<Response> responses)
     {
         this.id = id;
-        this.responses = responses;
-        this.responsesString = new ArrayList<>();
+        //this.responses = responses;
+        this.responses = new ArrayList<>();
         for(Response r : responses)
         {
-            this.responsesString.add(r.getText());
+            this.responses.add(r.getText());
         }
         numberOfResponses = responses.size();
 
@@ -32,14 +32,14 @@ public class Participant
     public double computeAverage()
     {
 
-        for (String x: responsesString)
+        for (String x: responses)
         {
             sumOfLengths += x.length();
         }
 
-        if (responsesString.size()!=0)
+        if (responses.size()!=0)
         {
-            averageLength = ( sumOfLengths /( responsesString.size() ));
+            averageLength = ( sumOfLengths /( responses.size() ));
         }
 
         return averageLength;
@@ -47,9 +47,9 @@ public class Participant
 
     public String getID(){return id;}
 
-    public List<String> getResponsesString() {return responsesString;}
+   // public List<String> getResponsesString() {return responsesString;}
 
-    public List<Response> getResponses() {return responses;}
+    public List<String> getResponses() {return responses;}
 
     public double fetchAverage(){
         return averageLength;
@@ -57,7 +57,7 @@ public class Participant
 
     public int getNumResponses()
     {
-        return responsesString.size();
+        return responses.size();
     }
 
     public void setLevel(double x)
@@ -72,7 +72,7 @@ public class Participant
 
     public double getSize()
     {
-        return responsesString.size();
+        return responses.size();
     }
 
     public void setStringLevel(String a)

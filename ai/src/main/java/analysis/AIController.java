@@ -9,6 +9,8 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.lang.Exception;
 import java.io.IOException;
 
+import com.google.api.gax.rpc.*;
+
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,19 +28,6 @@ import data.Response;
 @RestController
 public class AIController {
 
-//    @RequestMapping(value = "/userengagement", method = RequestMethod.POST)
-//    public ResponseEntity<UserEngagementResponse> userEngagement(@RequestBody List<Participant> participants)
-//    {
-//        //System.out.println(participants.get(0).getID());
-//
-//        UserEngagementCalculator uec = new UserEngagementCalculator(participants);
-//
-//        uec.calculateLevel();
-//
-//        UserEngagementResponse u = new UserEngagementResponse(uec.returnAverageArr());
-//       // System.out.println("UserEngagement: Returning" + u.getEngagementResponse());
-//        return new ResponseEntity<UserEngagementResponse>(u, HttpStatus.OK);
-//    }
     @RequestMapping(value = "/userengagement", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String userEngagement(HttpEntity<String> s)
@@ -64,7 +53,9 @@ public class AIController {
                 //JsonArray ideaArray = idea.getAsJsonArray();
                 JsonObject ideaObject = idea.getAsJsonObject();
                 try{
-                    Response r = new Response(g.fromJson(ideaObject.get("id"),String.class),g.fromJson(ideaObject.get("description"),String.class));
+                    String id = g.fromJson(ideaObject.get("id"),String.class);
+                    String description = g.fromJson(ideaObject.get("description"),String.class);
+                    Response r = new Response(id,description);
                     responses.add(r);
                 } catch(Exception excep)
                 {
@@ -119,27 +110,70 @@ public class AIController {
 //        return new ResponseEntity<RepetitionResponse>(r,HttpStatus.OK);
 //    }
 //
-//    @RequestMapping(value = "/wordcloud", method = RequestMethod.POST)
-//    public ResponseEntity<WordCloudResponse> wordCloud(@RequestBody List<Participant> participants)
-//    {
-//        WordCloud wc = new WordCloud();
+    @RequestMapping(value = "/wordcloud", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String wordCloud(HttpEntity<String> s)
+    {
+
+        String json = s.getBody();
+        Gson g = new Gson();
+        JsonParser parser = new JsonParser();
+
+        JsonArray participantsArray = parser.parse(json).getAsJsonArray();
+
+        List<Participant> participants = new ArrayList<Participant>();
+
+        for(JsonElement e : participantsArray)
+        {
+            //JsonArray elementArray = e.getAsJsonArray();
+            JsonObject elementObject = e.getAsJsonObject();
+            List<Response> responses = new ArrayList<>();
+
+            for(JsonElement idea : elementObject.get("responses").getAsJsonArray())
+            {
+                //JsonArray ideaArray = idea.getAsJsonArray();
+                JsonObject ideaObject = idea.getAsJsonObject();
+                try{
+                    String id = g.fromJson(ideaObject.get("id"),String.class);
+                    String description = g.fromJson(ideaObject.get("description"),String.class);
+                    Response r = new Response(id,description);
+                    responses.add(r);
+                } catch(Exception excep)
+                {
+                    excep.printStackTrace();
+                }
+            }
+
+            Participant participant = new Participant(g.fromJson(elementObject.get("id"),String.class),responses);
+
+            participants.add(participant);
+        }
+
+        try{
+            WordCloud wc = new WordCloud("Hi");
+            for(Participant p : participants)
+            {
+                for(String r : p.getResponses())
+                {
+                    try {
+                        wc.processResponse(r);
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+            }
+        } catch (Exception b) {b.printStackTrace();}
+
+
+
 //
-//        for(Participant p : participants)
-//        {
-//            for(String r : p.getResponsesString())
-//            {
-//                try {
-//                    wc.processResponse(r);
-//                } catch (Exception e){
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
+//       WordCloudResponse w = new WordCloudResponse(wc.getHashMap());
 //
-//        WordCloudResponse w = new WordCloudResponse(wc.getHashMap());
-//
-//        return new ResponseEntity<WordCloudResponse>(w,HttpStatus.OK);
-//    }
+//        String ret = g.toJson(w.getCloud());
+        //return ret;
+
+        return g.toJson(participants);
+    }
 
 
 }

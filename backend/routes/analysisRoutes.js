@@ -29,13 +29,23 @@ module.exports = function(app) {
             if (config.DEBUG) {
                 console.log("[API accessed] [analysisRoute] /wordcloud/:workshopId, currently aggregated the following user data: " + JSON.stringify(ret));
             }
-            var mockRet = [
-                { "name": "Potato", "count": 1, "colour": "#00ff00", "sentiment": 1 },
-                { "name": "Ireland", "count": 1, "colour": "#ff0000", "sentiment": -1 },
-                { "name": "Manuel", "count": 1, "colour": "#f0f000", "sentiment": 0.5 },
-                { "name": "Alex", "count": 2, "colour": "#0f0f00", "sentiment": -0.8 }
-            ];
-            res.json(mockRet);
+//            var mockRet = [
+//                { "name": "Potato", "count": 1, "colour": "#00ff00", "sentiment": 1 },
+//                { "name": "Ireland", "count": 1, "colour": "#ff0000", "sentiment": -1 },
+//                { "name": "Manuel", "count": 1, "colour": "#f0f000", "sentiment": 0.5 },
+//                { "name": "Alex", "count": 2, "colour": "#0f0f00", "sentiment": -0.8 }
+//            ];
+            request.post(
+                config.aiUrl + "/wordcloud",
+                {json: ret},
+                function(error, response, body) {
+                    if (config.DEBUG) {
+                        console.log("[AI request made] wordcloud, received error: " + error + "; and response: " + JSON.stringify(response) + "; and body: " + JSON.stringify(body));
+                    }
+                    res.json(body);
+                }
+            );
+            //res.json(mockRet);
         });
     });
 }
