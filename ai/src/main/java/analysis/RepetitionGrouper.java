@@ -41,6 +41,7 @@ public class RepetitionGrouper
 		if (responses.size() == 1)
 		{
 			ArrayList<Response> newGroup = new ArrayList<>();
+			r.setGroupID(UUID.randomUUID().toString());
 			newGroup.add(r);
 			groups.add(newGroup);
 		}
@@ -80,11 +81,13 @@ public class RepetitionGrouper
 			if (bestGroup == null)
 			{
 				ArrayList<Response> newGroup = new ArrayList<>();
+				r.setGroupID(UUID.randomUUID().toString());
 				newGroup.add(r);
 				groups.add(newGroup);
 			}
 			else // Add the response to the best matching group that was found
 			{
+				r.setGroupID(bestGroup.get(0).getGroupID());
 				bestGroup.add(r);
 			}
 		}

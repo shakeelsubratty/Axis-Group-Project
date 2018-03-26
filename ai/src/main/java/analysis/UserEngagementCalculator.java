@@ -3,6 +3,7 @@ package analysis;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.ArrayList;
+
 import analysis.Participant;
 
 public class UserEngagementCalculator {
@@ -23,15 +24,16 @@ public class UserEngagementCalculator {
 		numParticipants = participants.size();
 		if (participants.size()!=0)
 		{
-		for (Participant z: participants)
-		{
-			workshopTotalResp += z.getNumResponses();
-		}
+			for (Participant z: participants)
+			{
+				workshopTotalResp += z.getNumResponses();
+			}
 		}
 		else
 		{
 			workshopTotalResp= 0;
 		}
+
 		for (Participant z: participants)
 		{
 			workshopAverage += (z.computeAverage()*z.getNumResponses());
@@ -49,9 +51,6 @@ public class UserEngagementCalculator {
 			double numerator =  (y.getNumResponses()/workshopTotalResp) ;
 			double denominator = y.fetchAverage()/workshopAverage ;
             double finalLevel = numerator*denominator;
-//            double newFactor = y.getOffTab()/totalTimeOfWorkshop;
-//            double newNew = newFactor ;
-//            double offFinalLevel = finalLevel - newFactor;
 
 			y.setLevel(finalLevel);
 

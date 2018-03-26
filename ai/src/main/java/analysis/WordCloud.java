@@ -12,6 +12,9 @@ import com.google.cloud.language.v1.Entity;
 
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
+
 
 import data.Word;
 
@@ -19,9 +22,9 @@ public class WordCloud {
 	
 	private HashMap<String, Word> wordCloud;
 
-	protected WordCloud(String text) throws IOException, Exception
+	public WordCloud()
 	{
-		processResponse(text);
+		this.wordCloud = new HashMap<String,Word>();
 	}
 
 	
@@ -37,26 +40,31 @@ public class WordCloud {
 
 			  AnalyzeEntitySentimentResponse response = language.analyzeEntitySentiment(request);
 
-//			  for(Entity entity : response.getEntitiesList()) {
-//
-//				if(wordCloud.isEmpty() || !wordCloud.containsKey(entity.getName())) {
-//					Word word = new Word(entity.getName(), entity.getSentiment().getScore());
-//					wordCloud.put(word.getName(), word);
-//				} else {
-//	                Word value = wordCloud.get(entity.getName());
-//	                value.incrementCount();
-//	                value.calculateSentiment(entity.getSentiment().getScore());
-//				}
-//			  }
+			  for(Entity entity : response.getEntitiesList()) {
+
+				if(wordCloud.isEmpty() || !wordCloud.containsKey(entity.getName())) {
+					Word word = new Word(entity.getName(), entity.getSentiment().getScore());
+					wordCloud.put(word.getName(), word);
+				} else {
+	                Word value = wordCloud.get(entity.getName());
+	                value.incrementCount();
+	                value.calculateSentiment(entity.getSentiment().getScore());
+				}
+			  }
 	    	}
-		
-//		for(Word word : wordCloud.values()) {
-//			word.calculateColour();
-//		}
+		for(Word word : wordCloud.values()) {
+			word.calculateColour();
+		}
 	}
 	
-	public HashMap<String, Word> getHashMap() {
-		return wordCloud;
+	public List<Word> getWords()
+	{
+		List<Word> l = new ArrayList<>();
+		for(Word x : wordCloud.values())
+		{
+			l.add(x);
+		}
+		return l;
 	}
 
 }

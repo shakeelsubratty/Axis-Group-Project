@@ -7,9 +7,7 @@ import data.Response;
 public class Participant
 {
     private final String id;
-    //private List<Response> responses;
     private List<String> responses;     //For userEngagement and WordCloud
-
     private int sumOfLengths;
     private int numberOfResponses;
     private double engagementLevel;
@@ -19,7 +17,6 @@ public class Participant
     public Participant(String id, List<Response> responses)
     {
         this.id = id;
-        //this.responses = responses;
         this.responses = new ArrayList<>();
         for(Response r : responses)
         {
@@ -46,8 +43,6 @@ public class Participant
     }
 
     public String getID(){return id;}
-
-   // public List<String> getResponsesString() {return responsesString;}
 
     public List<String> getResponses() {return responses;}
 

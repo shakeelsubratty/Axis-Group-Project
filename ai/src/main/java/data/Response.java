@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-//import com.google.api.gax.rpc.InvalidArgumentException;
 import com.google.cloud.language.v1.Token;
 
 /**
@@ -17,35 +16,10 @@ import com.google.cloud.language.v1.Token;
  */
 public class Response
 {
-	//private static int count;
 	private final String id;
 	private String groupID;
-
 	private String description;
-
 	private Syntax syntax;
-	//private Categories categories;
-
-//	/**
-//	 * Response constructor
-//	 *
-//	 * @param text
-//	 *            the response to be analysed.
-//	 * @throws IOException
-//	 * @throws Exception
-//	 */
-//	public Response(String id,String description) throws IOException, Exception
-//	{
-//		//count++;
-//		this.id = id;
-//		this.description = description;
-//
-//		//groupID = UUID.randomUID().toString();
-//
-//		syntax = new Syntax(description);
-//		categories = new Categories(description);
-//	}
-
 
 	/**
 	 * Response constructor
@@ -67,11 +41,6 @@ public class Response
 	 * @param id
 	 *            the ID of the response.
 	 */
-//	public Response(String text, String id)
-//	{
-//		this.id = id;
-//		init(text);
-//	}
 
 	public Response(String id, String text)
 	{
@@ -91,6 +60,7 @@ public class Response
 		{
 			// The response is too short to perform some analysis, but this does not impact
 			// this program's use of the API.
+			e.printStackTrace();
 		}
 	}
 
@@ -99,6 +69,10 @@ public class Response
 	{
 		return id;
 	}
+
+	public String getGroupID() {return groupID;}
+
+	public void setGroupID(String groupID) {this.groupID = groupID;}
 
 	public String getText()
 	{
