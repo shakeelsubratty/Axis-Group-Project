@@ -41,6 +41,7 @@ public class AIController {
                 {
                     String id = g.fromJson(ideaObject.get("id"),String.class);
                     String description = g.fromJson(ideaObject.get("description"),String.class);
+                    //TODO: Reduce redundancy
                     Response r = new Response(id,description);
                     responses.add(r);
                 } catch(Exception excep)
@@ -96,7 +97,6 @@ public class AIController {
         Gson g = new Gson();
         JsonParser parser = new JsonParser();
         JsonArray participantsArray = parser.parse(json).getAsJsonArray();
-        List<Participant> participants = new ArrayList<Participant>();
         for(JsonElement e : participantsArray)
         {
             JsonObject elementObject = e.getAsJsonObject();
@@ -105,10 +105,8 @@ public class AIController {
             {
                 JsonObject ideaObject = idea.getAsJsonObject();
                 try{
-                    String id = g.fromJson(ideaObject.get("id"),String.class);
                     String description = g.fromJson(ideaObject.get("description"),String.class);
-                    Response r = new Response(id,description);
-                    wc.processResponse(r.getText());
+                    wc.processResponse(description);
                 } catch(Exception excep)
                 {
                     excep.printStackTrace();

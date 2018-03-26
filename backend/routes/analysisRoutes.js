@@ -40,22 +40,4 @@ module.exports = function(app) {
         });
     });
 
-    //TODO: Remove Repetition API call if not necessary
-     app.get(config.analysisRoot + '/repetition/:workshopId', function(req, res) {
-            analysisModel.getUsersAndIdeaText(req.params.workshopId).then(function(ret) {
-                if (config.DEBUG) {
-                    console.log("[API accessed] [analysisRoute] /repetition/:workshopId, currently aggregated the following user data: " + JSON.stringify(ret));
-                }
-                request.post(
-                    config.aiUrl + "/repetition",
-                    {json: ret},
-                    function(error, response, body) {
-                        if (config.DEBUG) {
-                            console.log("[AI request made] repetition, received error: " + error + "; and response: " + JSON.stringify(response) + "; and body: " + JSON.stringify(body));
-                        }
-                        res.json(body);
-                    }
-                );
-            });
-        });
 }
