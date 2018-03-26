@@ -8,9 +8,20 @@ describe('User APIs', function() {
 
     before(function createAppAndMocks() {
         mockery.enable({warnOnUnregistered: false});
+        mockery.registerMock('../models/schema', {
+          User: {
+            findByIdAsync: function() {
+              var ret = {
+                findIdeasAsync: function() {
+                  return Promise.resolve({title: "Test idea", description: "Test description", user: "123456789", workshop: "workshop01"});
+                }
+              };
+              return Promise.resolve(ret);
+            }
+          }
+        });
         mockery.registerMock('../models/participantModel', {
             createParticipant: function(workshop) {
-                console.log("ran mock lol");
                 return Promise.resolve(true).then(function() { return workshop });
             }
         });
@@ -25,16 +36,30 @@ describe('User APIs', function() {
     });
 
     describe('#createParticipant', function() {
-        it('should return mocked ID when called with parameters', function() {
+        it('should return workshop ID when called with parameters', function() {
             expect(app, 'to yield exchange satisfying', {
                 request: {
-                    url: 'participant/create/hello'
+                    url: 'participant/create/123456789'
                 },
                 response: {
                     statusCode: 200,
-                    body: 'hello'
+                    body: '123456789'
                 }
             });
         });
     });
+
+      describe('#viewParticipantIdeas', function() {
+          it('should return mocked idea when called with correct parameters', function() {
+              expect(app, 'to yield exchange satisfying', {
+                  request: {
+                      url: 'participant/view/123456789/ideas'
+                  },
+                  response: {
+                      statusCode: 200,
+                      body: '{"title":"Test idea","description":"Test description","user":"123456789","workshop":"workshop01"}'
+                  }
+              });
+          });
+      });
 });

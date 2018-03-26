@@ -6,6 +6,9 @@ import com.google.cloud.language.v1.Document;
 import com.google.cloud.language.v1.Document.Type;
 import com.google.cloud.language.v1.EncodingType;
 import com.google.cloud.language.v1.LanguageServiceClient;
+
+import data.Word;
+
 import com.google.cloud.language.v1.AnalyzeEntitySentimentResponse;
 import com.google.cloud.language.v1.AnalyzeEntitySentimentRequest;
 import com.google.cloud.language.v1.Entity;
@@ -16,21 +19,30 @@ import java.util.List;
 import java.util.ArrayList;
 
 
-import data.Word;
-
+/**
+ * The Class WordCloud.
+ */
 public class WordCloud {
-	
+
+	/** The word cloud to be displayed. */
 	private HashMap<String, Word> wordCloud;
 
-	public WordCloud()
-	{
-		this.wordCloud = new HashMap<String,Word>();
+	/**
+	 * Instantiates a new word cloud.
+	 */
+	public WordCloud() {
+		wordCloud = new HashMap<>();
 	}
 
-	
-	public void processResponse(String text) throws IOException, Exception
-	{
-		
+	/**
+	 * Process user response. Add the word entities to the wordCloud variable.
+	 * Then go through the entities in the wordClouds and calculate their colour.
+	 *
+	 * @param text the text
+	 * @throws Exception the exception
+	 */
+	public void processResponse(String text) throws Exception{
+
 		try (LanguageServiceClient language = LanguageServiceClient.create()) {
 	    	  Document doc = Document.newBuilder()
 			      .setContent(text).setType(Type.PLAIN_TEXT).build();
@@ -52,11 +64,12 @@ public class WordCloud {
 				}
 			  }
 	    	}
+
 		for(Word word : wordCloud.values()) {
 			word.calculateColour();
 		}
 	}
-	
+
 	public List<Word> getWords()
 	{
 		List<Word> l = new ArrayList<>();

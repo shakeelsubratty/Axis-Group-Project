@@ -40,6 +40,7 @@ module.exports = function(app) {
         });
     });
 
+    //TODO: Remove Repetition API call if not necessary
      app.get(config.analysisRoot + '/repetition/:workshopId', function(req, res) {
             analysisModel.getUsersAndIdeaText(req.params.workshopId).then(function(ret) {
                 if (config.DEBUG) {

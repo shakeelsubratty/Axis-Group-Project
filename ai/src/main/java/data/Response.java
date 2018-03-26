@@ -5,12 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.google.api.gax.rpc.InvalidArgumentException;
 import com.google.cloud.language.v1.Token;
 
 /**
- * 
+ *
  * @author Aaron
- * 
+ *
  *         Stores the data received from the Google API.
  *
  */
@@ -38,19 +39,43 @@ public class Response
 	 *
 	 * @param text
 	 *            the response to be analysed.
+<<<<<<< HEAD
 	 * @param id
 	 *            the ID of the response.
 	 */
 
 	public Response(String id, String text)
 	{
+=======
+	 */
+	public Response(String text)
+	{
+		id = -1;
+		init(text);
+	}
+
+	/**
+	 * Response constructor with ID given
+	 *
+	 * @param text
+	 *            the response to be analysed.
+	 * @param id
+	 *            the ID of the response.
+	 */
+	public Response(String text, int id)
+	{
+>>>>>>> 134b2325eccc0d1b44d58dfa1cacb5efed06518a
 		this.id = id;
 		init(text);
 	}
 
 	private void init(String text)
 	{
+<<<<<<< HEAD
 		this.description = text;
+=======
+		this.text = text;
+>>>>>>> 134b2325eccc0d1b44d58dfa1cacb5efed06518a
 
 		try
 		{
@@ -60,27 +85,45 @@ public class Response
 		{
 			// The response is too short to perform some analysis, but this does not impact
 			// this program's use of the API.
+<<<<<<< HEAD
 			e.printStackTrace();
 		}
 	}
 
 
 	public String getID()
+=======
+		}
+	}
+
+	/**
+	 *
+	 * @return the ID of the response.
+	 */
+	public int getID()
+>>>>>>> 134b2325eccc0d1b44d58dfa1cacb5efed06518a
 	{
 		return id;
 	}
 
+<<<<<<< HEAD
 	public String getGroupID() {return groupID;}
 
 	public void setGroupID(String groupID) {this.groupID = groupID;}
 
+=======
+	/**
+	 *
+	 * @return the text of the response.
+	 */
+>>>>>>> 134b2325eccc0d1b44d58dfa1cacb5efed06518a
 	public String getText()
 	{
 		return description;
 	}
 
 	/**
-	 * 
+	 *
 	 * @return a list of all words from the response that are verbs.
 	 */
 	public List<Token> getVerbs()
@@ -89,7 +132,7 @@ public class Response
 	}
 
 	/**
-	 * 
+	 *
 	 * @return a list of all words from the response that are nouns.
 	 */
 	public List<Token> getNouns()
@@ -98,7 +141,7 @@ public class Response
 	}
 
 	/**
-	 * 
+	 *
 	 * @param a
 	 *            a list of words to be compared from Response a
 	 * @param b
@@ -126,7 +169,7 @@ public class Response
 
 	/**
 	 * Compare the verbs in this Response to another response.
-	 * 
+	 *
 	 * @param r
 	 *            the Response to compare
 	 * @return the percentage match
@@ -138,7 +181,7 @@ public class Response
 
 	/**
 	 * Compare the verbs in this Response to another response.
-	 * 
+	 *
 	 * @param r
 	 *            the Response to compare
 	 * @return the percentage match
@@ -149,7 +192,7 @@ public class Response
 	}
 
 	/**
-	 * 
+	 *
 	 * @param r
 	 *            the Response to compare
 	 * @return true if the responses have over 50% match
@@ -160,7 +203,7 @@ public class Response
 	}
 
 	/**
-	 * 
+	 *
 	 * @param r
 	 *            the Response to compare
 	 * @return the percentage match for these two responses
@@ -169,16 +212,25 @@ public class Response
 	{
 		double nounMatch = this.compareNounsTo(r);
 		double verbMatch = this.compareVerbsTo(r);
-		
+
 		return (double) (nounMatch + verbMatch) / 2.0;
 	}
-	
+
 	@Override
+	/**
+	 * Returns the ID of the response as a String.
+	 */
 	public String toString()
 	{
 		return id + "";
 	}
 
+	/**
+	 *
+	 * @param r
+	 *            the response to compare.
+	 * @return true if the ID of the responses are the same.
+	 */
 	public boolean equals(Response r)
 	{
 		return id.equals(r.getID());
