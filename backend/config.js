@@ -11,6 +11,6 @@ module.exports = {
     authRoot: "/auth", //routes for everything workshop-related
     analysisRoot: "/analysis",
     //aiUrl: "http://172.17.0.1:25565"  //TEDDY
-    aiUrl: "http://192.168.0.10:25565" //SHAK
-    //aiUrl: "http://35.204.251.190:25565"  //GCP
+    //aiUrl: "http://10.40.250.187:25565" //SHAK
+    aiUrl: "http://35.204.251.190:25565"  //GCP
 }
