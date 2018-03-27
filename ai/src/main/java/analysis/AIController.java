@@ -99,9 +99,32 @@ public class AIController {
         }
 
         return g.toJson(rg.getGroups());
+        //return g.toJson(repetitionGrouperMap);
     }
 
-    
+    @RequestMapping(value ="/deleteworkshop", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String deleteWorkshop(HttpEntity<String> s)
+    {
+        String json = s.getBody();
+        Gson g = new Gson();
+        JsonParser parser = new JsonParser();
+        JsonObject responseObject = parser.parse(json).getAsJsonObject();
+
+        String workshopID = g.fromJson(responseObject.get("workshop"),String.class);
+
+        if(repetitionGrouperMap.containsKey(workshopID))
+        {
+            repetitionGrouperMap.remove(workshopID);
+        }
+        else
+        {
+            return g.toJson("Workshop with ID: " + workshopID + " does not exist!");
+        }
+
+        return g.toJson("Deleted Workshop with ID: " + workshopID);
+
+    }
 
     @RequestMapping(value = "/wordcloud", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
