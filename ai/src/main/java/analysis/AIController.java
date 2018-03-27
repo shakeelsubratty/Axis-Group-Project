@@ -98,7 +98,22 @@ public class AIController {
             excep.printStackTrace();
         }
 
-        return g.toJson(rg.getGroups());
+        List<List<Response>> groups = rg.getGroups();
+
+
+        for(List<Response> group : groups)
+        {
+            for(Response response : group)
+            {
+                if(response.getID().equals(id))
+                {
+                    return response.getGroupID();
+                }
+            }
+        }
+
+        return "Error: err";
+        //return g.toJson(rg.getGroups());
         //return g.toJson(repetitionGrouperMap);
     }
 
