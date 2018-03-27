@@ -40,7 +40,14 @@ module.exports = function(app) {
                        if (config.DEBUG) {
                            console.log("[AI request made] wordcloud, received error: " + error + "; and response: " + JSON.stringify(response) + "; and body: " + JSON.stringify(body));
                        }
-                       res.json(body);
+                       var clouds = body.map(function(cloud) {
+                           return {
+                               value: cloud.name,
+                               count: cloud.count,
+                               color: cloud.colour
+                           };
+                       });
+                       res.json(clouds);
                    }
                );
            });
