@@ -6,6 +6,10 @@ const request = require('request');
 module.exports = function(app) {
     app.get(config.analysisRoot + '/userengagement/:workshopId', function(req, res) {
         analysisModel.getUsersAndIdeaText(req.params.workshopId).then(function(ret) {
+            if(ret == []) {
+              res.json("[0, 0, 0, 0, 0]");
+              return;
+            }
             if (config.DEBUG) {
                 console.log("[API accessed] [analysisRoute] /userengagement/:workshopId, currently aggregated the following user data: " + JSON.stringify(ret));
             }
