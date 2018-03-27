@@ -75,7 +75,7 @@ public class AIController {
 
         RepetitionGrouper rg;
 
-        String id = g.fromJson(responseObject.get("id"), String.class);
+        String id = g.fromJson(responseObject.get("_id"), String.class);
         String description = g.fromJson(responseObject.get("description"), String.class);
         String workshopID = g.fromJson(responseObject.get("workshop"), String.class);
 
