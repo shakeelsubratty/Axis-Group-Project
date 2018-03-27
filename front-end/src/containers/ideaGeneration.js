@@ -11,7 +11,9 @@ export class IdeaGeneration extends Component {
 		this.state = {
 			isInThisPage: false
 		}
-		this.update = this.update.bind(this);
+		this.updateIdeas = this.updateIdeas.bind(this);
+		this.updateDeleteIdea = this.updateDeleteIdea.bind(this);
+
 	}
 
 	componentWillMount() {
@@ -69,15 +71,25 @@ export class IdeaGeneration extends Component {
 	clearInterval(window.intervalUserId);
 	}
 
-	update(childId) {
-		//console.log('UPDATE CALLED');
-		this.props.deleteIdea(childId)
+	updateIdeas() {
+		console.log('UPDATE Ideas CALLED');
+	//	this.props.deleteIdea(childId)
 		this.props.fetchIdeas(this.props.userId);
+	}
+
+	updateDeleteIdea(childId) {
+		console.log('UPDATE delete Ideas CALLED');
+		this.props.deleteIdea(childId,() => {
+			this.props.fetchIdeas(this.props.userId);
+		});
+	//this.props.fetchIdeas(this.props.userId);
+
 	}
 
 	renderIdeas() {
 		//console.log('ideasss=>',this.props.ideas);
 		if (_.isEmpty(this.props.ideas)) {
+			console.log('array is empty.');
 			return (
 				<div className='card card-big' style={{textAlign:'center', width:'100%', border:'solid 1px #a09a9a'}}>
 					<h5>{this.props.wsDescription}</h5>
@@ -91,7 +103,7 @@ export class IdeaGeneration extends Component {
 				return (
 					<div key={this.props.ideas[item]._id}>
 						<UserIdea
-							callback = {this.update}
+							callback={this.updateDeleteIdea}
 							id = {this.props.ideas[item]._id}
 							title={this.props.ideas[item].title}
 
@@ -115,7 +127,7 @@ export class IdeaGeneration extends Component {
 					<div className='ideaGen' style={{display:'flex', flex:5.5, marginTop:'2%', flexDirection:'row'}}>
 						<NewIdea
 							className='card card-big dataBox'
-							callback={this.update}
+							callbackUpdate={this.updateIdeas}
 							userId={this.props.userId}
 						/>
 						<div className='ideaGenerationPanel' style={{borderRadius:'0px 0.25rem 0.25rem 0px', borderLeft:'solid 1px #b1b1b1'}}>
