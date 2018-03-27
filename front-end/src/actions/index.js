@@ -294,3 +294,21 @@ export function activateWorkshop(wsId) {
 		// });
 	// }
 }
+
+export function deactivateWorkshop(wsId) {
+	// return (dispatch) => {
+		console.log('DEactivate ws called');
+		axios.get(`${ROOT_URL}/workshop/set/${wsId}/close`);
+		//.then(function (response) {
+		//
+		// 	console.log('getWordCloudData API-->', response.data);
+		//
+		// 	dispatch({
+		// 		type: ACTIVATE_WORKSHOP,
+		// 		payload: response.data,
+		// 	});
+		// }).catch((e) => {
+		// 	console.log(e);
+		// });
+	// }
+}
