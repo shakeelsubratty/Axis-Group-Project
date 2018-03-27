@@ -277,37 +277,25 @@ export function getWordCloudData(wsId){
 }
 
 export function activateWorkshop(wsId) {
-	// return (dispatch) => {
+	return (dispatch) => {
 		console.log('activate ws called');
-		axios.get(`${ROOT_URL}/workshop/set/${wsId}/active`);
-		//.then(function (response) {
-		//
-		// 	console.log('getWordCloudData API-->', response.data);
-		//
-		// 	dispatch({
-		// 		type: ACTIVATE_WORKSHOP,
-		// 		payload: response.data,
-		// 	});
-		// }).catch((e) => {
-		// 	console.log(e);
-		// });
-	// }
+		axios.get(`${ROOT_URL}/workshop/set/${wsId}/active`).then(function (response) {
+
+
+		}).catch((e) => {
+			console.log(e);
+		});
+	}
 }
 
 export function deactivateWorkshop(wsId) {
-	// return (dispatch) => {
+	return (dispatch) => {
 		console.log('DEactivate ws called');
-		axios.get(`${ROOT_URL}/workshop/set/${wsId}/closed`);
-		//.then(function (response) {
-		//
-		// 	console.log('getWordCloudData API-->', response.data);
-		//
-		// 	dispatch({
-		// 		type: ACTIVATE_WORKSHOP,
-		// 		payload: response.data,
-		// 	});
-		// }).catch((e) => {
-		// 	console.log(e);
-		// });
-	// }
+		axios.get(`${ROOT_URL}/workshop/set/${wsId}/closed`).then(function (response) {
+
+
+		}).catch((e) => {
+			console.log(e);
+		});
+	}
 }

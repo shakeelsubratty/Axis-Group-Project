@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { WorkshopIdea, LoadingScreen, WordCloud } from '../components';
-import { getWorkshopInfo, setWorkshopTo, attemptLogIn, logOut, fetchAllIdeas, getUserEngagement, getWordCloudData } from '../actions';
+import { deactivateWorkshop, getWorkshopInfo, setWorkshopTo, attemptLogIn, logOut, fetchAllIdeas, getUserEngagement, getWordCloudData } from '../actions';
 
 export class ModeratorMain extends Component {
   constructor(props) {
@@ -163,8 +163,8 @@ export class ModeratorMain extends Component {
           <Link to='/' onClick={() => {
 				this.props.deactivateWorkshop(this.props.wsId);
             this.props.logOut(() => {
-              clearInterval(this.intervalWsId);
-            });
+             clearInterval(this.intervalWsId);
+           });
           }}>
             Exit
           </Link>
@@ -242,7 +242,8 @@ const mapDispatchToProps = {
   setWorkshopTo,
   fetchAllIdeas,
   getUserEngagement,
-  getWordCloudData
+  getWordCloudData,
+  deactivateWorkshop
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ModeratorMain);
