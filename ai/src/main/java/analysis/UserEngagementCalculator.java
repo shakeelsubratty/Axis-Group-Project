@@ -123,10 +123,21 @@ public class UserEngagementCalculator {
 			}
 		}
 
-		numTerrible = numTerrible/numParticipants;
-		numUn = numUn/numParticipants;
-		numEng = numEng/numParticipants;
-		numSuper = numSuper/numParticipants;
+		if(numParticipants != 0)
+		{
+			numTerrible = numTerrible/numParticipants;
+			numUn = numUn/numParticipants;
+			numEng = numEng/numParticipants;
+			numSuper = numSuper/numParticipants;
+		}
+		else
+		{
+			numTerrible = 0.0;
+			numUn = 0.0;
+			numEng = 0.0;
+			numSuper = 0.0;
+		}
+
 
 		DecimalFormat df = new DecimalFormat("##.####");
 
