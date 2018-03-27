@@ -56,6 +56,8 @@ export function logOut(callback) {
 }
 
 export function joinWorkshop(workshopId, callback) {
+	console.log('join ws action is called');
+
 	return (dispatch) => {
 
 		axios.get(`http://localhost:3000/participant/create/${workshopId}`).then(function (response) {
@@ -84,6 +86,7 @@ export function joinWorkshop(workshopId, callback) {
 }
 
 export function createWorkshop(values, callback) {
+	console.log('create ws action is called');
 
 	return (dispatch) => {
 
@@ -105,7 +108,7 @@ export function createWorkshop(values, callback) {
 }
 
 export function setWorkshopTo(wsId){
-	console.log('setWorkshopTo ->', wsId);
+	console.log('setWorkshopTo action is called ->', wsId);
 	return {
 		type: SET_WORKSHOP_TO,
 		payload: wsId,
@@ -113,7 +116,7 @@ export function setWorkshopTo(wsId){
 }
 
 export function setParticipantTo(id){
-	console.log('setParticipantTo ->', id);
+	console.log('setParticipantTo action is called ->', id);
 	return {
 		type: SET_PARTICIPANT_TO,
 		payload: id,
@@ -122,6 +125,7 @@ export function setParticipantTo(id){
 
 // Api ready
 export function fetchUsers(wsId){
+	console.log('fetchUsers action is called');
 
 	return (dispatch) => {
 
@@ -140,12 +144,12 @@ export function fetchUsers(wsId){
 }
 
 export function fetchIdeas(userId) {
-
+	console.log('fetchIDeas action is called');
 	return (dispatch) => {
 
 		axios.get(`${ROOT_URL}/participant/view/${userId}/ideas`).then(function (response) {
 
-			console.log('fecth user ideas response.data-->', response.data);
+		//	console.log('fecth user ideas response.data-->', response.data);
 
 			dispatch({
 				type: FETCH_IDEAS,
@@ -159,6 +163,8 @@ export function fetchIdeas(userId) {
 
 
 export function fetchAllIdeas(wsId){
+	console.log('fetchALLIDeas action is called');
+
 	return (dispatch) => {
 
     axios.get(`http://localhost:3000/workshop/view/${wsId}/ideas`).then(function (response) {
@@ -177,7 +183,7 @@ export function fetchAllIdeas(wsId){
 
 // TODO: Add userId and wsId as a value passed return idea id
 export function createIdea(values, userId, callback) {
-	console.log('calling createIdea action==>',values,' ',userId);
+	console.log('createIdea action is called ==>',values,' ',userId);
 
 	return (dispatch) => {
 
@@ -198,7 +204,7 @@ export function createIdea(values, userId, callback) {
 }
 
 export function getWorkshopInfo(wsId) {
-
+	console.log('GET_WS_INFO action is called');
 	return(dispatch) => {
 		axios.get(`http://localhost:3000/workshop/view/${wsId}`).then(function (response) {
 			console.log('getWorkshopInfo Api -->', response.data);
@@ -213,18 +219,16 @@ export function getWorkshopInfo(wsId) {
 }
 
 // TODO: id of idea and id of user
-export function deleteIdea(id) {
-
+export function deleteIdea(id, callback) {
+	console.log('deleteIdea action is called');
 	return (dispatch) => {
 
 		axios.get(`${ROOT_URL}/idea/delete/${id}`).then(function (response) {
 
-			console.log('delete idea-->', response.data);
+			console.log('delete idea-->', response);
+			
+			callback();
 
-			dispatch({
-				type: FETCH_IDEAS,
-				payload: response.data,
-			});
 		}).catch((e) => {
 			console.log(e);
 		});
