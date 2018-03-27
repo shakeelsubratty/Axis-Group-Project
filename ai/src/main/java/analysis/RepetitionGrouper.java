@@ -8,6 +8,14 @@ import java.util.UUID;
 import data.Constants;
 import data.Response;
 
+import com.google.cloud.language.v1.Document;
+import com.google.cloud.language.v1.Document.Type;
+import com.google.cloud.language.v1.EncodingType;
+import com.google.cloud.language.v1.LanguageServiceClient;
+
+import com.google.cloud.language.v1.AnalyzeEntitiesResponse;
+import com.google.cloud.language.v1.AnalyzeEntitiesRequest;
+import com.google.cloud.language.v1.Entity;
 
 /**
  * 
