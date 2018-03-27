@@ -1,6 +1,8 @@
 package analysis;
 
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.Collection;
 import java.util.ArrayList;
 import java.lang.Exception;
@@ -21,7 +23,7 @@ import data.Response;
 public class AIController {
 
 
-    private Map<String,RepetitionGrouper> reptitionGrouperMap = new Map<>();
+    private Map<String,RepetitionGrouper> repetitionGrouperMap = new HashMap<>();
 
     @RequestMapping(value = "/userengagement", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -70,30 +72,36 @@ public class AIController {
         Gson g = new Gson();
         JsonParser parser = new JsonParser();
         JsonObject responseObject = parser.parse(json).getAsJsonObject();
+
+        RepetitionGrouper rg;
+
+        String id = g.fromJson(responseObject.get("id"), String.class);
+        String description = g.fromJson(responseObject.get("description"), String.class);
+        String workshopID = g.fromJson(responseObject.get("workshop"), String.class);
+
+        if(repetitionGrouperMap.containsKey(workshopID))
+        {
+            rg = repetitionGrouperMap.get("workshopID");
+        }
+        else{
+            rg = new RepetitionGrouper();
+            repetitionGrouperMap.put(workshopID, rg);
+        }
+
+        Response r = new Response(id, description,workshopID);
+
         try
         {
-            String id = g.fromJson(responseObject.get("id"), String.class);
-            String description = g.fromJson(responseObject.get("description"), String.class);
-            String workshopID = g.fromJson(responseObject.get("workshop"), String.class);
-
-            RepetitionGrouper rg;
-
-            if(reptitionGrouperMap.containsKey(workshopID))
-            {
-                rg = repetitionGrouperMap.get("workshopID");
-            }
-            else{
-                rg = new RepetitionGrouper();
-                repetitionGrouperMap.put(workshopID, rg)
-            }
-            Response r = new Response(id, description,workshopID);
             rg.addResponse(r);
         } catch (Exception excep)
         {
             excep.printStackTrace();
         }
+
         return g.toJson(rg.getGroups());
     }
+
+    
 
     @RequestMapping(value = "/wordcloud", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody

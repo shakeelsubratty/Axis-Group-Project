@@ -89,7 +89,7 @@ public class UserEngagementCalculator {
 			}
 		}
 		double percentage = ((numEngaged/numParticipants));
-		DecimalFormat df = new DecimalFormat("##.##");
+		DecimalFormat df = new DecimalFormat("##.####");
 		percentage = Double.valueOf(df.format(percentage));
 		return percentage;
 	}
@@ -128,11 +128,13 @@ public class UserEngagementCalculator {
 		numEng = numEng/numParticipants;
 		numSuper = numSuper/numParticipants;
 
+		DecimalFormat df = new DecimalFormat("##.####");
+
 		ArrayList<Double> retArrList = new ArrayList<Double>();
-		retArrList.add(numTerrible);
-		retArrList.add(numUn);
-		retArrList.add(numEng);
-		retArrList.add(numSuper);
+		retArrList.add(Double.valueOf(df.format(numTerrible)));
+		retArrList.add(Double.valueOf(df.format(numUn)));
+		retArrList.add(Double.valueOf(df.format(numEng)));
+		retArrList.add(Double.valueOf(df.format(numSuper)));
 		retArrList.add(calculateOverAllEngagement());
 
 		return retArrList;
