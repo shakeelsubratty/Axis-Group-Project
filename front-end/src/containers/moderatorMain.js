@@ -159,16 +159,16 @@ export class ModeratorMain extends Component {
   renderIdeaPanel(){
     return(
       <div className='card card-big' style={{flex:1,borderRadius:0,borderBottom:'none',marginBottom:0,paddingBottom:'2%'}}>
-        {/* To use if we turn the close workshop into a submit or a link to another scene  */}
-        {/* <div style={{textAlign:'right'}}>
+        <div style={{textAlign:'right'}}>
           <Link to='/' onClick={() => {
+				this.props.deactivateWorkshop(this.props.wsId);
             this.props.logOut(() => {
               clearInterval(this.intervalWsId);
             });
           }}>
             Exit
           </Link>
-        </div> */}
+        </div>
         <h3 className='card-title' style={{textAlign:'left'}}><u>{this.props.wsTitle}</u></h3>
         <div className='card-body' style={{flex:6,marginTop:'2%', alignItems:'stretch', overflowY:'scroll'}}>
           <div style={{flex:1}}>

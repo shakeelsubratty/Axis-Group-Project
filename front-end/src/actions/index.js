@@ -1,7 +1,6 @@
 import axios from 'axios';
 import _ from 'lodash';
 
-
 export const JOIN_WORKSHOP = 'join_workshop';
 export const FETCH_IDEAS = 'fetch_ideas';
 export const FETCH_ALL_IDEAS = 'fetch_all_ideas';
@@ -16,6 +15,7 @@ export const DELETE_IDEA = 'delete_idea';
 export const SET_PARTICIPANT_TO = 'set_participant_to';
 export const USER_ENGAGEMENT = 'user_engagement';
 export const WORD_CLOUD = 'word_cloud';
+export const ACTIVATE_WORKSHOP = 'activate_ws'
 
 const ROOT_URL = 'http://localhost:3000';
 
@@ -226,7 +226,7 @@ export function deleteIdea(id, callback) {
 		axios.get(`${ROOT_URL}/idea/delete/${id}`).then(function (response) {
 
 			console.log('delete idea-->', response);
-			
+
 			callback();
 
 		}).catch((e) => {
@@ -275,4 +275,40 @@ export function getWordCloudData(wsId){
 			console.log(e);
 		});
 	}
+}
+
+export function activateWorkshop(wsId) {
+	// return (dispatch) => {
+		console.log('activate ws called');
+		axios.get(`${ROOT_URL}/workshop/set/${wsId}/active`);
+		//.then(function (response) {
+		//
+		// 	console.log('getWordCloudData API-->', response.data);
+		//
+		// 	dispatch({
+		// 		type: ACTIVATE_WORKSHOP,
+		// 		payload: response.data,
+		// 	});
+		// }).catch((e) => {
+		// 	console.log(e);
+		// });
+	// }
+}
+
+export function deactivateWorkshop(wsId) {
+	// return (dispatch) => {
+		console.log('DEactivate ws called');
+		axios.get(`${ROOT_URL}/workshop/set/${wsId}/closed`);
+		//.then(function (response) {
+		//
+		// 	console.log('getWordCloudData API-->', response.data);
+		//
+		// 	dispatch({
+		// 		type: ACTIVATE_WORKSHOP,
+		// 		payload: response.data,
+		// 	});
+		// }).catch((e) => {
+		// 	console.log(e);
+		// });
+	// }
 }
