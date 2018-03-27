@@ -38,7 +38,16 @@ module.exports = function(app) {
             if (config.DEBUG) {
                 console.log(JSON.stringify(ret));
             }
-            res.sendStatus(200);
+            request.post(
+                config.aiUrl + "/deleteworkshop",
+                {json: req.params.id},
+                function(error, response, body) {
+                    if (config.DEBUG) {
+                      console.log("[AI request made] deletworkshop, received error: " + error + "; and response: " + JSON.stringify(response) + "; and body: " + JSON.stringify(body));
+                    }
+                    res.sendStatus(200);
+                }
+            );
         });
     });
 
