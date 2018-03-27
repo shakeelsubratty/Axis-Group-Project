@@ -81,7 +81,7 @@ public class AIController {
 
         if(repetitionGrouperMap.containsKey(workshopID))
         {
-            rg = repetitionGrouperMap.get("workshopID");
+            rg = repetitionGrouperMap.get(workshopID);
         }
         else{
             rg = new RepetitionGrouper();
@@ -107,12 +107,12 @@ public class AIController {
             {
                 if(response.getID().equals(id))
                 {
-                    return response.getGroupID();
+                    return g.toJson(response.getGroupID());
                 }
             }
         }
 
-        return "Error: err";
+        return g.toJson("Error: err");
         //return g.toJson(rg.getGroups());
         //return g.toJson(repetitionGrouperMap);
     }
