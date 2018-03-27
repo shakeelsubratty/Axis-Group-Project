@@ -20,16 +20,24 @@ module.exports = function(app) {
    */
   app.get(config.participantRoot + '/create/:workshop', function(req, res) {
 
-    //Call the participantModel to create and add the new participant to a workshop
-    participantModel.createParticipant(req.params.workshop).then(function(newId) {
+    return schema.Workshop.findById({'_id': req.params.workshop}).then(function(workshop) {
+      if(workshop) {
+        //Call the participantModel to create and add the new participant to a workshop
+        participantModel.createParticipant(req.params.workshop).then(function(newId) {
 
-      //Debug console output
-      if (config.DEBUG) {
-          console.log("[API accessed] [participantRoute] /create/:workshop; created user with id: " + newId);
+          //Debug console output
+          if (config.DEBUG) {
+              console.log("[API accessed] [participantRoute] /create/:workshop; created user with id: " + newId);
+          }
+          res.writeHead(200, {"Content-Type": "text/plain"}); //Return 200 (OK) HTTP header
+          res.write(newId); //Write the ID of the new participant to the document
+          res.end();
+        });
+      } else {
+        res.writeHead(200, {"Content-Type": "text/plain"}); //Return 200 (OK) HTTP header
+        res.write("null"); //Return null for frontend system to process
+        res.end();
       }
-      res.writeHead(200, {"Content-Type": "text/plain"}); //Return 200 (OK) HTTP header
-      res.write(newId); //Write the ID of the new participant to the document
-      res.end();
     });
   });
 
