@@ -18,8 +18,11 @@ public class Response
 {
 	private final String id;
 	private String groupID;
+	private String workshopID;
 	private String description;
 	private Syntax syntax;
+
+	private List<String> groupSummaries;
 
 	/**
 	 * Response constructor
@@ -42,9 +45,10 @@ public class Response
 	 *            the ID of the response.
 	 */
 
-	public Response(String id, String text)
+	public Response(String id, String text, String workshopID)
 	{
 		this.id = id;
+		this.workshopID = workshopID;
 		init(text);
 	}
 
@@ -72,6 +76,14 @@ public class Response
 	public String getGroupID() {return groupID;}
 
 	public void setGroupID(String groupID) {this.groupID = groupID;}
+
+	public String getWorkshopID() {
+		return workshopID;
+	}
+
+	public void setWorkshopID(String workshopID) {
+		this.workshopID = workshopID;
+	}
 
 	/**
 	 *
