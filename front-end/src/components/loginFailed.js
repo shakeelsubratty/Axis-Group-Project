@@ -11,7 +11,7 @@ export default class LoginFailed extends Component {
             <h2 style={{textAlign:'center'}}>Oops...It looks like you are not logged in...</h2>
             <div className='card-body' style={{width:'100%', textAlign:'center'}}>
               <Link className='btn btn-primary' style={{margin:'5%', width:'50%'}} to='/login'>
-                Log in now
+               Log in now
               </Link>
             </div>
           </div>

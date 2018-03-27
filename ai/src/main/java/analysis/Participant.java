@@ -1,23 +1,27 @@
 package analysis;
 
 import java.util.List;
+import java.util.ArrayList;
 import data.Response;
 
 public class Participant
 {
-    private final long id;
-    private List<String> responses;
-
+    private final String id;
+    private List<String> responses;     //For userEngagement and WordCloud
     private int sumOfLengths;
     private int numberOfResponses;
     private double engagementLevel;
     private double averageLength;
     private String stringLevel;
 
-    public Participant(long id, List<String> responses)
+    public Participant(String id, List<Response> responses)
     {
         this.id = id;
-        this.responses = responses;
+        this.responses = new ArrayList<>();
+        for(Response r : responses)
+        {
+            this.responses.add(r.getText());
+        }
         numberOfResponses = responses.size();
 
     }
@@ -38,7 +42,7 @@ public class Participant
         return averageLength;
     }
 
-    public long getID(){return id;}
+    public String getID(){return id;}
 
     public List<String> getResponses() {return responses;}
 

@@ -12,6 +12,7 @@ apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'jacoco'
 //apply plugin: 'application'
 //mainClassName = 'Application'
 
@@ -22,13 +23,19 @@ bootJar {
 
 repositories {
     mavenCentral()
+    maven {
+        url 'https://repo.spring.io/libs-milestone'
+    }
 }
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-    compile 'com.google.cloud:google-cloud-language:1.14.0'
+    compile 'org.springframework.cloud:spring-cloud-gcp:1.0.0.M2'
+    compile 'com.google.code.gson:gson:2.8.2'
+    compile 'com.google.cloud:google-cloud-language:1.23.0'
+    compile 'com.google.cloud:google-cloud-translate:1.23.0'
     testCompile 'junit:junit:4.12'
     compile("org.springframework.boot:spring-boot-starter-web")
     testCompile('org.springframework.boot:spring-boot-starter-test')

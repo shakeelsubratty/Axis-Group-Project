@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import { logOut } from '../actions';
 const axisLogo = 'https://s3.eu-west-2.amazonaws.com/axis-logo/axis_logo2.png';
 
-class Home extends Component {
+export class Home extends Component {
 
   componentWillMount(){
     const REACT_VERSION = React.version;
-    console.log('React version: ', REACT_VERSION);
+    //console.log('React version: ', REACT_VERSION);
     this.props.logOut();
   }
 

@@ -6,6 +6,7 @@
     "dependencies": {
         "express": "^4.16.0",
         "mongoose": "^5.0.6",
+        "request": "latest",
         "mocha": "latest",
         "sinon": "latest",
         "unexpected": "latest",

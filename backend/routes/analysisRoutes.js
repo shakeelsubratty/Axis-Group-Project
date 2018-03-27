@@ -15,7 +15,7 @@ module.exports = function(app) {
             }
             /*********TODO: remove mock and reinstate proper API call***********/
             request.post(
-                config.aiUrl + "/analysis/userengagement",
+                config.aiUrl + "/userengagement",
                 //{json: {myKey: "myValue"}},
                 {json: ret},
                 function(error, response, body) {
@@ -33,6 +33,7 @@ module.exports = function(app) {
             if (config.DEBUG) {
                 console.log("[API accessed] [analysisRoute] /wordcloud/:workshopId, currently aggregated the following user data: " + JSON.stringify(ret));
             }
+<<<<<<< HEAD
             var mockRet = [
                 { "value": "Potato", "count": 1, "color": "#00ff00"},
                 { "value": "Ireland", "count": 1, "color": "#ff0000"},
@@ -42,4 +43,19 @@ module.exports = function(app) {
             res.json(mockRet);
         });
     });
+=======
+            request.post(
+                config.aiUrl + "/wordcloud",
+                {json: ret},
+                function(error, response, body) {
+                    if (config.DEBUG) {
+                        console.log("[AI request made] wordcloud, received error: " + error + "; and response: " + JSON.stringify(response) + "; and body: " + JSON.stringify(body));
+                    }
+                    res.json(body);
+                }
+            );
+        });
+    });
+
+>>>>>>> 407385696cf0e3861d3ffb3a901f15aabd8873c1
 }
