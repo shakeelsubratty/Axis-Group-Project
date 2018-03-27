@@ -47,7 +47,7 @@ var ideaSchema = mongoose.Schema({
 
     //Object of the user that provided the idea
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-
+    group: String,
     //Object of the workshop that the idea was provided in
     workshop: { type: mongoose.Schema.Types.ObjectId, ref: 'Workshop' }
 });
