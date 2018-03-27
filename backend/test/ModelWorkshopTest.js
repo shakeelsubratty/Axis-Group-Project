@@ -1,21 +1,26 @@
 const mockery = require('mockery');
+const Promise = require('bluebird');
+const sinon = require('sinon');
 var expect = require('unexpected').clone()
     .use(require('unexpected-express'))
     .use(require('unexpected-sinon'));
 
 describe('Workshop APIs', function() {
-  const workshopModel = require('../models/workshopModel');
-  var app;
+    var workshopModel;
 
     before(function createAppAndMocks() {
-        mockery.enable({warnOnUnregistered: false});
-        mockery.registerMock('mongoose', {
-          saveAsync: function() {
+        var mockgoose = Promise.promisifyAll(require('mongoose'));
+        console.log(mockgoose.Document.prototype);
+        var stubSave = sinon.stub(mockgoose, 'Document.prototype.saveAsync');
+        var fakeSave = function() {
+            console.log(JSON.stringify(this));
             return Promise.resolve("123");
-          },
-        });
+        }
+        stubSave.callsFake(fakeSave);
+        mockery.enable({warnOnUnregistered: false, useCleanCache: true});
+        mockery.registerMock('mongoose', mockgoose);
         mockery.registerSubstitute('../config', '../test/testConfig');
-        app = require('express')();
+        workshopModel = require('../models/workshopModel');
     });
 
     after(function() {
@@ -25,15 +30,9 @@ describe('Workshop APIs', function() {
 
     describe('#createWorkshop', function() {
         it('should return mocked workshop title and description when called with correct parameters', function() {
-          expect(app, 'to yield exchange satisfying', {
-              request: {
-                  workshopModel.createWorkshop()
-              },
-              response: {
-                  statusCode: 200,
-                  body: 'hellotestworkshop'
-              }
-          });
+            Workshop({title: workshopTitle, description: workshopDescription}).saveAsync()
+            console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+            return true;
         });
     });
 });
