@@ -71,7 +71,7 @@ module.exports = {
      */
     activateWorkshop: function(id) {
         return Workshop.updateAsync({_id: id}, {active: true});
-    }
+    },
 
     closeWorkshop: function(id) {
         return Workshop.updateAsync({_id: id}, {closed: true, active: false});
