@@ -70,9 +70,9 @@ export class ModeratorMain extends Component {
   renderIdeas() {
 		return Object.keys(this.props.wsIdeas).map((item)=>{
 			return (
-				<div key={this.props.wsIdeas[item].id}>
+				<div key={this.props.wsIdeas[item]._id}>
 					<WorkshopIdea
-						id = {this.props.wsIdeas[item].id}
+						id = {this.props.wsIdeas[item]._id}
 						title={this.props.wsIdeas[item].title}
             data={this.props.wordCloudData}
 					>
@@ -104,23 +104,23 @@ export class ModeratorMain extends Component {
           <div className='flexColumnCenter' style={{flex:1, alignItems:'stretch', borderRight:'1px solid black '}}>
             <div style={{flex:1, textAlign:'left', display:'flex'}}>
               <span style={{flex:3, fontSize:'11pt', textAlign:'left'}}>Really Engaged:</span>
-              <span style={{flex:1}}>{this.props.userEngagement.superEngaged * 100 + '%'}</span>
+              <span style={{flex:1}}>{this.props.userEngagement[3] * 100 + '%'}</span>
             </div>
             <div style={{flex:1, textAlign:'left', display:'flex'}}>
               <span style={{flex:3,fontSize:'11pt', textAlign:'left'}}>Engaged:</span>
-              <span style={{flex:1}}>{this.props.userEngagement.engaged * 100 + '%'}</span>
+              <span style={{flex:1}}>{this.props.userEngagement[2] * 100 + '%'}</span>
             </div>
             <div style={{flex:1, textAlign:'left', display:'flex'}}>
               <span style={{flex:3,fontSize:'11pt', textAlign:'left'}}>Unengaged:</span>
-              <span style={{flex:1}}>{this.props.userEngagement.unengaged * 100 + '%'}</span>
+              <span style={{flex:1}}>{this.props.userEngagement[1] * 100 + '%'}</span>
             </div>
             <div style={{flex:1, textAlign:'left', display:'flex'}}>
               <span style={{flex:3,fontSize:'11pt', textAlign:'left'}}>Really Unengaged:</span>
-              <span style={{flex:1}}>{this.props.userEngagement.superUnengaged * 100 + '%'}</span>
+              <span style={{flex:1}}>{this.props.userEngagement[0] * 100 + '%'}</span>
             </div>
           </div>
           <div className='flexColumnCenter' style={{flex:1}}>
-            <h3 style={{color:userEngagementColor}}>{this.props.userEngagement.overallEngagement * 100 + '%'}</h3>
+            <h3 style={{color:userEngagementColor}}>{this.props.userEngagement[4] * 100 + '%'}</h3>
             <h5>Overall</h5>
           </div>
         </div>
@@ -159,16 +159,16 @@ export class ModeratorMain extends Component {
   renderIdeaPanel(){
     return(
       <div className='card card-big' style={{flex:1,borderRadius:0,borderBottom:'none',marginBottom:0,paddingBottom:'2%'}}>
-        {/* To use if we turn the close workshop into a submit or a link to another scene  */}
-        {/* <div style={{textAlign:'right'}}>
+        <div style={{textAlign:'right'}}>
           <Link to='/' onClick={() => {
+				this.props.deactivateWorkshop(this.props.wsId);
             this.props.logOut(() => {
               clearInterval(this.intervalWsId);
             });
           }}>
             Exit
           </Link>
-        </div> */}
+        </div>
         <h3 className='card-title' style={{textAlign:'left'}}><u>{this.props.wsTitle}</u></h3>
         <div className='card-body' style={{flex:6,marginTop:'2%', alignItems:'stretch', overflowY:'scroll'}}>
           <div style={{flex:1}}>

@@ -3,57 +3,99 @@ package data;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import com.google.cloud.language.v1.Token;
 
 /**
- * 
+ *
  * @author Aaron
- * 
+ *
  *         Stores the data received from the Google API.
  *
  */
 public class Response
 {
-	private static int count;
-	private int id;
-
-	private String text;
-
+	private final String id;
+	private String groupID;
+	private String workshopID;
+	private String description;
 	private Syntax syntax;
-	private Categories categories;
+
+	private List<String> groupSummaries;
 
 	/**
 	 * Response constructor
-	 * 
+	 *
 	 * @param text
 	 *            the response to be analysed.
-	 * @throws IOException
-	 * @throws Exception
 	 */
-	public Response(String text) throws IOException, Exception
+	public Response(String text)
 	{
-		id = count;
-		count++;
-
-		this.text = text;
-
-		syntax = new Syntax(text);
-		categories = new Categories(text);
+		id = "";
+		init(text);
 	}
 
-	public int getID()
+	/**
+	 * Response constructor with ID given
+	 *
+	 * @param text
+	 *            the response to be analysed.
+	 * @param id
+	 *            the ID of the response.
+	 */
+
+	public Response(String id, String text, String workshopID)
+	{
+		this.id = id;
+		this.workshopID = workshopID;
+		init(text);
+	}
+
+	private void init(String text)
+	{
+		this.description = text;
+		try
+		{
+			syntax = new Syntax(text);
+		}
+		catch (Exception e)
+		{
+			// The response is too short to perform some analysis, but this does not impact
+			// this program's use of the API.
+			e.printStackTrace();
+		}
+	}
+
+
+	public String getID()
 	{
 		return id;
 	}
 
-	public String getText()
-	{
-		return text;
+	public String getGroupID() {return groupID;}
+
+	public void setGroupID(String groupID) {this.groupID = groupID;}
+
+	public String getWorkshopID() {
+		return workshopID;
+	}
+
+	public void setWorkshopID(String workshopID) {
+		this.workshopID = workshopID;
 	}
 
 	/**
-	 * 
+	 *
+	 * @return the text of the response.
+	 */
+	public String getText()
+	{
+		return description;
+	}
+
+	/**
+	 *
 	 * @return a list of all words from the response that are verbs.
 	 */
 	public List<Token> getVerbs()
@@ -62,7 +104,7 @@ public class Response
 	}
 
 	/**
-	 * 
+	 *
 	 * @return a list of all words from the response that are nouns.
 	 */
 	public List<Token> getNouns()
@@ -71,7 +113,7 @@ public class Response
 	}
 
 	/**
-	 * 
+	 *
 	 * @param a
 	 *            a list of words to be compared from Response a
 	 * @param b
@@ -99,7 +141,7 @@ public class Response
 
 	/**
 	 * Compare the verbs in this Response to another response.
-	 * 
+	 *
 	 * @param r
 	 *            the Response to compare
 	 * @return the percentage match
@@ -111,7 +153,7 @@ public class Response
 
 	/**
 	 * Compare the verbs in this Response to another response.
-	 * 
+	 *
 	 * @param r
 	 *            the Response to compare
 	 * @return the percentage match
@@ -122,7 +164,7 @@ public class Response
 	}
 
 	/**
-	 * 
+	 *
 	 * @param r
 	 *            the Response to compare
 	 * @return true if the responses have over 50% match
@@ -133,7 +175,7 @@ public class Response
 	}
 
 	/**
-	 * 
+	 *
 	 * @param r
 	 *            the Response to compare
 	 * @return the percentage match for these two responses
@@ -142,19 +184,28 @@ public class Response
 	{
 		double nounMatch = this.compareNounsTo(r);
 		double verbMatch = this.compareVerbsTo(r);
-		
+
 		return (double) (nounMatch + verbMatch) / 2.0;
 	}
-	
+
 	@Override
+	/**
+	 * Returns the ID of the response as a String.
+	 */
 	public String toString()
 	{
 		return id + "";
 	}
 
+	/**
+	 *
+	 * @param r
+	 *            the response to compare.
+	 * @return true if the ID of the responses are the same.
+	 */
 	public boolean equals(Response r)
 	{
-		return id == r.getID();
+		return id.equals(r.getID());
 	}
 
 }

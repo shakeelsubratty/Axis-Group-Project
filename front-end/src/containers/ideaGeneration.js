@@ -11,7 +11,9 @@ export class IdeaGeneration extends Component {
 		this.state = {
 			isInThisPage: false
 		}
-		this.update = this.update.bind(this);
+		this.updateIdeas = this.updateIdeas.bind(this);
+		this.updateDeleteIdea = this.updateDeleteIdea.bind(this);
+
 	}
 
 	componentWillMount() {
@@ -69,18 +71,31 @@ export class IdeaGeneration extends Component {
 	clearInterval(window.intervalUserId);
 	}
 
-	update(childId) {
-		//console.log('UPDATE CALLED');
-		this.props.deleteIdea(childId)
+	updateIdeas() {
+		console.log('UPDATE Ideas CALLED');
+	//	this.props.deleteIdea(childId)
 		this.props.fetchIdeas(this.props.userId);
+	}
+
+	updateDeleteIdea(childId) {
+		console.log('UPDATE delete Ideas CALLED');
+		this.props.deleteIdea(childId,() => {
+			this.props.fetchIdeas(this.props.userId);
+		});
+	//this.props.fetchIdeas(this.props.userId);
+
 	}
 
 	renderIdeas() {
 		//console.log('ideasss=>',this.props.ideas);
 		if (_.isEmpty(this.props.ideas)) {
+			console.log('array is empty.');
 			return (
-				<div className='card card-big' style={{textAlign:'center', width:'100%'}}>
-					Loading...
+				<div className='card card-big' style={{textAlign:'center', width:'100%', border:'solid 1px #a09a9a'}}>
+					<h5>{this.props.wsDescription}</h5>
+					<br />
+					Input your first Idea on the left!
+
 				</div>
 			)
 		} else {
@@ -88,7 +103,7 @@ export class IdeaGeneration extends Component {
 				return (
 					<div key={this.props.ideas[item]._id}>
 						<UserIdea
-							callback = {this.update}
+							callback={this.updateDeleteIdea}
 							id = {this.props.ideas[item]._id}
 							title={this.props.ideas[item].title}
 
@@ -117,21 +132,22 @@ export class IdeaGeneration extends Component {
 						/>
 					);
 			}else {
-				return (
-					<div className='main'>
-						<div className='wrapper' style={{alignItems:'stretch', padding:'2%'}}>
-							<div className='card' style={{backgroundColor:'#e8edf4 !important', margin:0}}>
-								<h1 style={{ textAlign: 'center', padding: '20px'}}>{this.props.wsTitle}</h1>
-							</div>
-							<div className='ideaGenLeft' style={{display:'flex', flex:5.5, marginTop:'2%', flexDirection:'row'}}>
-								<NewIdea
-									className='card card-big dataBox'
-									callback={this.update}
-									userId={this.props.userId}
-								/>
-								<div className='card' style={{flex:1,borderRadius:0,borderBottom:'none',marginBottom:0,paddingBottom:'2%', padding:'3%'}}>
-									<div className='card-body ideaGenRight' style={{flex:6,marginTop:'2%', alignItems:'stretch', overflowY:'scroll', backgroundColor:'#fff'}}>
-										{this.renderIdeas()}
+
+		return (
+			<div className='main'>
+				<div className='wrapper' style={{alignItems:'stretch', padding:'2%'}}>
+					<div className='card' style={{backgroundColor:'#e8edf4', margin:0}}>
+						<h1 style={{ textAlign: 'center', padding: '20px'}}>{this.props.wsTitle}</h1>
+					</div>
+					<div className='ideaGen' style={{display:'flex', flex:5.5, marginTop:'2%', flexDirection:'row'}}>
+						<NewIdea
+							className='card card-big dataBox'
+							callbackUpdate={this.updateIdeas}
+							userId={this.props.userId}
+						/>
+						<div className='ideaGenerationPanel' style={{borderRadius:'0px 0.25rem 0.25rem 0px', borderLeft:'solid 1px #b1b1b1'}}>
+							<div className='card-body ideaGenRight' style={{flex:1,marginTop:'5%', alignItems:'stretch', overflowY:'scroll'}}>
+								{this.renderIdeas()}
 									</div>
 								</div>
 
@@ -148,6 +164,7 @@ function mapStateToProps(state) {
 	return {
 		ideas: state.ideas,
 		wsTitle: state.app.wsInfo.title,
+		wsDescription: state.app.wsInfo.description,
 		wsId: state.app.wsId,
 		userId: state.app.userId,
 		wsActive: state.app.wsInfo.active,

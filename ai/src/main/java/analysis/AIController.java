@@ -3,15 +3,17 @@ package analysis;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Collection;
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicLong;
 import java.lang.Exception;
-import java.io.IOException;
-
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
+import com.google.gson.*;
 
 import analysis.RepetitionGrouper;
 import analysis.UserEngagementCalculator;
@@ -20,66 +22,136 @@ import data.Response;
 @RestController
 public class AIController {
 
-    @RequestMapping(value = "/userengagement", method = RequestMethod.POST)
-    public ResponseEntity<UserEngagementResponse> userEngagement(@RequestBody List<Participant> participants)
+
+    private Map<String,RepetitionGrouper> repetitionGrouperMap = new HashMap<>();
+
+    @RequestMapping(value = "/userengagement", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String userEngagement(HttpEntity<String> s)
     {
-
-        UserEngagementCalculator uec = new UserEngagementCalculator(participants);
-
-        uec.calculateLevel();
-
-        UserEngagementResponse u = new UserEngagementResponse(uec.returnAverageArr());
-        return new ResponseEntity<UserEngagementResponse>(u, HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/repetition", method = RequestMethod.POST)
-    public ResponseEntity<RepetitionResponse> repetition(@RequestBody List<Participant> participants)
-    {
-        RepetitionGrouper rg = new RepetitionGrouper();
-
-
-//        List<List<Response>> fake1 = new ArrayList<>();
-//        List<Response> fake2 = new ArrayList<>();
-
-        for(Participant p : participants)
+        String json = s.getBody();
+        Gson g = new Gson();
+        JsonParser parser = new JsonParser();
+        JsonArray participantsArray = parser.parse(json).getAsJsonArray();
+        List<Participant> participants = new ArrayList<Participant>();
+        for(JsonElement e : participantsArray)
         {
-            for(String r : p.getResponses())
+            JsonObject elementObject = e.getAsJsonObject();
+            List<Response> responses = new ArrayList<>();
+
+            for(JsonElement idea : elementObject.get("responses").getAsJsonArray())
             {
-                try{
-                    rg.addResponse(new Response(r));
-                } catch (Exception i){
-                    i.printStackTrace();
+                JsonObject ideaObject = idea.getAsJsonObject();
+                try
+                {
+                    String id = g.fromJson(ideaObject.get("id"),String.class);
+                    String description = g.fromJson(ideaObject.get("description"),String.class);
+                    String workshopID = g.fromJson(ideaObject.get("workshop"),String.class);
+                    //TODO: Reduce redundancy
+                    Response r = new Response(id,description,workshopID);
+                    responses.add(r);
+                } catch(Exception excep)
+                {
+                    excep.printStackTrace();
                 }
             }
+            Participant participant = new Participant(g.fromJson(elementObject.get("id"),String.class),responses);
+            participants.add(participant);
         }
-
-        //TODO: DO ID
-
-
-        RepetitionResponse r = new RepetitionResponse(rg.getGroups());
-
-        return new ResponseEntity<RepetitionResponse>(r,HttpStatus.OK);
+        UserEngagementCalculator uec = new UserEngagementCalculator(participants);
+        uec.calculateLevel();
+        Collection<Double> results = uec.returnAverageArr();
+        return g.toJson(results);
     }
 
-    @RequestMapping(value = "/wordcloud", method = RequestMethod.POST)
-    public ResponseEntity<WordCloudResponse> wordCloud(@RequestBody List<Participant> participants)
+    @RequestMapping(value = "/repetition", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String repetition(HttpEntity<String> s)
+    {
+        String json = s.getBody();
+        Gson g = new Gson();
+        JsonParser parser = new JsonParser();
+        JsonObject responseObject = parser.parse(json).getAsJsonObject();
+
+        RepetitionGrouper rg;
+
+        String id = g.fromJson(responseObject.get("id"), String.class);
+        String description = g.fromJson(responseObject.get("description"), String.class);
+        String workshopID = g.fromJson(responseObject.get("workshop"), String.class);
+
+        if(repetitionGrouperMap.containsKey(workshopID))
+        {
+            rg = repetitionGrouperMap.get("workshopID");
+        }
+        else{
+            rg = new RepetitionGrouper();
+            repetitionGrouperMap.put(workshopID, rg);
+        }
+
+        Response r = new Response(id, description,workshopID);
+
+        try
+        {
+            rg.addResponse(r);
+        } catch (Exception excep)
+        {
+            excep.printStackTrace();
+        }
+
+        return g.toJson(rg.getGroups());
+        //return g.toJson(repetitionGrouperMap);
+    }
+
+    @RequestMapping(value ="/deleteworkshop", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String deleteWorkshop(HttpEntity<String> s)
+    {
+        String json = s.getBody();
+        Gson g = new Gson();
+        JsonParser parser = new JsonParser();
+        JsonObject responseObject = parser.parse(json).getAsJsonObject();
+
+        String workshopID = g.fromJson(responseObject.get("workshop"),String.class);
+
+        if(repetitionGrouperMap.containsKey(workshopID))
+        {
+            repetitionGrouperMap.remove(workshopID);
+        }
+        else
+        {
+            return g.toJson("Workshop with ID: " + workshopID + " does not exist!");
+        }
+
+        return g.toJson("Deleted Workshop with ID: " + workshopID);
+
+    }
+
+    @RequestMapping(value = "/wordcloud", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String wordCloud(HttpEntity<String> s)
     {
         WordCloud wc = new WordCloud();
-
-        for(Participant p : participants)
+        String json = s.getBody();
+        Gson g = new Gson();
+        JsonParser parser = new JsonParser();
+        JsonArray participantsArray = parser.parse(json).getAsJsonArray();
+        for(JsonElement e : participantsArray)
         {
-            for(String r : p.getResponses())
+            JsonObject elementObject = e.getAsJsonObject();
+            List<Response> responses = new ArrayList<>();
+            for(JsonElement idea : elementObject.get("responses").getAsJsonArray())
             {
-                try {
-                    wc.processResponse(r);
-                } catch (Exception e){
-                    e.printStackTrace();
+                JsonObject ideaObject = idea.getAsJsonObject();
+                try{
+                    String description = g.fromJson(ideaObject.get("description"),String.class);
+                    wc.processResponse(description);
+                } catch(Exception excep)
+                {
+                    excep.printStackTrace();
                 }
             }
         }
-
-        WordCloudResponse w = new WordCloudResponse(wc.getHashMap());
-        return new ResponseEntity<WordCloudResponse>(w,HttpStatus.OK);
+        return g.toJson(wc.getWords());
     }
 
 

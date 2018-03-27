@@ -49,7 +49,7 @@ export class NewIdea extends Component {
 	onSubmit(values) {
 		console.log('new idea user Id',this.props.userId);
 		this.props.createIdea(values, this.props.userId, () => {
-			this.props.callback();
+			this.props.callbackUpdate();
 		});
 		this.props.reset();
 
@@ -58,8 +58,8 @@ export class NewIdea extends Component {
 	render() {
 		const { handleSubmit, reset, pristine, submitting } = this.props;
 		return (
-			<div className='card' style={{flex:1, display:'flex', flexDirection:'column', borderRadius:0,borderBottom:'none',marginBottom:0}}>
-				<h1 className='card-header' style={{ textAlign: 'left', flex:1, backgroundColor:'#fff', margin:0, borderBottom:'none'}}>Ideas</h1>
+			<div className='ideaGenerationPanel' style={{borderRadius:'0.25rem 0px 0px 0.25rem'}}>
+				<h1 className='card-header' style={{ textAlign: 'left', flex:1, backgroundColor:'#e8edf4', margin:0, borderBottom:'none'}}>Ideas</h1>
 				<div className="card-body" style={{flex:5,backgroundColor:'#e8edf4 !important'}}>
 					<div className='form-group' style={{padding: '1.5%', height:'100%'}}>
 						<form

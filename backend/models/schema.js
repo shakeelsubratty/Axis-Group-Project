@@ -13,7 +13,8 @@ var workshopSchema = mongoose.Schema({
     description: String, //Further information for a workshop
 
     //Whether a workshop is actively in use and open to join
-    active: { type: Boolean, default: false }
+    active: { type: Boolean, default: false },
+    closed: { type: Boolean, default: false }
 });
 
 //Workshop method, get the users of a workshop
