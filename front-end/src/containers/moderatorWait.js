@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getWorkshopInfo, setWorkshopTo, attemptLogIn, logOut, fetchUsers } from '../actions';
+import { activateWorkshop,
+			getWorkshopInfo,
+			setWorkshopTo,
+			attemptLogIn,
+			logOut,
+			fetchUsers } from '../actions';
 import { LoadingScreen } from '../components';
 
 export class ModeratorWait extends Component {
@@ -117,7 +122,7 @@ export class ModeratorWait extends Component {
           </button>
           <div className='flexRowCenter' style={{alignItems:'flex-start'}}>
             <div style={{flex:1,textAlign:'center', margin:'5% 2.5% 0 0'}}>
-              <h4><u>Who's In</u></h4>
+              <h4><u>Avtive Users</u></h4>
               <div className='flexRowCenter' style={{flex:1, flexWrap:'wrap', margin:'3% 0 5%', maxHeight:'200px', overflowY:'scroll'}}>
                 {this.renderUsers()}
               </div>
@@ -137,9 +142,12 @@ export class ModeratorWait extends Component {
           });
 
         }}>
-          Exit
+		  Exit
         </Link>
-        <Link className='btn btn-success' to='/moderator-main'> Start</Link>
+        <Link className='btn btn-success' to='/moderator-main' onClick={() => {
+          this.props.activateWorkshop(this.props.wsId);
+
+        }}>Start</Link>
       </div>
     );
   }
@@ -195,7 +203,8 @@ const mapDispatchToProps = {
   attemptLogIn,
   logOut,
   setWorkshopTo,
-  fetchUsers
+  fetchUsers,
+  activateWorkshop
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(ModeratorWait);
