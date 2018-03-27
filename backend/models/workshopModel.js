@@ -60,7 +60,7 @@ module.exports = {
             }
 
             //Return the workshop's title and description
-            return { title: workshop.title, description: workshop.description, active: workshop.active};
+            return { title: workshop.title, description: workshop.description, active: workshop.active, closed: workshop.closed };
         });
     },
 
@@ -71,9 +71,9 @@ module.exports = {
      */
     activateWorkshop: function(id) {
         return Workshop.updateAsync({_id: id}, {active: true});
-    }
+    },
 
     closeWorkshop: function(id) {
-        return Workshop.updateAsync({_id: id}, {closed: true});
+        return Workshop.updateAsync({_id: id}, {closed: true, active: false});
     }
 }
