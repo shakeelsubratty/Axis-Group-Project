@@ -20,6 +20,9 @@ import data.Response;
 @RestController
 public class AIController {
 
+
+    private Map<String,RepetitionGrouper> reptitionGrouperMap = new Map<>();
+
     @RequestMapping(value = "/userengagement", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String userEngagement(HttpEntity<String> s)
@@ -41,8 +44,9 @@ public class AIController {
                 {
                     String id = g.fromJson(ideaObject.get("id"),String.class);
                     String description = g.fromJson(ideaObject.get("description"),String.class);
+                    String workshopID = g.fromJson(ideaObject.get("workshop"),String.class);
                     //TODO: Reduce redundancy
-                    Response r = new Response(id,description);
+                    Response r = new Response(id,description,workshopID);
                     responses.add(r);
                 } catch(Exception excep)
                 {
@@ -62,28 +66,31 @@ public class AIController {
     @ResponseBody
     public String repetition(HttpEntity<String> s)
     {
-        RepetitionGrouper rg = new RepetitionGrouper();
         String json = s.getBody();
         Gson g = new Gson();
         JsonParser parser = new JsonParser();
-        JsonArray participantsArray = parser.parse(json).getAsJsonArray();
-        for (JsonElement e : participantsArray)
+        JsonObject responseObject = parser.parse(json).getAsJsonObject();
+        try
         {
-            JsonObject elementObject = e.getAsJsonObject();
-            for (JsonElement idea : elementObject.get("responses").getAsJsonArray())
+            String id = g.fromJson(responseObject.get("id"), String.class);
+            String description = g.fromJson(responseObject.get("description"), String.class);
+            String workshopID = g.fromJson(responseObject.get("workshop"), String.class);
+
+            RepetitionGrouper rg;
+
+            if(reptitionGrouperMap.containsKey(workshopID))
             {
-                JsonObject ideaObject = idea.getAsJsonObject();
-                try
-                {
-                    String id = g.fromJson(ideaObject.get("id"), String.class);
-                    String description = g.fromJson(ideaObject.get("description"), String.class);
-                    Response r = new Response(id, description);
-                    rg.addResponse(r);
-                } catch (Exception excep)
-                {
-                    excep.printStackTrace();
-                }
+                rg = repetitionGrouperMap.get("workshopID");
             }
+            else{
+                rg = new RepetitionGrouper();
+                repetitionGrouperMap.put(workshopID, rg)
+            }
+            Response r = new Response(id, description,workshopID);
+            rg.addResponse(r);
+        } catch (Exception excep)
+        {
+            excep.printStackTrace();
         }
         return g.toJson(rg.getGroups());
     }
