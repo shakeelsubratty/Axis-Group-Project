@@ -298,7 +298,7 @@ export function activateWorkshop(wsId) {
 export function deactivateWorkshop(wsId) {
 	// return (dispatch) => {
 		console.log('DEactivate ws called');
-		axios.get(`${ROOT_URL}/workshop/set/${wsId}/close`);
+		axios.get(`${ROOT_URL}/workshop/set/${wsId}/closed`);
 		//.then(function (response) {
 		//
 		// 	console.log('getWordCloudData API-->', response.data);
