@@ -73,7 +73,7 @@ export class ModeratorMain extends Component {
     return Object.keys(this.props.wsIdeas).map((item,index)=>{
 			return (
 				<div key={index}>
-          <h5><u>Group {index + 1}</u></h5>
+          <h5><u>Group with {this.props.wsIdeas[item][0].title}</u></h5>
           {this.renderIdeas(this.props.wsIdeas[item])}
 				</div>
 			)
@@ -98,7 +98,7 @@ export class ModeratorMain extends Component {
 	}
 
   renderUserEngagementData(){
-    if (!this.props.userEngagement || this.props.userEngagement.status == 500) {
+    if (!this.props.userEngagement || this.props.userEngagement == 'Empty Userengagement') {
       return(
         <div className='card flexColumnCenter' style={{flex:1, backgroundColor:'#f5f5f5 !important', padding:'2%', alignItems:'stretch'}}>
           <h5 style={{textAlign:'center'}}>Loading...</h5>

@@ -18,11 +18,13 @@ class WordCloud extends Component {
 
   render(){
     return(
-      <TagCloud minSize={12}
-                maxSize={35}
-                tags={this.props.data}
-                shuffle={false}
-                onClick={tag => alert(`'${tag.value}' was selected!`)} />
+      <TagCloud
+        minSize={12}
+        maxSize={35}
+        tags={this.props.data}
+        shuffle={false}
+        onClick={tag => alert(`'${tag.value}' was selected!`)}
+      />
     );
   }
 }
