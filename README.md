@@ -5,7 +5,7 @@ This is a workshop app build using a React.js frontend, a nodejs backend layer, 
 The `frontend` folder contains the React.js-based frontend code. The `backend` folder contains the code for the nodejs backend, made to run in a docker container. The `ai` folder contains the java code running the artificial intelligence analysis functions, using Google APIs, made to build and run using gradle.
 
 ## Building and deploying
-The project is made to be deployed in a Linux VM hosted on Google Cloud. After cloning the repository to the deployment machine, run configure.sh with root privileges to install all the prerequisites. Afterwards, run deploy.sh to start all three components, or alternatively start them manually (see below).
+The project is made to be deployed in a Linux VM hosted on Google Cloud Compute Engine. After cloning the repository to the deployment machine, run configure.sh with root privileges to install all the prerequisites. Afterwards, run deploy.sh to start all three components, or alternatively start them manually (see below).
 
 ## Non-standard deployments
 ### Outside of Google Cloud
