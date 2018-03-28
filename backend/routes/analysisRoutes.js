@@ -30,6 +30,10 @@ module.exports = function(app) {
 
     app.get(config.analysisRoot + '/wordcloud/:workshopId', function(req, res) {
            analysisModel.getUsersAndIdeaText(req.params.workshopId).then(function(ret) {
+               if(!Array.isArray(ret) || !ret.length) {
+                 res.json([]);
+                 return;
+               }
                if (config.DEBUG) {
                    console.log("[API accessed] [analysisRoute] /wordcloud/:workshopId, currently aggregated the following user data: " + JSON.stringify(ret));
                }
