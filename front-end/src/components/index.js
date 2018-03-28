@@ -1,3 +1,4 @@
+// All exports and imports for components. 
 import LoginFailed from './loginFailed';
 import UserIdea from './userIdea';
 import WorkshopIdea from './workshopIdea';

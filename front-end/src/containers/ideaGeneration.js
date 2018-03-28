@@ -16,6 +16,7 @@ export class IdeaGeneration extends Component {
 
 	}
 
+	// All functions called before the component renders.
 	componentWillMount() {
 		this.setState({isInThisPage: true});
 
@@ -38,24 +39,29 @@ export class IdeaGeneration extends Component {
 		}
 	}
 
+	// Function that runs before you get new props, with a variable called next props.
 	componentWillReceiveProps(nextProps){
 		if (this.props.wsId != nextProps.wsId) {
 			//console.log('componentWillReceiveProps wsId-->',nextProps.wsId);
 			this.props.getWorkshopInfo(nextProps.wsId);
 		}
+
 		if (this.props.userId != nextProps.userId) {
 			//console.log('componentWillReceiveProps userId -->',nextProps.userId);
 			this.props.fetchIdeas(nextProps.userId);
 		}
 	}
 
+	// Function that runs after the component renders.
 	componentDidMount(){
 		if (this.props.wsId != '') {
 			this.props.getWorkshopInfo(this.props.wsId);
 		}
+
 		if (this.props.userId != '') {
 			this.props.fetchIdeas(this.props.userId);
 		}
+
 		//console.log('here with wsId->',this.props.wsId);
 		if (this.state.isInThisPage) {
 			window.intervalWaitId = setInterval(() => {
@@ -64,26 +70,27 @@ export class IdeaGeneration extends Component {
 		}
 	}
 
+	// Funciton that runs before we go into another scene.
 	componentWillUnmount(){
-	clearInterval(window.intervalUserId);
-	clearInterval(window.intervalWaitId);
+		clearInterval(window.intervalUserId);
+		clearInterval(window.intervalWaitId);
 	}
 
+	// Function that calls the API for new ideas.
 	updateIdeas() {
 		console.log('UPDATE Ideas CALLED');
-	//	this.props.deleteIdea(childId)
 		this.props.fetchIdeas(this.props.userId);
 	}
 
+	// Function which deletes an idea and pulls all the ideas from the API.
 	updateDeleteIdea(childId) {
 		console.log('UPDATE delete Ideas CALLED');
 		this.props.deleteIdea(childId,() => {
 			this.props.fetchIdeas(this.props.userId);
 		});
-	//this.props.fetchIdeas(this.props.userId);
-
 	}
 
+	// Renders all the ideas submitted by the user.
 	renderIdeas() {
 		//console.log('ideasss=>',this.props.ideas);
 		if (_.isEmpty(this.props.ideas)) {
@@ -113,10 +120,10 @@ export class IdeaGeneration extends Component {
 		}
 	}
 
+	// Render method for the component. Renders ideas and form to submit them.
 	render() {
 		//console.log('idea generation user id',this.props.userId);
 		//console.log('idea generation ws id', this.props.wsId);
-		console.log('wsActive',this.props.wsActive);
 
 			if (!this.props.wsActive && !this.props.wsClosed) {
 				return (
@@ -140,32 +147,32 @@ export class IdeaGeneration extends Component {
 					}
 				}, 1000);
 
-				return (
-					<div className='main'>
-						<div className='wrapper' style={{alignItems:'stretch', padding:'2%'}}>
-							<div className='card' style={{backgroundColor:'#e8edf4', margin:0}}>
-								<h1 style={{ textAlign: 'center', padding: '20px'}}>{this.props.wsTitle}</h1>
-							</div>
-							<div className='ideaGen' style={{display:'flex', flex:5.5, marginTop:'2%', flexDirection:'row'}}>
-								<NewIdea
-									className='card card-big dataBox'
-									callbackUpdate={this.updateIdeas}
-									userId={this.props.userId}
-								/>
-								<div className='ideaGenerationPanel' style={{borderRadius:'0px 0.25rem 0.25rem 0px', borderLeft:'solid 1px #b1b1b1'}}>
-									<div className='card-body ideaGenRight' style={{flex:1,marginTop:'5%', alignItems:'stretch', overflowY:'scroll'}}>
-										{this.renderIdeas()}
-									</div>
+			return (
+				<div className='main'>
+					<div className='wrapper' style={{alignItems:'stretch', padding:'2%'}}>
+						<div className='card' style={{backgroundColor:'#e8edf4', margin:0}}>
+							<h1 style={{ textAlign: 'center', padding: '20px'}}>{this.props.wsTitle}</h1>
+						</div>
+						<div className='ideaGen' style={{display:'flex', flex:5.5, marginTop:'2%', flexDirection:'row'}}>
+							<NewIdea
+								className='card card-big dataBox'
+								callbackUpdate={this.updateIdeas}
+								userId={this.props.userId}
+							/>
+							<div className='ideaGenerationPanel' style={{borderRadius:'0px 0.25rem 0.25rem 0px', borderLeft:'solid 1px #b1b1b1'}}>
+								<div className='card-body ideaGenRight' style={{flex:1,marginTop:'5%', alignItems:'stretch', overflowY:'scroll'}}>
+									{this.renderIdeas()}
 								</div>
 							</div>
 						</div>
 					</div>
-				);
-			}
-
+				</div>
+			);
+		}
 	}
 }
 
+// Redux methods to manage global state of the app and actions.
 function mapStateToProps(state) {
 	return {
 		ideas: state.ideas,
