@@ -73,7 +73,7 @@ export class ModeratorMain extends Component {
     return Object.keys(this.props.wsIdeas).map((item,index)=>{
 			return (
 				<div key={index}>
-          <h5><u>Group with {this.props.wsIdeas[item][0].title}</u></h5>
+          <h5><u>Group {index + 1}</u></h5>
           {this.renderIdeas(this.props.wsIdeas[item])}
 				</div>
 			)
