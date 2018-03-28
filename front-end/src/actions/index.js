@@ -22,7 +22,7 @@ const ROOT_URL = 'http://localhost:3000';
 export function attemptLogIn(username, password, callback) {
   return (dispatch) => {
 
-		axios.get(`http://localhost:3000/auth/login/${username}/${password}`).then(function (response) {
+		axios.get(`${ROOT_URL}/${username}/${password}`).then(function (response) {
 
 			console.log('attemptLogIn Api -->', response.data);
 			sessionStorage.setItem('usrn', username);
@@ -60,7 +60,7 @@ export function joinWorkshop(workshopId, callback) {
 
 	return (dispatch) => {
 
-		axios.get(`http://localhost:3000/participant/create/${workshopId}`).then(function (response) {
+		axios.get(`${ROOT_URL}/participant/create/${workshopId}`).then(function (response) {
 
 			console.log('joinWorkshop Api -->', response.data);
 			sessionStorage.setItem('wsId', workshopId);
@@ -90,7 +90,7 @@ export function createWorkshop(values, callback) {
 
 	return (dispatch) => {
 
-		axios.get(`http://localhost:3000/workshop/create?title=${values.title}&description=${values.description}`).then(function (response) {
+		axios.get(`${ROOT_URL}/workshop/create?title=${values.title}&description=${values.description}`).then(function (response) {
 
 			console.log('createWorkshop Api -->',response.data);
 			sessionStorage.setItem('wsId', response.data);
@@ -129,7 +129,7 @@ export function fetchUsers(wsId){
 
 	return (dispatch) => {
 
-		axios.get(`http://localhost:3000/workshop/view/${wsId}/users`).then(function (response) {
+		axios.get(`${ROOT_URL}/workshop/view/${wsId}/users`).then(function (response) {
 
 			console.log('fetchUsers Api -->', response.data);
 
@@ -166,7 +166,7 @@ export function fetchAllIdeas(wsId){
 
 	return (dispatch) => {
 
-    axios.get(`http://localhost:3000/workshop/view/${wsId}/ideas`).then(function (response) {
+    axios.get(`${ROOT_URL}/workshop/view/${wsId}/ideas`).then(function (response) {
 
 			console.log('fetchAllIdeas Api -->', response.data);
 
@@ -205,7 +205,7 @@ export function createIdea(values, userId, callback) {
 export function getWorkshopInfo(wsId) {
 	console.log('GET_WS_INFO action is called');
 	return(dispatch) => {
-		axios.get(`http://localhost:3000/workshop/view/${wsId}`).then(function (response) {
+		axios.get(`${ROOT_URL}/workshop/view/${wsId}`).then(function (response) {
 			console.log('getWorkshopInfo Api -->', response.data);
 			dispatch({
 				type: GET_WS_INFO,
