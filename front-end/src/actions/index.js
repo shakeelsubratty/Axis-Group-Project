@@ -17,16 +17,17 @@ export const USER_ENGAGEMENT = 'user_engagement';
 export const WORD_CLOUD = 'word_cloud';
 export const ACTIVATE_WORKSHOP = 'activate_ws'
 
+// Root url for API calls.
 const ROOT_URL = 'http://localhost:3000';
 
+// Action to log in.
 export function attemptLogIn(username, password, callback) {
   return (dispatch) => {
-
 		axios.get(`${ROOT_URL}/auth/login/${username}/${password}`).then(function (response) {
 
 			console.log('attemptLogIn Api -->', response.data);
 			sessionStorage.setItem('usrn', username);
-		  sessionStorage.setItem('pass', password);
+			sessionStorage.setItem('pass', password);
 
 			dispatch({
 				type: ATTEMPT_LOGIN,
@@ -40,6 +41,7 @@ export function attemptLogIn(username, password, callback) {
 	}
 }
 
+// Action to log out.
 export function logOut(callback) {
 	console.log('LOGGING OUT');
 	sessionStorage.setItem('usrn', '');
@@ -55,13 +57,14 @@ export function logOut(callback) {
 	};
 }
 
+/* Action to join a workshop.
+@param workshopId of the workshop we are trying to join.
+@param callback function.
+*/
 export function joinWorkshop(workshopId, callback) {
 	console.log('join ws action is called');
-
 	return (dispatch) => {
-
 		axios.get(`${ROOT_URL}/participant/create/${workshopId}`).then(function (response) {
-
 			console.log('joinWorkshop Api -->', response.data);
 			sessionStorage.setItem('wsId', workshopId);
 			sessionStorage.setItem('userId',response.data);
@@ -78,20 +81,16 @@ export function joinWorkshop(workshopId, callback) {
 			console.log(e);
 		})
 	}
-
-	// const request = true;
-	// console.log('joinWorkshop action called, id is ==> ',workshopId);
-	// we should make the post API call here.
-
 }
 
+/* Action to create a workshop.
+@param values object with title and description
+@param callback function.
+*/
 export function createWorkshop(values, callback) {
 	console.log('create ws action is called');
-
 	return (dispatch) => {
-
 		axios.get(`${ROOT_URL}/workshop/create?title=${values.title}&description=${values.description}`).then(function (response) {
-
 			console.log('createWorkshop Api -->',response.data);
 			sessionStorage.setItem('wsId', response.data);
 
@@ -107,6 +106,9 @@ export function createWorkshop(values, callback) {
 	}
 }
 
+/* Action which sets the current workshop id.
+@param wsId workshop id.
+*/
 export function setWorkshopTo(wsId){
 	console.log('setWorkshopTo action is called ->', wsId);
 	return {
@@ -115,24 +117,26 @@ export function setWorkshopTo(wsId){
 	};
 }
 
-export function setParticipantTo(id){
-	console.log('setParticipantTo action is called ->', id);
+/* Action which sets the current participant id.
+@param usrId participant id.
+*/
+export function setParticipantTo(usrId){
+	console.log('setParticipantTo action is called ->', usrId);
 	return {
 		type: SET_PARTICIPANT_TO,
-		payload: id,
+		payload: usrId,
 	};
 }
 
-// Api ready
+/* Action which fetches all users in a workshop.
+@param wsId workshop id.
+*/
 export function fetchUsers(wsId){
 	console.log('fetchUsers action is called');
-
 	return (dispatch) => {
-
 		axios.get(`${ROOT_URL}/workshop/view/${wsId}/users`).then(function (response) {
 
 			console.log('fetchUsers Api -->', response.data);
-
 			dispatch({
 				type: FETCH_USERS,
 				payload: response.data,
@@ -143,12 +147,13 @@ export function fetchUsers(wsId){
 	}
 }
 
+/* Action which fetches all ideas in a workshop from a user in a workshop.
+@param userId user id.
+*/
 export function fetchIdeas(userId) {
 	console.log('fetchIDeas action is called');
 	return (dispatch) => {
-
 		axios.get(`${ROOT_URL}/participant/view/${userId}/ideas`).then(function (response) {
-
 		//	console.log('fecth user ideas response.data-->', response.data);
 
 			dispatch({
@@ -161,6 +166,9 @@ export function fetchIdeas(userId) {
 	}
 }
 
+/* Action which fetches all ideas in a workshop.
+@param wsId workshop id.
+*/
 export function fetchAllIdeas(wsId){
 	console.log('fetchALLIDeas action is called');
 
@@ -180,12 +188,15 @@ export function fetchAllIdeas(wsId){
   }
 }
 
-// TODO: Add userId and wsId as a value passed return idea id
+/* Action which makes call to create an idea.
+@param values object containing title and explanation of idea.
+@param userId the user id of the user that created the idea.
+@param callback function.
+*/
 export function createIdea(values, userId, callback) {
 	console.log('createIdea action is called ==>',values,' ',userId);
 
 	return (dispatch) => {
-
 		axios.get(`${ROOT_URL}/idea/create/${userId}?title=${values.title}&description=${values.explanation}`).then(function (response) {
 
 			console.log('createIdea response.data-->', response.data);
@@ -202,6 +213,9 @@ export function createIdea(values, userId, callback) {
 	}
 }
 
+/* Action that fetches and returns title, description and activity of a workshop.
+@param wsId workshop id.
+*/
 export function getWorkshopInfo(wsId) {
 	console.log('GET_WS_INFO action is called');
 	return(dispatch) => {
@@ -217,12 +231,14 @@ export function getWorkshopInfo(wsId) {
 	};
 }
 
-// TODO: id of idea and id of user
-export function deleteIdea(id, callback) {
+/* Action which deletes a specific idea.
+@param ideaId idea id of the idea ot be deleted.
+*/
+export function deleteIdea(ideaId, callback) {
 	console.log('deleteIdea action is called');
 	return (dispatch) => {
 
-		axios.get(`${ROOT_URL}/idea/delete/${id}`).then(function (response) {
+		axios.get(`${ROOT_URL}/idea/delete/${ideaId}`).then(function (response) {
 
 			console.log('delete idea-->', response);
 
@@ -234,6 +250,7 @@ export function deleteIdea(id, callback) {
 	}
 }
 
+// Action which cleans the cache.
 export function cleanCache(){
 	console.log('CLEAN_CACHE');
 	sessionStorage.setItem('userId','');
@@ -242,6 +259,9 @@ export function cleanCache(){
 	};
 }
 
+/* Action which fetches the user engagement analytic.
+@param wsId workshop id.
+*/
 export function getUserEngagement(wsId){
 	return (dispatch) => {
 
@@ -259,6 +279,9 @@ export function getUserEngagement(wsId){
 	}
 }
 
+/* Action which fetches the word cloud analytic.
+@param wsId workshop id.
+*/
 export function getWordCloudData(wsId){
 	return (dispatch) => {
 
@@ -276,6 +299,9 @@ export function getWordCloudData(wsId){
 	}
 }
 
+/* Action which sets a workshop to active.
+@param wsId workshop id.
+*/
 export function activateWorkshop(wsId) {
 	return (dispatch) => {
 		console.log('activate ws called');
@@ -288,6 +314,9 @@ export function activateWorkshop(wsId) {
 	}
 }
 
+/* Action which sets active to false for a workshop.
+@param wsId workshop id.
+*/
 export function deactivateWorkshop(wsId) {
 	return (dispatch) => {
 		console.log('Deactivate ws called');
