@@ -2,9 +2,20 @@ package analysis;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import data.Constants;
 import data.Response;
+
+import com.google.cloud.language.v1.Document;
+import com.google.cloud.language.v1.Document.Type;
+import com.google.cloud.language.v1.EncodingType;
+import com.google.cloud.language.v1.LanguageServiceClient;
+
+import com.google.cloud.language.v1.AnalyzeEntitiesResponse;
+import com.google.cloud.language.v1.AnalyzeEntitiesRequest;
+import com.google.cloud.language.v1.Entity;
 
 /**
  * 
@@ -39,6 +50,7 @@ public class RepetitionGrouper
 		if (responses.size() == 1)
 		{
 			ArrayList<Response> newGroup = new ArrayList<>();
+			r.setGroupID(UUID.randomUUID().toString());
 			newGroup.add(r);
 			groups.add(newGroup);
 		}
@@ -78,11 +90,13 @@ public class RepetitionGrouper
 			if (bestGroup == null)
 			{
 				ArrayList<Response> newGroup = new ArrayList<>();
+				r.setGroupID(UUID.randomUUID().toString());
 				newGroup.add(r);
 				groups.add(newGroup);
 			}
 			else // Add the response to the best matching group that was found
 			{
+				r.setGroupID(bestGroup.get(0).getGroupID());
 				bestGroup.add(r);
 			}
 		}

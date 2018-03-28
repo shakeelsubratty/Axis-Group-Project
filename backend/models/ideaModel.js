@@ -37,7 +37,7 @@ module.exports = {
       if (config.DEBUG) {
           console.log("Created idea with title: " + newIdea.title + " for user: " + newIdea.user);
       }
-      return newIdea.id; //Return the ID of the new idea
+      return newIdea; //Return the new idea
     });
   },
 

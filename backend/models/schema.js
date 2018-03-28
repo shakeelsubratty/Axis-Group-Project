@@ -13,7 +13,8 @@ var workshopSchema = mongoose.Schema({
     description: String, //Further information for a workshop
 
     //Whether a workshop is actively in use and open to join
-    active: { type: Boolean, default: false }
+    active: { type: Boolean, default: false },
+    closed: { type: Boolean, default: false }
 });
 
 //Workshop method, get the users of a workshop
@@ -46,7 +47,7 @@ var ideaSchema = mongoose.Schema({
 
     //Object of the user that provided the idea
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-
+    group: String,
     //Object of the workshop that the idea was provided in
     workshop: { type: mongoose.Schema.Types.ObjectId, ref: 'Workshop' }
 });

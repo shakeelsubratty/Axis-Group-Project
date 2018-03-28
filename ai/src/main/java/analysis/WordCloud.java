@@ -1,5 +1,7 @@
 package analysis;
 
+import java.io.IOException;
+
 import com.google.cloud.language.v1.Document;
 import com.google.cloud.language.v1.Document.Type;
 import com.google.cloud.language.v1.EncodingType;
@@ -11,7 +13,11 @@ import com.google.cloud.language.v1.AnalyzeEntitySentimentResponse;
 import com.google.cloud.language.v1.AnalyzeEntitySentimentRequest;
 import com.google.cloud.language.v1.Entity;
 
+
 import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
+
 
 /**
  * The Class WordCloud.
@@ -43,6 +49,7 @@ public class WordCloud {
 			  AnalyzeEntitySentimentRequest request = AnalyzeEntitySentimentRequest.newBuilder()
 			      .setDocument(doc)
 			      .setEncodingType(EncodingType.UTF16).build();
+
 			  AnalyzeEntitySentimentResponse response = language.analyzeEntitySentiment(request);
 
 			  for(Entity entity : response.getEntitiesList()) {
@@ -63,12 +70,14 @@ public class WordCloud {
 		}
 	}
 
-	/**
-	 * Returns the wordCloud hashMap.
-	 *
-	 * @return HashMap wordCloud
-	 */
-	public HashMap<String, Word> getHashMap() {
-		return wordCloud;
+	public List<Word> getWords()
+	{
+		List<Word> l = new ArrayList<>();
+		for(Word x : wordCloud.values())
+		{
+			l.add(x);
+		}
+		return l;
 	}
+
 }

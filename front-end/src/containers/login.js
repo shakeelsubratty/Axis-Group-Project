@@ -31,7 +31,6 @@ export class Login extends Component {
             {touched ? error : ''}
           </div>
         </div>
-
       </div>
     );
   }
