@@ -62,10 +62,11 @@ export class ModeratorMain extends Component {
       	this.props.getWorkshopInfo(this.props.wsId);
       	this.props.fetchAllIdeas(this.props.wsId);
       	this.props.getWordCloudData(this.props.wsId);
-    	}
+  	}
+	}
 
   // We render the groups by iterating wsIdeas, which is grouped by groups
-  renderIdeaGroups(){
+  renderIdeaGroups() {
     return Object.keys(this.props.wsIdeas).map((item,index)=>{
 			return (
 				<div key={index}>
@@ -145,13 +146,15 @@ export class ModeratorMain extends Component {
       	return(
         		<h5 style={{textAlign:'center'}}>Loading...</h5>
       	);
-    	} else {
-      	return(
-        		<WordCloud className='tag-cloud' data={this.props.wordCloudData}/>
-      	);
-   	}
-  	}
+  	} else {
+    	return(
+      		<WordCloud className='tag-cloud' data={this.props.wordCloudData}/>
+    	);
+		}
+	}
 
+
+	renderDataBox(){
     return(
       <div className='card card-big dataBox'>
         <div className='card flexColumnCenter' style={{flex:1, backgroundColor:'#f5f5f5 !important'}}>
