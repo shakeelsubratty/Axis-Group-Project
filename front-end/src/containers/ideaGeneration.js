@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { deleteIdea, fetchIdeas, getWorkshopInfo, createWorkshop, setWorkshopTo, setParticipantTo} from '../actions';
-import {UserIdea, LoadingScreen } from '../components'
+import {UserIdea, LoadingScreen, WorkshopClosed } from '../components'
 import NewIdea from './newIdea'
 
 export class IdeaGeneration extends Component {
@@ -118,11 +118,17 @@ export class IdeaGeneration extends Component {
 		//console.log('idea generation ws id', this.props.wsId);
 		console.log('wsActive',this.props.wsActive);
 
-			if (!this.props.wsActive) {
+			if (!this.props.wsActive && !this.props.wsClosed) {
 				return (
 					<LoadingScreen
 						wsTitle={this.props.wsTitle}
-						wsDes={this.props.wsDescription}
+						wsDes={'Waiting for the workshop to be activated...'}
+						/>
+					);
+			} else if (this.props.wsClosed) {
+				return (
+					<WorkshopClosed
+						wsTitle={this.props.wsTitle}
 						/>
 					);
 			} else {
@@ -168,6 +174,7 @@ function mapStateToProps(state) {
 		wsId: state.app.wsId,
 		userId: state.app.userId,
 		wsActive: state.app.wsInfo.active,
+		wsClosed: state.app.wsInfo.closed,
 		wsDescription: state.app.wsInfo.description,
 
 	};

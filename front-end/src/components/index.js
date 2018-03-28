@@ -3,5 +3,6 @@ import UserIdea from './userIdea';
 import WorkshopIdea from './workshopIdea';
 import LoadingScreen from './loadingScreen';
 import WordCloud from './wordCloud';
+import WorkshopClosed from './workshop-closed'
 
-export { LoginFailed, UserIdea, WorkshopIdea, LoadingScreen, WordCloud};
+export { LoginFailed, UserIdea, WorkshopIdea, LoadingScreen, WordCloud, WorkshopClosed};
