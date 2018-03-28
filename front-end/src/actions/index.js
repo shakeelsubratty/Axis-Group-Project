@@ -290,7 +290,7 @@ export function activateWorkshop(wsId) {
 
 export function deactivateWorkshop(wsId) {
 	return (dispatch) => {
-		console.log('DEactivate ws called');
+		console.log('Deactivate ws called');
 		axios.get(`${ROOT_URL}/workshop/set/${wsId}/closed`).then(function (response) {
 
 

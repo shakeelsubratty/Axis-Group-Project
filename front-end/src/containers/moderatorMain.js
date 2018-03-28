@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 import { Link } from 'react-router-dom';
 import { WorkshopIdea, LoadingScreen, WordCloud } from '../components';
 import { deactivateWorkshop, getWorkshopInfo, setWorkshopTo, attemptLogIn, logOut, fetchAllIdeas, getUserEngagement, getWordCloudData } from '../actions';
@@ -52,7 +53,7 @@ export class ModeratorMain extends Component {
         this.props.fetchAllIdeas(this.props.wsId);
         this.props.getUserEngagement(this.props.wsId);
         this.props.getWordCloudData(this.props.wsId);
-      }, 3000);
+      }, 4000);
     }
   }
 
@@ -84,7 +85,7 @@ export class ModeratorMain extends Component {
 	}
 
   renderUserEngagementData(){
-    if (!this.props.userEngagement) {
+    if (!this.props.userEngagement || this.props.userEngagement.status == 500) {
       return(
         <div className='card flexColumnCenter' style={{flex:1, backgroundColor:'#f5f5f5 !important', padding:'2%', alignItems:'stretch'}}>
           <h5 style={{textAlign:'center'}}>Loading...</h5>
@@ -129,9 +130,9 @@ export class ModeratorMain extends Component {
   }
 
   renderWordCloud(){
-    if (!this.props.wordCloudData) {
+    if (!this.props.wordCloudData || _.isEmpty(this.props.wordCloudData) ) {
       return(
-        <div>Loading...</div>
+        <h5 style={{textAlign:'center'}}>Loading...</h5>
       );
     } else {
       return(
@@ -159,17 +160,7 @@ export class ModeratorMain extends Component {
   renderIdeaPanel(){
     return(
       <div className='card card-big' style={{flex:1,borderRadius:0,borderBottom:'none',marginBottom:0,paddingBottom:'2%'}}>
-        <div style={{textAlign:'right'}}>
-          <Link to='/' onClick={() => {
-				this.props.deactivateWorkshop(this.props.wsId);
-            this.props.logOut(() => {
-             clearInterval(this.intervalWsId);
-           });
-          }}>
-            Exit
-          </Link>
-        </div>
-        <h3 className='card-title' style={{textAlign:'left'}}><u>{this.props.wsTitle}</u></h3>
+        <h3 className='card-title' style={{textAlign:'left', marginTop:'2%'}}><u>{this.props.wsTitle}</u></h3>
         <div className='card-body' style={{flex:6,marginTop:'2%', alignItems:'stretch', overflowY:'scroll'}}>
           <div style={{flex:1}}>
             {this.renderIdeas()}
@@ -184,7 +175,7 @@ export class ModeratorMain extends Component {
               var r = confirm("Are you sure you want to close the workshop?\nYou won't be able to open it again...");
               if (r == true) {
                 this.props.logOut(() => {
-                  clearInterval(this.intervalWsId);
+                  this.props.deactivateWorkshop(this.props.wsId);
                 });
                 this.props.history.push('/');
               }

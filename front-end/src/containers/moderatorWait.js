@@ -83,9 +83,9 @@ export class ModeratorWait extends Component {
           <div className='flexColumnCenter' style={{justifyContent:'space-around', alignItems:'stretch', marginLeft:'2.5%'}}>
             <div style={{flex:1,textAlign:'center', marginTop:'5%'}}>
               <h4 className='wsIdTitle'><u>Workshop Id</u></h4>
-              <h2>
+              <h5 style={{marginTop:'2%'}}>
                 {this.props.wsId}
-              </h2>
+              </h5>
             </div>
             <div style={{flex:2,textAlign:'center', marginTop:'3%'}}>
               <h4 className='wsDesTitle'><u>Description</u></h4>
@@ -122,7 +122,7 @@ export class ModeratorWait extends Component {
           </button>
           <div className='flexRowCenter' style={{alignItems:'flex-start'}}>
             <div style={{flex:1,textAlign:'center', margin:'5% 2.5% 0 0'}}>
-              <h4><u>Avtive Users</u></h4>
+              <h4><u>Connected Users</u></h4>
               <div className='flexRowCenter' style={{flex:1, flexWrap:'wrap', margin:'3% 0 5%', maxHeight:'200px', overflowY:'scroll'}}>
                 {this.renderUsers()}
               </div>
@@ -137,10 +137,7 @@ export class ModeratorWait extends Component {
     return (
       <div className='button-box' style={{padding: `${this.state.showingId ? '1% 1% 0 0' : '1% 0 0 0'}`, width:'100%'}}>
         <Link className='btn btn-danger' to='/' onClick={() => {
-          this.props.logOut(() => {
-            clearInterval(this.intervalWaitId);
-          });
-
+          this.props.logOut();
         }}>
 		  Exit
         </Link>

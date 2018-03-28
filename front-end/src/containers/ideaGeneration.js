@@ -58,17 +58,15 @@ export class IdeaGeneration extends Component {
 		}
 		//console.log('here with wsId->',this.props.wsId);
 		if (this.state.isInThisPage) {
-			window.intervalUserId = setInterval(() => {
-				if (!document.hasFocus()) {
-					// TODO: Make api call to tell the backend the user has switched tabs
-					//console.log('USER SWITCHED TAB');
-				}
-			}, 1000);
+			window.intervalWaitId = setInterval(() => {
+				this.props.getWorkshopInfo(this.props.wsId);
+			}, 3000);
 		}
 	}
 
 	componentWillUnmount(){
 	clearInterval(window.intervalUserId);
+	clearInterval(window.intervalWaitId);
 	}
 
 	updateIdeas() {
@@ -121,36 +119,38 @@ export class IdeaGeneration extends Component {
 		console.log('wsActive',this.props.wsActive);
 
 			if (!this.props.wsActive) {
-				window.intervalWaitId = setInterval(() => {
-		            this.props.getWorkshopInfo(this.props.wsId);
-
-		      }, 1000);
 				return (
 					<LoadingScreen
 						wsTitle={this.props.wsTitle}
 						wsDes={this.props.wsDescription}
 						/>
 					);
-			}else {
+			} else {
 
-		return (
-			<div className='main'>
-				<div className='wrapper' style={{alignItems:'stretch', padding:'2%'}}>
-					<div className='card' style={{backgroundColor:'#e8edf4', margin:0}}>
-						<h1 style={{ textAlign: 'center', padding: '20px'}}>{this.props.wsTitle}</h1>
-					</div>
-					<div className='ideaGen' style={{display:'flex', flex:5.5, marginTop:'2%', flexDirection:'row'}}>
-						<NewIdea
-							className='card card-big dataBox'
-							callbackUpdate={this.updateIdeas}
-							userId={this.props.userId}
-						/>
-						<div className='ideaGenerationPanel' style={{borderRadius:'0px 0.25rem 0.25rem 0px', borderLeft:'solid 1px #b1b1b1'}}>
-							<div className='card-body ideaGenRight' style={{flex:1,marginTop:'5%', alignItems:'stretch', overflowY:'scroll'}}>
-								{this.renderIdeas()}
+				window.intervalUserId = setInterval(() => {
+					if (!document.hasFocus()) {
+						// TODO: Make api call to tell the backend the user has switched tabs
+						console.log('USER SWITCHED TAB');
+					}
+				}, 1000);
+
+				return (
+					<div className='main'>
+						<div className='wrapper' style={{alignItems:'stretch', padding:'2%'}}>
+							<div className='card' style={{backgroundColor:'#e8edf4', margin:0}}>
+								<h1 style={{ textAlign: 'center', padding: '20px'}}>{this.props.wsTitle}</h1>
+							</div>
+							<div className='ideaGen' style={{display:'flex', flex:5.5, marginTop:'2%', flexDirection:'row'}}>
+								<NewIdea
+									className='card card-big dataBox'
+									callbackUpdate={this.updateIdeas}
+									userId={this.props.userId}
+								/>
+								<div className='ideaGenerationPanel' style={{borderRadius:'0px 0.25rem 0.25rem 0px', borderLeft:'solid 1px #b1b1b1'}}>
+									<div className='card-body ideaGenRight' style={{flex:1,marginTop:'5%', alignItems:'stretch', overflowY:'scroll'}}>
+										{this.renderIdeas()}
 									</div>
 								</div>
-
 							</div>
 						</div>
 					</div>
