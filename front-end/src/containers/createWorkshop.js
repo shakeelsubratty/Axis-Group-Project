@@ -39,6 +39,20 @@ export class CreateWorkshop extends Component {
     );
   }
 
+  renderTextAreaField(field){
+	 const { meta: {touched, error} } = field;
+	 const className = `form-group ${touched && error ? 'has-danger' : ''}`
+	 return (
+		<div className={className}>
+		  <span>{field.label}</span>
+		  <textarea className='form-control' type='text' {...field.input}/>
+		  <div className='text-help'>
+			 {touched ? error : ''}
+		  </div>
+		</div>
+	 );
+  }
+
   onSubmit(values){
     // Change to next container when ready
     this.props.createWorkshop(values, () => {
@@ -56,7 +70,7 @@ export class CreateWorkshop extends Component {
             <div className='card-body'>
               <form className='form-group' style={{display:'flex',flexDirection:'column', height:'60%'}} onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                 <Field name='title' component={this.renderField} label='Title'/>
-                <Field name='description' component={this.renderField} label='Description'/>
+                <Field name='description' component={this.renderTextAreaField} label='Description'/>
               <button type='submit' className='btn btn-primary' style={{margin:5}}>Submit</button>
               </form>
             </div>
