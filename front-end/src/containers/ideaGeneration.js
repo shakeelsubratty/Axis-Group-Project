@@ -124,24 +124,7 @@ export class IdeaGeneration extends Component {
 	render() {
 		//console.log('idea generation user id',this.props.userId);
 		//console.log('idea generation ws id', this.props.wsId);
-		console.log('wsActive',this.props.wsActive);
-		if (!this.props.wsActive) {
-			return (
-				<LoadingScreen
-					wsTitle={this.props.wsTitle}
-					wsDes={this.props.wsDescription}
-					/>
-				);
-		} else {
 
-<<<<<<< HEAD
-			window.intervalUserId = setInterval(() => {
-				if (!document.hasFocus()) {
-					// TODO: Make api call to tell the backend the user has switched tabs
-					console.log('USER SWITCHED TAB');
-				}
-			}, 1000);
-=======
 			if (!this.props.wsActive && !this.props.wsClosed) {
 				return (
 					<LoadingScreen
@@ -163,7 +146,6 @@ export class IdeaGeneration extends Component {
 						console.log('USER SWITCHED TAB');
 					}
 				}, 1000);
->>>>>>> development
 
 			return (
 				<div className='main'>

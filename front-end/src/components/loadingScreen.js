@@ -14,7 +14,6 @@ class LoadingScreen extends Component {
 			return (
 				<div className='main'>
 					<div className='wrapper' style={{alignItems:'center', padding:'2%'}}>
-						<h1 style={{color:'white'}}>Loading...</h1>
 						<h1 style={{color:'white'}}>{this.props.wsTitle}</h1>
 						<h5 style={{color:'white', padding:'5px'}}>{this.props.wsDes}</h5>
 						<div className='loader'/>
