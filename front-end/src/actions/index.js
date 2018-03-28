@@ -161,7 +161,6 @@ export function fetchIdeas(userId) {
 	}
 }
 
-
 export function fetchAllIdeas(wsId){
 	console.log('fetchALLIDeas action is called');
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { deleteIdea, fetchIdeas, getWorkshopInfo, createWorkshop, setWorkshopTo, setParticipantTo} from '../actions';
-import UserIdea from '../components/userIdea'
+import {UserIdea, LoadingScreen } from '../components'
 import NewIdea from './newIdea'
 
 export class IdeaGeneration extends Component {
@@ -118,6 +118,21 @@ export class IdeaGeneration extends Component {
 	render() {
 		//console.log('idea generation user id',this.props.userId);
 		//console.log('idea generation ws id', this.props.wsId);
+		console.log('wsActive',this.props.wsActive);
+
+			if (!this.props.wsActive) {
+				window.intervalWaitId = setInterval(() => {
+		            this.props.getWorkshopInfo(this.props.wsId);
+
+		      }, 1000);
+				return (
+					<LoadingScreen
+						wsTitle={this.props.wsTitle}
+						wsDes={this.props.wsDescription}
+						/>
+					);
+			}else {
+
 		return (
 			<div className='main'>
 				<div className='wrapper' style={{alignItems:'stretch', padding:'2%'}}>
@@ -133,13 +148,15 @@ export class IdeaGeneration extends Component {
 						<div className='ideaGenerationPanel' style={{borderRadius:'0px 0.25rem 0.25rem 0px', borderLeft:'solid 1px #b1b1b1'}}>
 							<div className='card-body ideaGenRight' style={{flex:1,marginTop:'5%', alignItems:'stretch', overflowY:'scroll'}}>
 								{this.renderIdeas()}
+									</div>
+								</div>
+
 							</div>
 						</div>
-
 					</div>
-				</div>
-			</div>
-		);
+				);
+			}
+
 	}
 }
 
@@ -150,6 +167,8 @@ function mapStateToProps(state) {
 		wsDescription: state.app.wsInfo.description,
 		wsId: state.app.wsId,
 		userId: state.app.userId,
+		wsActive: state.app.wsInfo.active,
+		wsDescription: state.app.wsInfo.description,
 
 	};
 }
