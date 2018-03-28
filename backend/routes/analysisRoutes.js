@@ -7,13 +7,12 @@ module.exports = function(app) {
     app.get(config.analysisRoot + '/userengagement/:workshopId', function(req, res) {
         analysisModel.getUsersAndIdeaText(req.params.workshopId).then(function(ret) {
             if(!Array.isArray(ret) || !ret.length) {
-              res.json([0, 0, 0, 0, 0]);
+              res.json("Empty Userengagement");
               return;
             }
             if (config.DEBUG) {
                 console.log("[API accessed] [analysisRoute] /userengagement/:workshopId, currently aggregated the following user data: " + ret);
             }
-            /*********TODO: remove mock and reinstate proper API call***********/
             request.post(
                 config.aiUrl + "/userengagement",
                 //{json: {myKey: "myValue"}},
@@ -30,6 +29,10 @@ module.exports = function(app) {
 
     app.get(config.analysisRoot + '/wordcloud/:workshopId', function(req, res) {
            analysisModel.getUsersAndIdeaText(req.params.workshopId).then(function(ret) {
+               if(!Array.isArray(ret) || !ret.length) {
+                 res.json("Empty Wordcloud");
+                 return;
+               }
                if (config.DEBUG) {
                    console.log("[API accessed] [analysisRoute] /wordcloud/:workshopId, currently aggregated the following user data: " + JSON.stringify(ret));
                }
