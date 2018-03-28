@@ -44,7 +44,7 @@ export class EnterWorkshop extends Component {
 		});
 	}
 
-	// Render method for the component. Renders ideas and form to submit them.
+	// Render method for the component. Renders input box and buttons.
   	render() {
 		const { handleSubmit } = this.props;
 
