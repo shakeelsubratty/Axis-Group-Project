@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { joinWorkshop, cleanCache } from '../actions'
+import { joinWorkshop, cleanCache } from '../actions';
 
 // Length of workshop id that the user validation accepts.
 const STRING_ID_LENGTH = 24;

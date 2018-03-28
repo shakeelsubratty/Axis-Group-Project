@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logOut } from '../actions';
+
 const axisLogo = 'https://s3.eu-west-2.amazonaws.com/axis-logo/axis_logo2.png';
 
 // Component that will allow a user to choose between being a participant or facilitator.
