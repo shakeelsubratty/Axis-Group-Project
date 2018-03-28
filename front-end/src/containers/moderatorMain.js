@@ -68,20 +68,33 @@ export class ModeratorMain extends Component {
     clearInterval(window.intervalWsId);
   }
 
-  renderIdeas() {
-		return Object.keys(this.props.wsIdeas).map((item)=>{
+  // We render the groups by iterating wsIdeas, which is grouped by groups
+  renderIdeaGroups(){
+    return Object.keys(this.props.wsIdeas).map((item,index)=>{
 			return (
-				<div key={this.props.wsIdeas[item]._id}>
-					<WorkshopIdea
-						id = {this.props.wsIdeas[item]._id}
-						title={this.props.wsIdeas[item].title}
-            data={this.props.wordCloudData}
-					>
-            {this.props.wsIdeas[item].description}
-					</WorkshopIdea>
+				<div key={index}>
+          <h5><u>Group {index + 1}</u></h5>
+          {this.renderIdeas(this.props.wsIdeas[item])}
 				</div>
 			)
 		});
+  }
+
+  // We render the ideas in each group by mapping through each group
+  renderIdeas(group) {
+		return Object.keys(group).map((idea)=>{
+      return(
+        <div key={group[idea]._id}>
+        <WorkshopIdea
+					id = {group[idea]._id}
+					title={group[idea].title}
+          data={this.props.wordCloudData}
+        >
+          {group[idea].description}
+				</WorkshopIdea>
+      </div>
+      )
+    });
 	}
 
   renderUserEngagementData(){
@@ -163,7 +176,7 @@ export class ModeratorMain extends Component {
         <h3 className='card-title' style={{textAlign:'left', marginTop:'2%'}}><u>{this.props.wsTitle}</u></h3>
         <div className='card-body' style={{flex:6,marginTop:'2%', alignItems:'stretch', overflowY:'scroll'}}>
           <div style={{flex:1}}>
-            {this.renderIdeas()}
+            {this.renderIdeaGroups()}
           </div>
         </div>
         <div
