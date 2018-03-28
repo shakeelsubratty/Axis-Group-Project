@@ -187,3 +187,7 @@ body{
   padding:3%;
   background-color:#e8edf4 !important;
 }
+
+.tag-cloud{
+  max-height: 100%;
+}
