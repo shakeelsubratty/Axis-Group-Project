@@ -49,12 +49,13 @@ public void testUserEngageCalculator()
 @Test
   public void testCalculateLevel()
   {
-    List<Response> test1 = new ArrayList<Response>();
+        List<Response> test1 = new ArrayList<Response>();
 		test1.add(new Response("Iasdfghjkl"));
 		test1.add(new Response("sdfshueksl"));
 		test1.add(new Response("Iasdfghj"));
 		test1.add(new Response("Iasdfghjkll"));
-		Participant p1Test = new Participant("Teddy", test1);
+        //test1.add(new Response("Iasdfghjkll"));
+      Participant p1Test = new Participant("Teddy", test1);
 
 		List<Response> test2 = new ArrayList<Response>();
 		test2.add(new Response("diafhkdshfagsefbjeas"));
@@ -89,32 +90,21 @@ public void testUserEngageCalculator()
     {
       if ((x.getID()).equals("Teddy"))
       {
-				// System.out.println(x.getStringLevel());
-				assertTrue((x.getStringLevel()).equals("Superstar- give them a raise!"));
-        // assertEquals( "Superstar- give them a raise!", x.getStringLevel() );
+        assertTrue((x.getStringLevel()).equals("Unengaged"));
       }
-
       else if ((x.getID()).equals("Shakeel"))
       {
-				assertTrue((x.getStringLevel()).equals("Engaged"));
-
-        // assertEquals( "Engaged", x.getStringLevel());
+          assertTrue((x.getStringLevel()).equals("Engaged"));
       }
 
       else if ((x.getID()).equals("Lewis"))
       {
-				assertTrue((x.getStringLevel()).equals("Terrible - must fire!"));
-
-        // assertEquals( "Terrible - must fire!", x.getStringLevel());
+          assertTrue((x.getStringLevel()).equals("Terrible - must fire!"));
       }
 
       else if ((x.getID()).equals("Aaron"))
       {
-				// System.out.println(x.getStringLevel());
-        //
-				assertTrue((x.getStringLevel()).equals("Terrible - must fire!"));
-
-        // assertEquals("Terrible - must fire!", x.getStringLevel());
+          assertTrue((x.getStringLevel()).equals("Superstar- give them a raise!"));
       }
     }
 
@@ -133,6 +123,7 @@ public void testUserEngageCalculator()
   test5.add(new Response("sdfshueksl"));
   test5.add(new Response("Iasdfghj"));
   test5.add(new Response("Iasdfghjkll"));
+  //test5.add(new Response("Iasdfghjkll"));
   Participant p5Test = new Participant("Tala", test5);
 
   List<Response> test6 = new ArrayList<Response>();
@@ -165,11 +156,10 @@ public void testUserEngageCalculator()
   tester1.calculateLevel();
   List<Double> compare = tester1.returnAverageArr();
 
-  // assertEquals(true,(compare.get(0))==0.5);
-  assertEquals(compare.get(0), 0.5 , 0.01);
-  assertEquals(compare.get(1), 0.0,0.01 );
-  assertEquals(compare.get(2), 0.25, 0.01);
-  assertEquals(compare.get(3), 0.25, 0.01);
+  assertEquals(0.25 ,compare.get(0), 0.01);
+  assertEquals(0.25, compare.get(1),  0.01 );
+  assertEquals(0.25, compare.get(2),  0.01);
+  assertEquals(0.25, compare.get(3),  0.01);
 
 
   }
