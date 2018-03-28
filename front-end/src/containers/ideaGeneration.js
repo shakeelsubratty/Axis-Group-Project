@@ -1,16 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import {UserIdea, LoadingScreen } from '../components';
-import NewIdea from './newIdea';
-import { deleteIdea,
-			fetchIdeas,
-			getWorkshopInfo,
-			createWorkshop,
-			setWorkshopTo,
-			setParticipantTo } from '../actions';
+import { deleteIdea, fetchIdeas, getWorkshopInfo, createWorkshop, setWorkshopTo, setParticipantTo} from '../actions';
+import {UserIdea, LoadingScreen, WorkshopClosed } from '../components'
+import NewIdea from './newIdea'
 
-// Class which allows user to input and see their own ideas.
 export class IdeaGeneration extends Component {
 	constructor(props) {
 		super(props);
@@ -140,12 +134,36 @@ export class IdeaGeneration extends Component {
 				);
 		} else {
 
+<<<<<<< HEAD
 			window.intervalUserId = setInterval(() => {
 				if (!document.hasFocus()) {
 					// TODO: Make api call to tell the backend the user has switched tabs
 					console.log('USER SWITCHED TAB');
 				}
 			}, 1000);
+=======
+			if (!this.props.wsActive && !this.props.wsClosed) {
+				return (
+					<LoadingScreen
+						wsTitle={this.props.wsTitle}
+						wsDes={'Waiting for the workshop to be activated...'}
+						/>
+					);
+			} else if (this.props.wsClosed) {
+				return (
+					<WorkshopClosed
+						wsTitle={this.props.wsTitle}
+						/>
+					);
+			} else {
+
+				window.intervalUserId = setInterval(() => {
+					if (!document.hasFocus()) {
+						// TODO: Make api call to tell the backend the user has switched tabs
+						console.log('USER SWITCHED TAB');
+					}
+				}, 1000);
+>>>>>>> development
 
 			return (
 				<div className='main'>
@@ -181,6 +199,7 @@ function mapStateToProps(state) {
 		wsId: state.app.wsId,
 		userId: state.app.userId,
 		wsActive: state.app.wsInfo.active,
+		wsClosed: state.app.wsInfo.closed,
 		wsDescription: state.app.wsInfo.description,
 
 	};
