@@ -8,7 +8,6 @@ module.exports = function(app) {
         analysisModel.getUsersAndIdeaText(req.params.workshopId).then(function(ret) {
             if(!Array.isArray(ret) || !ret.length) {
               res.json([0, 0, 0, 0, 0]);
-              console.log("ahahhhhhhh");
               return;
             }
             if (config.DEBUG) {
