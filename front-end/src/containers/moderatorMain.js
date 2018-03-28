@@ -160,7 +160,10 @@ export class ModeratorMain extends Component {
     return(
       <div className='card card-big dataBox'>
         <div className='card flexColumnCenter' style={{flex:1, backgroundColor:'#f5f5f5 !important'}}>
-          {this.props.wsInfo.description}
+          <div style={{textAlign:'center'}}>
+            <h5><u>Workshop Id</u></h5>
+            {this.props.wsId}
+          </div>
         </div>
         {this.renderUserEngagementData()}
         <div className='card flexColumnCenter' style={{flex:1, backgroundColor:'#f5f5f5 !important', padding:'3%'}}>
