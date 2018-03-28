@@ -75,13 +75,13 @@ public class AIController {
 
         RepetitionGrouper rg;
 
-        String id = g.fromJson(responseObject.get("id"), String.class);
+        String id = g.fromJson(responseObject.get("_id"), String.class);
         String description = g.fromJson(responseObject.get("description"), String.class);
         String workshopID = g.fromJson(responseObject.get("workshop"), String.class);
 
         if(repetitionGrouperMap.containsKey(workshopID))
         {
-            rg = repetitionGrouperMap.get("workshopID");
+            rg = repetitionGrouperMap.get(workshopID);
         }
         else{
             rg = new RepetitionGrouper();
@@ -98,7 +98,22 @@ public class AIController {
             excep.printStackTrace();
         }
 
-        return g.toJson(rg.getGroups());
+        List<List<Response>> groups = rg.getGroups();
+
+
+        for(List<Response> group : groups)
+        {
+            for(Response response : group)
+            {
+                if(response.getID().equals(id))
+                {
+                    return g.toJson(response.getGroupID());
+                }
+            }
+        }
+
+        return g.toJson("Error: err");
+        //return g.toJson(rg.getGroups());
         //return g.toJson(repetitionGrouperMap);
     }
 

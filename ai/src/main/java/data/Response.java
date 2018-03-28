@@ -16,7 +16,7 @@ import com.google.cloud.language.v1.Token;
  */
 public class Response
 {
-	private final String id;
+	private String id;
 	private String groupID;
 	private String workshopID;
 	private String description;
