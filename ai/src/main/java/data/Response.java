@@ -32,7 +32,7 @@ public class Response
 	 */
 	public Response(String text)
 	{
-		id = "";
+		id = "-1";
 		init(text);
 	}
 
@@ -182,10 +182,42 @@ public class Response
 	 */
 	public double getMatchPercentage(Response r)
 	{
-		double nounMatch = this.compareNounsTo(r);
-		double verbMatch = this.compareVerbsTo(r);
-
-		return (double) (nounMatch + verbMatch) / 2.0;
+		boolean hasNouns = false;
+		boolean hasVerbs = false;
+		
+		double nounMatch = 0;
+		double verbMatch = 0;
+		
+		
+		if(this.getNouns().size() > 0 && r.getNouns().size() > 0)
+		{
+			nounMatch = this.compareNounsTo(r);
+			hasNouns = true;
+		}
+		
+		if(this.getVerbs().size() > 0 && r.getVerbs().size() > 0)
+		{
+			verbMatch = this.compareVerbsTo(r);
+			hasVerbs = true;
+		}
+		
+		if(hasNouns && hasVerbs)
+		{
+			return (double) (nounMatch + verbMatch) / 2.0;
+		}
+		else if(hasNouns)
+		{
+			return nounMatch;
+		}
+		else if(hasVerbs)
+		{
+			return verbMatch;
+		}
+		else
+		{
+			return 0.0;
+		}
+		
 	}
 
 	@Override

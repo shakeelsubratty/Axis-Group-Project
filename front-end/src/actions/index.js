@@ -23,6 +23,7 @@ const ROOT_URL = 'http://localhost:3000';
 // Action to log in.
 export function attemptLogIn(username, password, callback) {
   return (dispatch) => {
+
 		axios.get(`${ROOT_URL}/auth/login/${username}/${password}`).then(function (response) {
 
 			console.log('attemptLogIn Api -->', response.data);

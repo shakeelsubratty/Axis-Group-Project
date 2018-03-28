@@ -17,6 +17,7 @@ class WordCloud extends Component {
     super(props);
   }
 
+<<<<<<< HEAD
   	// Render method for the component. Renders ideas and form to submit them.
 	render(){
 		return(
@@ -27,6 +28,19 @@ class WordCloud extends Component {
             onClick={tag => alert(`'${tag.value}' was selected!`)} />
 		);
   	}
+=======
+  render(){
+    return(
+      <TagCloud
+        minSize={12}
+        maxSize={35}
+        tags={this.props.data}
+        shuffle={false}
+        onClick={tag => alert(`'${tag.value}' was selected!`)}
+      />
+    );
+  }
+>>>>>>> development
 }
 
 export default WordCloud;

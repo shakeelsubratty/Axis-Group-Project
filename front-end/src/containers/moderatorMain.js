@@ -64,55 +64,45 @@ export class ModeratorMain extends Component {
       	this.props.getWordCloudData(this.props.wsId);
     	}
 
-		if (this.state.isLogged) {
-      	window.intervalWsId = setInterval(() => {
-        		this.props.fetchAllIdeas(this.props.wsId);
-        		this.props.getUserEngagement(this.props.wsId);
-        		this.props.getWordCloudData(this.props.wsId);
-      	}, 4000);
-    	}
-  	}
-
-	// Function that runs before you get new props, with a variable called next props.
-	componentWillReceiveProps(nextProps) {
-		if (this.props.wsId != nextProps.wsId) {
-      	this.props.getWorkshopInfo(nextProps.wsId);
-      	this.props.fetchAllIdeas(this.props.wsId);
-    	}
-  	}
-
-	// Functions before another screen is rendered.
-	componentWillUnmount(){
-   	clearInterval(window.intervalWsId);
-	}
-
-	// Function which renders all the ideas in a list.
-	renderIdeas() {
-		return Object.keys(this.props.wsIdeas).map((item)=>{
+  // We render the groups by iterating wsIdeas, which is grouped by groups
+  renderIdeaGroups(){
+    return Object.keys(this.props.wsIdeas).map((item,index)=>{
 			return (
-				<div key={this.props.wsIdeas[item]._id}>
-					<WorkshopIdea
-						id = {this.props.wsIdeas[item]._id}
-						title={this.props.wsIdeas[item].title}
-            		data={this.props.wordCloudData}
-					>
-            	{this.props.wsIdeas[item].description}
-					</WorkshopIdea>
+				<div key={index}>
+          <h5><u>Group {index + 1}</u></h5>
+          {this.renderIdeas(this.props.wsIdeas[item])}
 				</div>
 			)
 		});
+  }
+
+  // We render the ideas in each group by mapping through each group
+  renderIdeas(group) {
+		return Object.keys(group).map((idea)=>{
+      return(
+        <div key={group[idea]._id}>
+        <WorkshopIdea
+					id = {group[idea]._id}
+					title={group[idea].title}
+          data={this.props.wordCloudData}
+        >
+          {group[idea].description}
+				</WorkshopIdea>
+      </div>
+      )
+    });
 	}
 
 	// Renders data displayed for user engagement analytic.
-	renderUserEngagementData() {
-   	if (!this.props.userEngagement || this.props.userEngagement.status == 500) {
-      	return(
-        		<div className='card flexColumnCenter' style={{flex:1, backgroundColor:'#f5f5f5 !important', padding:'2%', alignItems:'stretch'}}>
-          		<h5 style={{textAlign:'center'}}>Loading...</h5>
-        		</div>
-      	);
-    	} else {
-      	let userEngagementColor = 'black';
+  renderUserEngagementData(){
+    if (!this.props.userEngagement || this.props.userEngagement == 'Empty Userengagement') {
+      return(
+        <div className='card flexColumnCenter' style={{flex:1, backgroundColor:'#f5f5f5 !important', padding:'2%', alignItems:'stretch'}}>
+          <h5 style={{textAlign:'center'}}>Loading...</h5>
+        </div>
+      );
+    } else {
+      let userEngagementColor = 'black';
 
       	if (this.props.userEngagement.overallEngagement > 0.7) {
         		userEngagementColor = 'green';
@@ -162,30 +152,31 @@ export class ModeratorMain extends Component {
    	}
   	}
 
-	// Renders data box with information about the workshop.
-	renderDataBox() {
-   	return(
-      	<div className='card card-big dataBox'>
-	        	<div className='card flexColumnCenter' style={{flex:1, backgroundColor:'#f5f5f5 !important'}}>
-	         	{this.props.wsInfo.description}
-	        	</div>
-	        		{this.renderUserEngagementData()}
-	        	<div className='card flexColumnCenter' style={{flex:1, backgroundColor:'#f5f5f5 !important', padding:'3%'}}>
-	          	{this.renderWordCloud()}
-	        	</div>
-      	</div>
-   	);
-  	}
+    return(
+      <div className='card card-big dataBox'>
+        <div className='card flexColumnCenter' style={{flex:1, backgroundColor:'#f5f5f5 !important'}}>
+          <div style={{textAlign:'center'}}>
+            <h5><u>Workshop Id</u></h5>
+            {this.props.wsId}
+          </div>
+        </div>
+        {this.renderUserEngagementData()}
+        <div className='card flexColumnCenter' style={{flex:1, backgroundColor:'#f5f5f5 !important', padding:'3%'}}>
+          {this.renderWordCloud()}
+        </div>
+      </div>
+    );
+  }
 
-	renderIdeaPanel(){
-		return(
-      	<div className='card card-big' style={{flex:1,borderRadius:0,borderBottom:'none',marginBottom:0,paddingBottom:'2%'}}>
-        		<h3 className='card-title' style={{textAlign:'left', marginTop:'2%'}}><u>{this.props.wsTitle}</u></h3>
-        		<div className='card-body' style={{flex:6,marginTop:'2%', alignItems:'stretch', overflowY:'scroll'}}>
-          		<div style={{flex:1}}>
-            		{this.renderIdeas()}
-          		</div>
-        		</div>
+  renderIdeaPanel(){
+    return(
+      <div className='card card-big' style={{flex:1,borderRadius:0,borderBottom:'none',marginBottom:0,paddingBottom:'2%'}}>
+        <h3 className='card-title' style={{textAlign:'left', marginTop:'2%'}}><u>{this.props.wsTitle}</u></h3>
+        <div className='card-body' style={{flex:6,marginTop:'2%', alignItems:'stretch', overflowY:'scroll'}}>
+          <div style={{flex:1}}>
+            {this.renderIdeaGroups()}
+          </div>
+        </div>
         <div
           className='flexRowCenter card'
           style={{backgroundColor:'#e8edf4',border:'none', marginTop:'2%', alignItems:'flex-end'}}
