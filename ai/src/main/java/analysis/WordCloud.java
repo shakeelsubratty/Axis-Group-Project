@@ -70,6 +70,11 @@ public class WordCloud {
 		}
 	}
 
+	public HashMap<String,Word> getHashMap()
+	{
+		return wordCloud;
+	}
+
 	public List<Word> getWords()
 	{
 		List<Word> l = new ArrayList<>();

@@ -30,7 +30,7 @@ module.exports = function(app) {
     app.get(config.analysisRoot + '/wordcloud/:workshopId', function(req, res) {
            analysisModel.getUsersAndIdeaText(req.params.workshopId).then(function(ret) {
                if(!Array.isArray(ret) || !ret.length) {
-                 res.json("Empty Wordcloud");
+                 res.json([]);
                  return;
                }
                if (config.DEBUG) {
