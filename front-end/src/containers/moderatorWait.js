@@ -19,7 +19,6 @@ export class ModeratorWait extends Component {
     	this.state = {
       	showingId: true
     	};
-   	let intervalWaitId;
   	}
 
 	// Function that runs before we go into another scene.

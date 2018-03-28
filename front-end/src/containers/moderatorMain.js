@@ -22,48 +22,63 @@ export class ModeratorMain extends Component {
     	this.state = {
       isLogged: false,
    };
-   let intervalWsId = '';
   }
 
 	// All functions called before the component renders.
-	componentWillMount() {
-		if (sessionStorage.getItem('wsId') == '') {
-			if (!this.props.wsId) {
-        	// If you try to get here from login without creating a workshop
-			this.props.history.push('/create-workshop')
-      	}
-    	} else {
-      	this.props.setWorkshopTo(sessionStorage.getItem('wsId'))
-      	this.setState({isLogged:true})
-    	}
-		// If you refresh
-    	if ((sessionStorage.getItem('usrn') == '' || sessionStorage.getItem('pass') == '')) {
-      	if (!this.props.isLogged) {
-				// If you try to bypass login
-				this.props.history.push('/login-failed');
-      	}
-    	} else {
+	componentWillMount(){
+    if (sessionStorage.getItem('wsId') == '') {
+      if (!this.props.wsId) {
+        // If you try to get here from login without creating a workshop
+        this.props.history.push('/create-workshop')
+      }
+    } else {
+      this.props.setWorkshopTo(sessionStorage.getItem('wsId'))
+      this.setState({isLogged:true})
+    } // If you refresh
 
-			const usrn = sessionStorage.getItem('usrn');
-      	const pass = sessionStorage.getItem('pass');
-      	this.props.attemptLogIn(usrn,pass, ()=>{
+    if ((sessionStorage.getItem('usrn') == '' || sessionStorage.getItem('pass') == '')) {
+      if (!this.props.isLogged) {
+        // If you try to bypass login
+        this.props.history.push('/login-failed');
+      }
+    } else {
+      const usrn = sessionStorage.getItem('usrn');
+      const pass = sessionStorage.getItem('pass');
+      this.props.attemptLogIn(usrn,pass, ()=>{
+        if (!this.props.isLogged) {
+          // If you try to inject invalid login credentials
+          this.props.history.push('/login-failed');
+        }
+      });
+    }
+  }
 
-				if (!this.props.isLogged) {
-          	// If you try to inject invalid login credentials
-          	this.props.history.push('/login-failed');
-		 	}
-      	});
-    	}
-	}
+	componentDidMount(){
+    if (this.props.wsId != '') {
+      this.props.getWorkshopInfo(this.props.wsId);
+      this.props.fetchAllIdeas(this.props.wsId);
+      this.props.getWordCloudData(this.props.wsId);
+    }
+    if (this.state.isLogged) {
+      window.intervalWsId = setInterval(() => {
+        this.props.fetchAllIdeas(this.props.wsId);
+        this.props.getUserEngagement(this.props.wsId);
+        this.props.getWordCloudData(this.props.wsId);
+      }, 4000);
+    }
+  }
 
-	// All functions called after the component renders.
-	componentDidMount() {
-   	if (this.props.wsId != '') {
-      	this.props.getWorkshopInfo(this.props.wsId);
-      	this.props.fetchAllIdeas(this.props.wsId);
-      	this.props.getWordCloudData(this.props.wsId);
-  	}
-	}
+  componentWillReceiveProps(nextProps){
+    if (this.props.wsId != nextProps.wsId) {
+      this.props.getWorkshopInfo(nextProps.wsId);
+      this.props.fetchAllIdeas(this.props.wsId);
+    }
+  }
+
+  componentWillUnmount(){
+    clearInterval(window.intervalWsId);
+  }
+
 
   // We render the groups by iterating wsIdeas, which is grouped by groups
   renderIdeaGroups() {
@@ -172,6 +187,7 @@ export class ModeratorMain extends Component {
   }
 
   renderIdeaPanel(){
+		console.log('TITLE->',this.props.wsInfo);
     return(
       <div className='card card-big' style={{flex:1,borderRadius:0,borderBottom:'none',marginBottom:0,paddingBottom:'2%'}}>
         <h3 className='card-title' style={{textAlign:'left', marginTop:'2%'}}><u>{this.props.wsTitle}</u></h3>
@@ -232,7 +248,7 @@ export class ModeratorMain extends Component {
 function mapStateToProps(state){
  	return {
    	isLogged: state.app.isLogged,
-    	wsId: state.app.wsId,
+     wsId: state.app.wsId,
 	   wsInfo: state.app.wsInfo,
 	   wsTitle: state.app.wsInfo.title,
 	   wsIdeas: state.app.wsIdeas,

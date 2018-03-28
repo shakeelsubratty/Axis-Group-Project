@@ -72,7 +72,6 @@ export class IdeaGeneration extends Component {
 
 	// Funciton that runs before we go into another scene.
 	componentWillUnmount(){
-		clearInterval(window.intervalUserId);
 		clearInterval(window.intervalWaitId);
 	}
 
@@ -94,7 +93,6 @@ export class IdeaGeneration extends Component {
 	renderIdeas() {
 		//console.log('ideasss=>',this.props.ideas);
 		if (_.isEmpty(this.props.ideas)) {
-			console.log('array is empty.');
 			return (
 				<div className='card card-big' style={{textAlign:'center', width:'100%', border:'solid 1px #a09a9a'}}>
 					<h5>{this.props.wsDescription}</h5>
@@ -139,13 +137,6 @@ export class IdeaGeneration extends Component {
 						/>
 					);
 			} else {
-
-				window.intervalUserId = setInterval(() => {
-					if (!document.hasFocus()) {
-						// TODO: Make api call to tell the backend the user has switched tabs
-						console.log('USER SWITCHED TAB');
-					}
-				}, 1000);
 
 			return (
 				<div className='main'>
