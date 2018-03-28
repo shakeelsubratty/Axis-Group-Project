@@ -11,6 +11,7 @@ import { deactivateWorkshop,
 			fetchAllIdeas,
 			getUserEngagement,
 			getWordCloudData } from '../actions';
+
 /*
 Class which presents the ai and ideas to the facilitator. Has all the analytics
 and Ideas in the workshopId
@@ -72,6 +73,7 @@ export class ModeratorMain extends Component {
     	}
   	}
 
+	// Function that runs before you get new props, with a variable called next props.
 	componentWillReceiveProps(nextProps) {
 		if (this.props.wsId != nextProps.wsId) {
       	this.props.getWorkshopInfo(nextProps.wsId);
