@@ -55,6 +55,7 @@ body{
   width: 150px;
   cursor: pointer;
   margin: 5px;
+  /* text-align: center !important; */
 }
 
 .btn-secondary:active {
@@ -70,7 +71,7 @@ body{
   flex-direction: column;
   justify-content: center;
   padding: 3%;
-  background-color: #e8edf4 !important; /* or #d2def2 */
+  /* background-color: #e8edf4 !important; /* or #d2def2 */ */
 }
 
 .card{
@@ -200,7 +201,7 @@ body{
   border-bottom: none !important;
   margin-bottom:0 !important;
   padding:3%;
-  background-color:#e8edf4 !important;
+  background-color: rgba(249, 249, 249, 0.9) !important;
 }
 
 .tag-cloud{

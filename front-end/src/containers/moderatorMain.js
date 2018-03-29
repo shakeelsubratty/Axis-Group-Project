@@ -197,8 +197,8 @@ export class ModeratorMain extends Component {
           </div>
         </div>
         <div
-          className='flexRowCenter card'
-          style={{backgroundColor:'#e8edf4',border:'none', marginTop:'2%', alignItems:'flex-end'}}
+          className='flexRowCenter'
+          style={{border:'none', marginTop:'2%', alignItems:'flex-end'}}
         >
           <div style={{flex:2.5, textAlign:'right'}}>
             <button className='btn btn-danger' style={{fontSize:'12pt'}} onClick={() => {

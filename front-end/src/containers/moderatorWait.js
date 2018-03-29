@@ -173,8 +173,8 @@ export class ModeratorWait extends Component {
         		<div className='main'>
           		<div className='wrapper'>
             		<div className='card' style={{width:'80%', backgroundColor:'#e8edf4', minHeight:'8%', textAlign:'center'}}>
-              		<h1>{this.props.wsTitle}</h1>
-            	</div>
+              		<h1 style={{margin:5}}>{this.props.wsTitle}</h1>
+            		</div>
             	<div
               		id='moderatorWaitPanel'
               		className='card card-big'
