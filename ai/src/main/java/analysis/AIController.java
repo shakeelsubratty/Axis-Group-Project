@@ -47,7 +47,6 @@ public class AIController {
                     String id = g.fromJson(ideaObject.get("id"),String.class);
                     String description = g.fromJson(ideaObject.get("description"),String.class);
                     String workshopID = g.fromJson(ideaObject.get("workshop"),String.class);
-                    //TODO: Reduce redundancy
                     Response r = new Response(id,description,workshopID);
                     responses.add(r);
                 } catch(Exception excep)
@@ -113,8 +112,6 @@ public class AIController {
         }
 
         return g.toJson("Error: err");
-        //return g.toJson(rg.getGroups());
-        //return g.toJson(repetitionGrouperMap);
     }
 
     @RequestMapping(value ="/deleteworkshop", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
