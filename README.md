@@ -35,7 +35,7 @@ Edit the file 'default' and insert the following code:
 ```
 server {
   listen 80;
-  server_name YOUR_SERVERS_IP_ADDRESS;
+  server_name kcl-salsa-3;
 
   location / {
     proxy_pass "http://127.0.0.1:8080";
