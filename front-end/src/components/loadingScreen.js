@@ -31,7 +31,5 @@ class LoadingScreen extends Component {
 			);
 		}
   	}
-
-
 }
 export default LoadingScreen;

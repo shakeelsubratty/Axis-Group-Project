@@ -40,7 +40,6 @@ export class Login extends Component {
 
 	// Render method for the component. Renders input for username, password and buttons.
 	render() {
-		console.log(`isLogged - Login==> ${this.props.isLogged}`);
     	const { handleSubmit } = this.props;
 
 		return (

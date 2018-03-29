@@ -25,29 +25,23 @@ export class IdeaGeneration extends Component {
 				this.props.history.push('/enter-workshop')
 			}
 		} else {
-			//console.log('wsId - Session ==>', sessionStorage.getItem('wsId'));
 			this.props.setWorkshopTo(sessionStorage.getItem('wsId'));
-			//console.log('hi friend wsId->', this.props.wsId);
 		}
 
 		if (sessionStorage.getItem('userId') == '') {
 			this.props.history.push('/enter-workshop')
 		} else {
-			//console.log('userId - Session ==>', sessionStorage.getItem('userId'));
 			this.props.setParticipantTo(sessionStorage.getItem('userId'));
-			//console.log('userId->', this.props.userId);
 		}
 	}
 
 	// Function that runs before you get new props, with a variable called next props.
 	componentWillReceiveProps(nextProps){
 		if (this.props.wsId != nextProps.wsId) {
-			//console.log('componentWillReceiveProps wsId-->',nextProps.wsId);
 			this.props.getWorkshopInfo(nextProps.wsId);
 		}
 
 		if (this.props.userId != nextProps.userId) {
-			//console.log('componentWillReceiveProps userId -->',nextProps.userId);
 			this.props.fetchIdeas(nextProps.userId);
 		}
 	}
@@ -62,7 +56,6 @@ export class IdeaGeneration extends Component {
 			this.props.fetchIdeas(this.props.userId);
 		}
 
-		//console.log('here with wsId->',this.props.wsId);
 		if (this.state.isInThisPage) {
 			window.intervalWaitId = setInterval(() => {
 				this.props.getWorkshopInfo(this.props.wsId);
@@ -77,13 +70,11 @@ export class IdeaGeneration extends Component {
 
 	// Function that calls the API for new ideas.
 	updateIdeas() {
-		console.log('UPDATE Ideas CALLED');
 		this.props.fetchIdeas(this.props.userId);
 	}
 
 	// Function which deletes an idea and pulls all the ideas from the API.
 	updateDeleteIdea(childId) {
-		console.log('UPDATE delete Ideas CALLED');
 		this.props.deleteIdea(childId,() => {
 			this.props.fetchIdeas(this.props.userId);
 		});
@@ -91,7 +82,6 @@ export class IdeaGeneration extends Component {
 
 	// Renders all the ideas submitted by the user.
 	renderIdeas() {
-		//console.log('ideasss=>',this.props.ideas);
 		if (_.isEmpty(this.props.ideas)) {
 			return (
 				<div className='card card-big' style={{textAlign:'center', width:'100%', border:'solid 1px #a09a9a'}}>
@@ -120,8 +110,6 @@ export class IdeaGeneration extends Component {
 
 	// Render method for the component. Renders ideas and form to submit them.
 	render() {
-		//console.log('idea generation user id',this.props.userId);
-		//console.log('idea generation ws id', this.props.wsId);
 
 			if (!this.props.wsActive && !this.props.wsClosed) {
 				return (

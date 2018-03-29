@@ -47,7 +47,6 @@ export class NewIdea extends Component {
 
 
 	onSubmit(values) {
-		console.log('new idea user Id',this.props.userId);
 		this.props.createIdea(values, this.props.userId, () => {
 			this.props.callbackUpdate();
 		});

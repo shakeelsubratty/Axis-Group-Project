@@ -22,8 +22,6 @@ export default class UserIdea extends Component {
 
 	// Function called when delete button is pressed.
 	deleteClick() {
-		console.log('onclick called');
-		console.log(this.props.id);
 		this.props.callback(this.props.id);
 	}
 
@@ -40,11 +38,10 @@ export default class UserIdea extends Component {
             <div className="panel-collapse" style={{height: currentHeight+'px'}}>
                <div className="card-body panel-body" ref="inner" style={{padding: '3%'}}>
                   {children}
-						<div className='button-box' style={{display: 'flex', justifyContent:'flex-end'}}>
-							<button type='button' className='btn btn-danger' onClick={this.deleteClick.bind(this)} >Delete</button>
-						</div>
+      						<div className='button-box' style={{display: 'flex', justifyContent:'flex-end'}}>
+      							<button type='button' className='btn btn-danger' onClick={this.deleteClick.bind(this)} >Delete</button>
+      						</div>
                </div>
-
             </div>
       	</div>
       )
