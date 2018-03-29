@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import analysis.Participant;
 
 public class UserEngagementCalculator {
-	
+
 	private List<Participant> participants;
 	private double numParticipants;
 	private double workshopTotalResp;
@@ -16,7 +16,6 @@ public class UserEngagementCalculator {
 	private double mid;
 	private double upperMid;
 	private double numEngaged;
-	private double totalTimeOfWorkshop = 120.0;
 
 	public UserEngagementCalculator(List<Participant> x)
 	{
@@ -150,7 +149,24 @@ public class UserEngagementCalculator {
 
 		return retArrList;
 	}
-	
-	
+
+
+	public double getWorkshopAv()
+	{
+		return workshopAverage;
+	}
+
+	public double getTotalResp()
+	{
+		return workshopTotalResp;
+	}
+
+	public double getNumPart()
+	{
+		return numParticipants;
+	}
+
+
+
 
 }

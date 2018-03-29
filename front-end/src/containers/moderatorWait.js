@@ -103,7 +103,7 @@ export class ModeratorWait extends Component {
 	            	</div>
 	          	</div>
 	          	<button
-	            	className='btn btn-secondary'
+	            	className='btnSide btn-secondary'
 	            	style={{backgroundColor:'#e8edf4', borderColor:'#bfbebe'}}
 	            	onClick={() => {
 	              		window.animateLeftToRight('moderatorWaitPanel');
@@ -119,7 +119,7 @@ export class ModeratorWait extends Component {
 	      return (
 	        	<div className='card-body flexRowCenter' style={{alignItems:'stretch', width:'100%', paddingRight:'3%'}}>
 	         	<button
-	            	className='btn btn-secondary'
+	            	className='btnSide btn-secondary'
 	            	style={{backgroundColor:'#e8edf4', borderColor:'#bfbebe'}}
 	            	onClick={() => {
 	              		window.animateRightToLeft('moderatorWaitPanel');
@@ -173,8 +173,8 @@ export class ModeratorWait extends Component {
         		<div className='main'>
           		<div className='wrapper'>
             		<div className='card' style={{width:'80%', backgroundColor:'#e8edf4', minHeight:'8%', textAlign:'center'}}>
-              		<h1>{this.props.wsTitle}</h1>
-            	</div>
+              		<h1 style={{margin:5}}>{this.props.wsTitle}</h1>
+            		</div>
             	<div
               		id='moderatorWaitPanel'
               		className='card card-big'

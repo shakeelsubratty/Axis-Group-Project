@@ -17,6 +17,7 @@ import com.google.cloud.language.v1.Entity;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 
 /**
@@ -78,10 +79,22 @@ public class WordCloud {
 	public List<Word> getWords()
 	{
 		List<Word> l = new ArrayList<>();
+
+		TreeMap<Integer,Word> tree = new TreeMap<>();
+
 		for(Word x : wordCloud.values())
 		{
-			l.add(x);
+			tree.put(x.getCount(),x);
 		}
+
+		for(Word y : tree.values())
+		{
+			if(l.size() < 10)
+			{
+				l.add(y);
+			}
+		}
+
 		return l;
 	}
 

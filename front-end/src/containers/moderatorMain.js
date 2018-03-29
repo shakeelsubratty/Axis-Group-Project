@@ -114,41 +114,43 @@ export class ModeratorMain extends Component {
     if (!this.props.userEngagement || this.props.userEngagement == 'Empty Userengagement') {
       return(
         <div className='card flexColumnCenter' style={{flex:1, backgroundColor:'#f5f5f5 !important', padding:'2%', alignItems:'stretch'}}>
-          <h5 style={{textAlign:'center'}}>Loading...</h5>
+          <h5  style={{textAlign:'center'}}>Loading...</h5>
         </div>
       );
     } else {
-      let userEngagementColor = 'black';
+      let userEngagementColor = '#fff';
 
-      	if (this.props.userEngagement.overallEngagement > 0.7) {
-        		userEngagementColor = 'green';
-      	} else if (this.props.userEngagement.overallEngagement < 0.4) {
+      	if (this.props.userEngagement[4] > 0.7) {
+        		userEngagementColor = '#0cde0c';
+      	} else if (this.props.userEngagement[4] < 0.4) {
         		userEngagementColor = 'red';
       	}
 
+				console.log('USERENGAGEMENTCOLOR->', userEngagementColor);
+
       	return(
         		<div className='card flexRowCenter' style={{flex:1, backgroundColor:'#f5f5f5 !important', padding:'3%', alignItems:'stretch'}}>
-          		<div className='flexColumnCenter' style={{flex:1, alignItems:'stretch', borderRight:'1px solid black '}}>
+          		<div className='flexColumnCenter' style={{flex:1, alignItems:'stretch', borderRight:'1px solid #e2dede '}}>
             		<div style={{flex:1, textAlign:'left', display:'flex'}}>
 		              <span style={{flex:3, fontSize:'11pt', textAlign:'left'}}>Really Engaged:</span>
-		              <span style={{flex:1}}>{this.props.userEngagement[3] * 100 + '%'}</span>
+		              <span  style={{flex:1}}>{this.props.userEngagement[3] * 100 + '%'}</span>
             		</div>
             		<div style={{flex:1, textAlign:'left', display:'flex'}}>
-              			<span style={{flex:3,fontSize:'11pt', textAlign:'left'}}>Engaged:</span>
-              			<span style={{flex:1}}>{this.props.userEngagement[2] * 100 + '%'}</span>
+              			<span  style={{flex:3,fontSize:'11pt', textAlign:'left'}}>Engaged:</span>
+              			<span  style={{flex:1}}>{this.props.userEngagement[2] * 100 + '%'}</span>
             		</div>
             		<div style={{flex:1, textAlign:'left', display:'flex'}}>
-              			<span style={{flex:3,fontSize:'11pt', textAlign:'left'}}>Unengaged:</span>
-              			<span style={{flex:1}}>{this.props.userEngagement[1] * 100 + '%'}</span>
+              			<span  style={{flex:3,fontSize:'11pt', textAlign:'left'}}>Unengaged:</span>
+              			<span  style={{flex:1}}>{this.props.userEngagement[1] * 100 + '%'}</span>
             		</div>
             		<div style={{flex:1, textAlign:'left', display:'flex'}}>
-              			<span style={{flex:3,fontSize:'11pt', textAlign:'left'}}>Really Unengaged:</span>
-              			<span style={{flex:1}}>{this.props.userEngagement[0] * 100 + '%'}</span>
+              			<span  style={{flex:3,fontSize:'11pt', textAlign:'left'}}>Really Unengaged:</span>
+              			<span  style={{flex:1}}>{this.props.userEngagement[0] * 100 + '%'}</span>
             		</div>
           		</div>
           		<div className='flexColumnCenter' style={{flex:1}}>
-            	<h3 style={{color:userEngagementColor}}>{this.props.userEngagement[4] * 100 + '%'}</h3>
-            	<h5>Overall</h5>
+            	<h3  style={{color:userEngagementColor}}>{this.props.userEngagement[4] * 100 + '%'}</h3>
+            	<h5 >Overall</h5>
           		</div>
         	</div>
       );
@@ -159,7 +161,7 @@ export class ModeratorMain extends Component {
 	renderWordCloud() {
    	if (!this.props.wordCloudData || _.isEmpty(this.props.wordCloudData) ) {
       	return(
-        		<h5 style={{textAlign:'center'}}>Loading...</h5>
+        		<h5  style={{textAlign:'center'}}>Loading...</h5>
       	);
   	} else {
     	return(
@@ -172,14 +174,14 @@ export class ModeratorMain extends Component {
 	renderDataBox(){
     return(
       <div className='card card-big dataBox'>
-        <div className='card flexColumnCenter' style={{flex:1, backgroundColor:'#f5f5f5 !important'}}>
+        <div className='card  flexColumnCenter' style={{flex:1}}>
           <div style={{textAlign:'center'}}>
-            <h5><u>Workshop Id</u></h5>
-            {this.props.wsId}
+            <h5 ><u>Workshop Id</u></h5>
+            <span >{this.props.wsId}</span>
           </div>
         </div>
         {this.renderUserEngagementData()}
-        <div className='card flexColumnCenter' style={{flex:1, backgroundColor:'#f5f5f5 !important', padding:'3%'}}>
+        <div className='card  flexColumnCenter' style={{flex:1, backgroundColor:'#f5f5f5 !important', padding:'3%'}}>
           {this.renderWordCloud()}
         </div>
       </div>
@@ -197,8 +199,8 @@ export class ModeratorMain extends Component {
           </div>
         </div>
         <div
-          className='flexRowCenter card'
-          style={{backgroundColor:'#e8edf4',border:'none', marginTop:'2%', alignItems:'flex-end'}}
+          className='flexRowCenter'
+          style={{border:'none', marginTop:'2%', alignItems:'flex-end'}}
         >
           <div style={{flex:2.5, textAlign:'right'}}>
             <button className='btn btn-danger' style={{fontSize:'12pt'}} onClick={() => {

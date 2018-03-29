@@ -5,20 +5,55 @@ This is a workshop app build using a React.js frontend, a nodejs backend layer, 
 The `frontend` folder contains the React.js-based frontend code. The `backend` folder contains the code for the nodejs backend, made to run in a docker container. The `ai` folder contains the java code running the artificial intelligence analysis functions, using Google APIs, made to build and run using gradle.
 
 ## Building and deploying
-The project is made to be deployed in a Linux VM hosted on Google Cloud Compute Engine. After cloning the repository to the deployment machine, run configure.sh with root privileges to install all the prerequisites. Afterwards, run deploy.sh to start all three components, or alternatively start them manually (see below).
+The project is made to be deployed in a Linux VM. The easiest solution is to host it on Google Cloud Compute Engine; otherwise, Google API access credentials needs to be setup (see below).
 
-## Non-standard deployments
-### Outside of Google Cloud
+### Prerequisites
+The following need to be installed:
+ * For the frontend component:
+   * nodejs/npm
+   * nginx
+ * For the backend component:
+   * nodejs/npm
+   * docker
+   * docker-compose
+ * For the AI component:
+   * Java
+   * Gradle
+
+Example command on Ubuntu 17.10: `apt-get install nodejs nginx docker.io docker-compose gradle openjdk-8-jdk`
+
+Additionally, port 3000 needs to be opened on the server.
+
+### Nginx config
+(AARON FILL THIS IN)
+
+### Deploying outside of Google Cloud (optional)
 To access the Google APIs, an environment variable with access credentials needs to be set prior to deploying the AI component. (INSTRUCTIONS ON THAT GO HERE)
 
-### Manual deployment
-If you wish to e.g. deploy the various components on different servers, or if you wish to have more control over the deployment of each component, you will want to deploy them manually.
+### Endpoint configuration
+The variable `ROOT_URL` located in `front-end/src/actions/index.js` needs to be configured to the correct URL.
 
-#### Configuration
-If the frontend needs to be deployed  separately from the backend, the variable `ROOT_URL` located in `front-end/src/actions/index.js` needs to be configured to the correct URL.
-Similarly, if the backend and AI components need to be deployed separately, the variable `aiUrl` located in `backend/config.js` needs to be set.
+#### Backend
+We do not support deploying the backend and AI components on separate servers, but it should not be tricky to achieve. The variable `aiUrl` located in `backend/config.js` needs to be set; there may or may not be additional networking configurations to take into consideration, such as modifying the docker configuration or opening additional ports.
 
-#### Deployment commands
+### Additional installation
+Prior to the initial deployment, `npm install` needs to be ran separately in the `front-end` and `backend` servers. This is not necessary to run for subsequent deployments.
+
+Please also note that the initial startup of the backend component will take significantly more time than subsequent deployments, as the necessary images get downloaded.
+
+### Deployment commands
  * Inside the `front-end` folder, run `npm start`
  * Inside the `backend` folder, run `docker-compose up`
  * Inside the `ai` folder, run `./gradlew build -x test && java -jar build/libs/gs-rest-service-0.1.0.jar`
+
+## Running tests
+ * Inside the `front-end folder, run `npm test`
+ * Inside the `backend` folder, run `npm test`
+ * Inside the `ai` folder, run `gradle test`
+
+## Out-of-scope features and enhancements
+During development, various ideas were generated that were deemed useful, but had to be cut from the final project due to time or resource constraints.
+ * Generating a report of the stats of a workshop
+ * Analysis of questions
+ * Workshop QoL features (ability for facilitator to delete ideas, ability for everyone to view all ideas after the workshop is closed, etc.)
+ * Real-time analysis using typing speed, tab focus, amount of text deleted etc.

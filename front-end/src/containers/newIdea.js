@@ -59,8 +59,8 @@ export class NewIdea extends Component {
 		const { handleSubmit, reset, pristine, submitting } = this.props;
 		return (
 			<div className='ideaGenerationPanel' style={{borderRadius:'0.25rem 0px 0px 0.25rem'}}>
-				<h1 className='card-header' style={{ textAlign: 'left', flex:1, backgroundColor:'#e8edf4', margin:0, borderBottom:'none'}}>Ideas</h1>
-				<div className="card-body" style={{flex:5,backgroundColor:'#e8edf4 !important'}}>
+				<h1 style={{textAlign: 'left', flex:1, marginLeft:'4%', borderBottom:'none'}}>Ideas</h1>
+				<div className="card-body" style={{flex:6,backgroundColor:'#e8edf4 !important'}}>
 					<div className='form-group' style={{padding: '1.5%', height:'100%'}}>
 						<form
 							onSubmit={handleSubmit(this.onSubmit.bind(this))}
@@ -79,7 +79,6 @@ export class NewIdea extends Component {
 								placeholder="Expand on your thoughts."
 								/>
 							<div className="button-box" >
-								<button type="submit" className="btn btn-primary" disabled={pristine || submitting}>Submit</button>
 								<button type="button" className="btn btn-danger" onClick={()=> {
 									var r = confirm("Are you sure you want to exit this workshop?");
 									if (r == true) {
@@ -88,6 +87,7 @@ export class NewIdea extends Component {
 								}}>
 									Exit Workshop
 								</button>
+								<button type="submit" className="btn btn-primary" disabled={pristine || submitting}>Submit</button>
 							</div>
 						</form>
 					</div>

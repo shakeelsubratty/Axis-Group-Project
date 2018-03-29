@@ -1,16 +1,29 @@
-import { JOIN_WORKSHOP, CREATE_WORKSHOP, ATTEMPT_LOGIN, LOG_OUT, GET_WS_INFO, SET_WORKSHOP_TO, FETCH_USERS, FETCH_ALL_IDEAS, SET_PARTICIPANT_TO, USER_ENGAGEMENT, WORD_CLOUD } from '../actions';
+import { JOIN_WORKSHOP,
+			CREATE_WORKSHOP,
+			ATTEMPT_LOGIN,
+			LOG_OUT,
+			GET_WS_INFO,
+			SET_WORKSHOP_TO,
+			FETCH_USERS,
+			FETCH_IDEAS,
+			FETCH_ALL_IDEAS,
+			SET_PARTICIPANT_TO,
+			USER_ENGAGEMENT,
+			WORD_CLOUD } from '../actions';
 
+// Initial state of our application
 const INITIAL_STATE = {
-  isLogged: false,
-  wsId: '',
-  wsInfo: '',
-  wsUsers: null,
+	isLogged: false,
+	wsId: '',
+	wsInfo: '',
+ 	wsUsers: null,
   wsIdeas: '',
   userId: '',
   userEngagement:'',
   wordCloudData: null,
 };
 
+// What to return depending on the action called.
 export default (state = INITIAL_STATE, action) => {
 	switch (action.type) {
 		case JOIN_WORKSHOP:
@@ -29,12 +42,14 @@ export default (state = INITIAL_STATE, action) => {
 			return { ...state, wsId: action.payload}
 		case FETCH_USERS:
 			return { ...state, wsUsers: action.payload}
+		case FETCH_IDEAS:
+				return { ...state, usrIdeas: action.payload}
 		case FETCH_ALL_IDEAS:
-      return { ...state, wsIdeas: _.groupBy(action.payload,'group')}
+      	return { ...state, wsIdeas: _.groupBy(action.payload,'group')}
     case USER_ENGAGEMENT:
-      return { ...state, userEngagement: action.payload}
+      	return { ...state, userEngagement: action.payload}
     case WORD_CLOUD:
-      return { ...state, wordCloudData: action.payload}
+      	return { ...state, wordCloudData: action.payload}
 		default:
 			return state;
   }
