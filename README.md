@@ -57,3 +57,4 @@ During development, various ideas were generated that were deemed useful, but ha
  * Analysis of questions
  * Workshop QoL features (ability for facilitator to delete ideas, ability for everyone to view all ideas after the workshop is closed, etc.)
  * Real-time analysis using typing speed, tab focus, amount of text deleted etc.
+ * Real-time translation of languages for display and analysis
