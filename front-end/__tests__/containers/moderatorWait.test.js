@@ -2,9 +2,6 @@ import React from 'react';
 import { ModeratorWait } from '../../src/containers/moderatorWait';
 import { shallow, render, mount } from 'enzyme';
 import renderer from 'react-test-renderer';
-import { MemoryRouter } from 'react-router';
-import sinon from 'sinon';
-
 
 describe('ModeratorWait', () => {
 
@@ -64,7 +61,7 @@ describe('ModeratorWait', () => {
 
 	it('has right arrow button', () => {
 		const wrapper = buildSubject();
-		expect(wrapper.find('button.btn.btn-secondary').length).toEqual(1)
+		expect(wrapper.find('button.btnSide.btn-secondary').length).toEqual(1)
 	})
 
 

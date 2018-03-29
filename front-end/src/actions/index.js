@@ -18,7 +18,7 @@ export const WORD_CLOUD = 'word_cloud';
 export const ACTIVATE_WORKSHOP = 'activate_ws'
 
 // Root url for API calls.
-const ROOT_URL = 'http://35.204.103.145:3000';
+const ROOT_URL = 'http://35.204.251.190:3000';
 
 // Action to log in.
 export function attemptLogIn(username, password, callback) {

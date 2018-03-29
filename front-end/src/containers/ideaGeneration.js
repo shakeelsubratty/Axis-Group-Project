@@ -144,7 +144,7 @@ export class IdeaGeneration extends Component {
 						<div className='card' style={{backgroundColor:'#e8edf4', margin:0}}>
 							<h1 style={{ textAlign: 'center', padding: '20px'}}>{this.props.wsTitle}</h1>
 						</div>
-						<div className='ideaGen' style={{display:'flex', flex:5.5, marginTop:'2%', flexDirection:'row'}}>
+						<div className='ideaGenLeft' style={{display:'flex', flex:5.5, marginTop:'2%', flexDirection:'row'}}>
 							<NewIdea
 								className='card card-big dataBox'
 								callbackUpdate={this.updateIdeas}

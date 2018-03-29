@@ -22,9 +22,8 @@ describe('NewIdea', () => {
 
 	it('has ideas title', () => {
 		const wrapper = buildSubject();
-		expect(wrapper.find('h1').text()).toEqual('Ideas')
-		expect(wrapper.find('h1').length).toEqual(1)
-		expect(wrapper.find('h1').hasClass('card-header')).toEqual(true)
+		expect(wrapper.find('div.ideaGenerationPanel').find('h1').text()).toEqual('Ideas')
+		expect(wrapper.find('div.ideaGenerationPanel').find('h1').length).toEqual(1)
 	})
 
 	it('renders a form with two fields', () => {
