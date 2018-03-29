@@ -47,7 +47,7 @@ Please also note that the initial startup of the backend component will take sig
  * Inside the `ai` folder, run `./gradlew build -x test && java -jar build/libs/gs-rest-service-0.1.0.jar`
 
 ## Running tests
- * Inside the `front-end folder, run `npm test`
+ * Inside the `front-end' folder, run `npm test`
  * Inside the `backend` folder, run `npm test`
  * Inside the `ai` folder, run `gradle test`
 
