@@ -1,0 +1,17 @@
+version: '2'
+services:
+    app:
+        build: .
+        command: node index.js
+        network_mode: "host"
+        volumes:
+            - .:/app
+        ports:
+            - '3000:3000'
+        depends_on:
+            - db
+    db:
+        image: mongo
+        network_mode: "host"
+        volumes:
+           - ./data:/data/db

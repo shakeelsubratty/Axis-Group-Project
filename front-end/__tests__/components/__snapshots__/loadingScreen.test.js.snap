@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoadingScreen matches snapshot 1`] = `
+<div
+  className="main"
+>
+  <div
+    className="wrapper"
+    style={
+      Object {
+        "alignItems": "center",
+        "padding": "2%",
+      }
+    }
+  >
+    <h1
+      style={
+        Object {
+          "color": "white",
+        }
+      }
+    />
+    <h5
+      style={
+        Object {
+          "color": "white",
+          "padding": "5px",
+        }
+      }
+    />
+    <div
+      className="loader"
+    />
+  </div>
+</div>
+`;

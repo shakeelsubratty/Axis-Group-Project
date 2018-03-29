@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WorkshopIdea Component matches snapshot 1`] = `
+<div
+  className="card panel "
+>
+  <div
+    className="card-header panel-heading"
+    onClick={[Function]}
+    style={
+      Object {
+        "display": "flex",
+      }
+    }
+  >
+    <h4 />
+  </div>
+  <div
+    className="panel-collapse"
+    style={
+      Object {
+        "height": "0px",
+      }
+    }
+  >
+    <div
+      className="card-body panel-body"
+      style={
+        Object {
+          "padding": "3%",
+        }
+      }
+    />
+  </div>
+</div>
+`;
