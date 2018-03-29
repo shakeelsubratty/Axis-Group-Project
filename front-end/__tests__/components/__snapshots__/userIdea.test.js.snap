@@ -41,13 +41,6 @@ exports[`UserIdea Component matches snapshot 1`] = `
         }
       >
         <button
-          className="btn btn-primary"
-          disabled="true"
-          type="button"
-        >
-          Edit
-        </button>
-        <button
           className="btn btn-danger"
           onClick={[Function]}
           type="button"

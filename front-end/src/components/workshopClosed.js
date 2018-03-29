@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-class WorkshopClosed extends Component {
+export class WorkshopClosed extends Component {
 	constructor(props) {
 		super(props)
 	}

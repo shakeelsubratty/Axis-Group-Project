@@ -15,6 +15,7 @@ describe('ModeratorMain', () => {
 	let createIdea
 	let wsIdeas
 	let fetchAllIdeas
+	let getWordCloudData
 
 	beforeEach(() => {
 		handleSubmit = fn => fn
@@ -28,6 +29,7 @@ describe('ModeratorMain', () => {
 		createIdea = fn => fn
 		wsIdeas = fn => fn
 		fetchAllIdeas = fn => fn
+		getWordCloudData = fn => fn
 	})
 
 	const buildSubject = () => {
@@ -42,7 +44,8 @@ describe('ModeratorMain', () => {
 			deleteIdea,
 			createIdea,
 			wsIdeas,
-			fetchAllIdeas
+			fetchAllIdeas,
+			getWordCloudData
 		}
 		return shallow(<ModeratorMain {...props}/>)
 	}
@@ -60,15 +63,9 @@ describe('ModeratorMain', () => {
 
 	})
 
-	it('has submit button', () => {
+	it('has close workshop button', () => {
 		const wrapper = buildSubject();
-		expect(wrapper.find('button.btn.btn-success').text()).toEqual('Submit Workshop')
-
-	})
-
-	it('has exit button', () => {
-		const wrapper = buildSubject();
-		expect(wrapper.find('Link.btn.btn-danger').length).toEqual(1)
+		expect(wrapper.find('button.btn.btn-danger').text()).toEqual('Close Workshop')
 
 	})
 
