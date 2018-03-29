@@ -179,7 +179,7 @@ export class ModeratorMain extends Component {
           </div>
         </div>
         {this.renderUserEngagementData()}
-        <div className='card  flexColumnCenter' style={{flex:1, backgroundColor:'#f5f5f5 !important', padding:'3%'}}>
+        <div className='card  flexColumnCenter' style={{flex:1, backgroundColor:'#f5f5f5 !important', padding:'3%', overflowY:'scroll'}}>
           {this.renderWordCloud()}
         </div>
       </div>
