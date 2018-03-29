@@ -25,7 +25,51 @@ Example command on Ubuntu 17.10: `apt-get install nodejs nginx docker.io docker-
 Additionally, port 3000 needs to be opened on the server.
 
 ### Nginx config
-(AARON FILL THIS IN)
+Run the following commands in the Google Cloud server:
+* `$ sudo apt-get install -y nginx`
+* `$ cd /etc/nginx/sites-available`
+* `$ sudo mv default default.bak`
+* `$ sudo touch default`
+
+Edit the file 'default' and insert the following code:
+```
+server {
+  listen 80;
+  server_name YOUR_SERVERS_IP_ADDRESS;
+
+  location / {
+    proxy_pass "http://127.0.0.1:8080";
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_cache_bypass $http_upgrade;
+  }
+}
+```
+
+* `$ sudo service nginx restart`
+
+Change back to the root of the front-end
+`$ cd ~/kcl-salsa-3/front-end`
+
+Install pm2
+`$ sudo npm install -g pm2`
+
+Create a file pm2config.json and insert the following code:
+```
+{
+  "apps": [{
+    "script" : "./src/index.js",
+    "env": {
+      "NODE_ENV": "production",
+      "PORT": "8080"
+    }
+  }]
+}
+```
+
+Finally, run the following command:
+`$ pm2 start pm2config.json`
 
 ### Deploying outside of Google Cloud (optional)
 To access the Google APIs, an environment variable with access credentials needs to be set prior to deploying the AI component. (INSTRUCTIONS ON THAT GO HERE)
