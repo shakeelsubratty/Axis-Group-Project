@@ -1,4 +1,5 @@
 const mockery = require('mockery');
+const Promise = require('bluebird');
 var expect = require('unexpected').clone()
     .use(require('unexpected-express'))
     .use(require('unexpected-sinon'));
@@ -7,12 +8,23 @@ describe('Idea APIs', function() {
     var app;
 
     before(function createAppAndMocks() {
-        mockery.enable({warnOnUnregistered: false});
+        mockery.enable({warnOnUnregistered: false, useCleanCache: true});
         mockery.registerMock('../models/ideaModel', {
             createIdea: function(ideaTitle, ideaDescription, userID) {
-                return Promise.resolve(ideaTitle+ideaDescription+userID);
+                ret = {
+                    updateAsync: function(body) {
+                        return Promise.resolve("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaAA");
+                    },
+                    id: "abcd123"
+                };
+                return Promise.resolve(ret);
             },
             deleteIdea: function(ideaID) {}
+        });
+        mockery.registerMock('request', {
+            post: function(url, data, callback) {
+                callback();
+            }
         });
         mockery.registerSubstitute('../config', '../test/testConfig');
         app = require('express')();
@@ -32,7 +44,7 @@ describe('Idea APIs', function() {
                 },
                 response: {
                     statusCode: 200,
-                    body: 'testidea123456789'
+                    body: 'abcd123'
                 }
             });
         });
