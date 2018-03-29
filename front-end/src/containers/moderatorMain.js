@@ -126,8 +126,6 @@ export class ModeratorMain extends Component {
         		userEngagementColor = 'red';
       	}
 
-				console.log('USERENGAGEMENTCOLOR->', userEngagementColor);
-
       	return(
         		<div className='card flexRowCenter' style={{flex:1, backgroundColor:'#f5f5f5 !important', padding:'3%', alignItems:'stretch'}}>
           		<div className='flexColumnCenter' style={{flex:1, alignItems:'stretch', borderRight:'1px solid #e2dede '}}>
@@ -181,7 +179,7 @@ export class ModeratorMain extends Component {
           </div>
         </div>
         {this.renderUserEngagementData()}
-        <div className='card  flexColumnCenter' style={{flex:1, backgroundColor:'#f5f5f5 !important', padding:'3%'}}>
+        <div className='card  flexColumnCenter' style={{flex:1, backgroundColor:'#f5f5f5 !important', padding:'3%', overflowY:'scroll'}}>
           {this.renderWordCloud()}
         </div>
       </div>
@@ -189,7 +187,6 @@ export class ModeratorMain extends Component {
   }
 
   renderIdeaPanel(){
-		console.log('TITLE->',this.props.wsInfo);
     return(
       <div className='card card-big' style={{flex:1,borderRadius:0,borderBottom:'none',marginBottom:0,paddingBottom:'2%'}}>
         <h3 className='card-title' style={{textAlign:'left', marginTop:'2%'}}><u>{this.props.wsTitle}</u></h3>

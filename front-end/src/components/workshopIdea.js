@@ -20,7 +20,6 @@ class WorkshopIdea extends Component {
       })
    }
 
-
    render(){
         const {title, children, id} = this.props;
         const {isExpanded, height} = this.state;
@@ -34,7 +33,6 @@ class WorkshopIdea extends Component {
                     <div className="card-body panel-body" ref="inner" style={{padding: '3%'}}>
                         {children}
                     </div>
-
                 </div>
             </div>
         )
