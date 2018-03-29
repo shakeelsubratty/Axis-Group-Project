@@ -57,13 +57,13 @@ export class ModeratorMain extends Component {
     if (this.props.wsId != '') {
       this.props.getWorkshopInfo(this.props.wsId);
       this.props.fetchAllIdeas(this.props.wsId);
-      this.props.getWordCloudData(this.props.wsId);
+      //this.props.getWordCloudData(this.props.wsId);
     }
     if (this.state.isLogged) {
       window.intervalWsId = setInterval(() => {
         this.props.fetchAllIdeas(this.props.wsId);
         this.props.getUserEngagement(this.props.wsId);
-        this.props.getWordCloudData(this.props.wsId);
+        //this.props.getWordCloudData(this.props.wsId);
       }, 4000);
     }
   }
