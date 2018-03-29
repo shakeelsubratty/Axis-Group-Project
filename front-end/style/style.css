@@ -207,3 +207,12 @@ body{
 .tag-cloud{
   max-height: 100%;
 }
+
+.tag-cloud-tag{
+  text-shadow:
+		-0.5px -0.5px 0 #000,
+		0.5px -0.5px 0 #000,
+		-0.5px 0.5px 0 #000,
+		0.5px 0.5px 0 #000;
+  padding:5px;
+}

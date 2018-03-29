@@ -79,7 +79,6 @@ export class NewIdea extends Component {
 								placeholder="Expand on your thoughts."
 								/>
 							<div className="button-box" >
-								<button type="submit" className="btn btn-primary" disabled={pristine || submitting}>Submit</button>
 								<button type="button" className="btn btn-danger" onClick={()=> {
 									var r = confirm("Are you sure you want to exit this workshop?");
 									if (r == true) {
@@ -88,6 +87,7 @@ export class NewIdea extends Component {
 								}}>
 									Exit Workshop
 								</button>
+								<button type="submit" className="btn btn-primary" disabled={pristine || submitting}>Submit</button>
 							</div>
 						</form>
 					</div>
