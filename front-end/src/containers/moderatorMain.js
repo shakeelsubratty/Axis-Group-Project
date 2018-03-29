@@ -3,18 +3,29 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
 import { WorkshopIdea, LoadingScreen, WordCloud } from '../components';
-import { deactivateWorkshop, getWorkshopInfo, setWorkshopTo, attemptLogIn, logOut, fetchAllIdeas, getUserEngagement, getWordCloudData } from '../actions';
+import { deactivateWorkshop,
+			getWorkshopInfo,
+			setWorkshopTo,
+			attemptLogIn,
+			logOut,
+			fetchAllIdeas,
+			getUserEngagement,
+			getWordCloudData } from '../actions';
 
+/*
+Class which presents the ai and ideas to the facilitator. Has all the analytics
+and Ideas in the workshopId
+*/
 export class ModeratorMain extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+	constructor(props) {
+   	super(props);
+    	this.state = {
       isLogged: false,
-    };
-    var intervalWsId = '';
+   };
   }
 
-  componentWillMount(){
+	// All functions called before the component renders.
+	componentWillMount(){
     if (sessionStorage.getItem('wsId') == '') {
       if (!this.props.wsId) {
         // If you try to get here from login without creating a workshop
@@ -42,7 +53,7 @@ export class ModeratorMain extends Component {
     }
   }
 
-  componentDidMount(){
+	componentDidMount(){
     if (this.props.wsId != '') {
       this.props.getWorkshopInfo(this.props.wsId);
       this.props.fetchAllIdeas(this.props.wsId);
@@ -68,24 +79,39 @@ export class ModeratorMain extends Component {
     clearInterval(window.intervalWsId);
   }
 
-  renderIdeas() {
-		return Object.keys(this.props.wsIdeas).map((item)=>{
+
+  // We render the groups by iterating wsIdeas, which is grouped by groups
+  renderIdeaGroups() {
+    return Object.keys(this.props.wsIdeas).map((item,index)=>{
 			return (
-				<div key={this.props.wsIdeas[item]._id}>
-					<WorkshopIdea
-						id = {this.props.wsIdeas[item]._id}
-						title={this.props.wsIdeas[item].title}
-            data={this.props.wordCloudData}
-					>
-            {this.props.wsIdeas[item].description}
-					</WorkshopIdea>
+				<div key={index}>
+          <h5><u>Group {index + 1}</u></h5>
+          {this.renderIdeas(this.props.wsIdeas[item])}
 				</div>
 			)
 		});
+  }
+
+  // We render the ideas in each group by mapping through each group
+  renderIdeas(group) {
+		return Object.keys(group).map((idea)=>{
+      return(
+        <div key={group[idea]._id}>
+        <WorkshopIdea
+					id = {group[idea]._id}
+					title={group[idea].title}
+          data={this.props.wordCloudData}
+        >
+          {group[idea].description}
+				</WorkshopIdea>
+      </div>
+      )
+    });
 	}
 
+	// Renders data displayed for user engagement analytic.
   renderUserEngagementData(){
-    if (!this.props.userEngagement || this.props.userEngagement.status == 500) {
+    if (!this.props.userEngagement || this.props.userEngagement == 'Empty Userengagement') {
       return(
         <div className='card flexColumnCenter' style={{flex:1, backgroundColor:'#f5f5f5 !important', padding:'2%', alignItems:'stretch'}}>
           <h5 style={{textAlign:'center'}}>Loading...</h5>
@@ -94,60 +120,63 @@ export class ModeratorMain extends Component {
     } else {
       let userEngagementColor = 'black';
 
-      if (this.props.userEngagement.overallEngagement > 0.7) {
-        userEngagementColor = 'green';
-      } else if (this.props.userEngagement.overallEngagement < 0.4) {
-        userEngagementColor = 'red';
-      }
+      	if (this.props.userEngagement.overallEngagement > 0.7) {
+        		userEngagementColor = 'green';
+      	} else if (this.props.userEngagement.overallEngagement < 0.4) {
+        		userEngagementColor = 'red';
+      	}
 
-      return(
-        <div className='card flexRowCenter' style={{flex:1, backgroundColor:'#f5f5f5 !important', padding:'3%', alignItems:'stretch'}}>
-          <div className='flexColumnCenter' style={{flex:1, alignItems:'stretch', borderRight:'1px solid black '}}>
-            <div style={{flex:1, textAlign:'left', display:'flex'}}>
-              <span style={{flex:3, fontSize:'11pt', textAlign:'left'}}>Really Engaged:</span>
-              <span style={{flex:1}}>{this.props.userEngagement[3] * 100 + '%'}</span>
-            </div>
-            <div style={{flex:1, textAlign:'left', display:'flex'}}>
-              <span style={{flex:3,fontSize:'11pt', textAlign:'left'}}>Engaged:</span>
-              <span style={{flex:1}}>{this.props.userEngagement[2] * 100 + '%'}</span>
-            </div>
-            <div style={{flex:1, textAlign:'left', display:'flex'}}>
-              <span style={{flex:3,fontSize:'11pt', textAlign:'left'}}>Unengaged:</span>
-              <span style={{flex:1}}>{this.props.userEngagement[1] * 100 + '%'}</span>
-            </div>
-            <div style={{flex:1, textAlign:'left', display:'flex'}}>
-              <span style={{flex:3,fontSize:'11pt', textAlign:'left'}}>Really Unengaged:</span>
-              <span style={{flex:1}}>{this.props.userEngagement[0] * 100 + '%'}</span>
-            </div>
-          </div>
-          <div className='flexColumnCenter' style={{flex:1}}>
-            <h3 style={{color:userEngagementColor}}>{this.props.userEngagement[4] * 100 + '%'}</h3>
-            <h5>Overall</h5>
-          </div>
-        </div>
+      	return(
+        		<div className='card flexRowCenter' style={{flex:1, backgroundColor:'#f5f5f5 !important', padding:'3%', alignItems:'stretch'}}>
+          		<div className='flexColumnCenter' style={{flex:1, alignItems:'stretch', borderRight:'1px solid black '}}>
+            		<div style={{flex:1, textAlign:'left', display:'flex'}}>
+		              <span style={{flex:3, fontSize:'11pt', textAlign:'left'}}>Really Engaged:</span>
+		              <span style={{flex:1}}>{this.props.userEngagement[3] * 100 + '%'}</span>
+            		</div>
+            		<div style={{flex:1, textAlign:'left', display:'flex'}}>
+              			<span style={{flex:3,fontSize:'11pt', textAlign:'left'}}>Engaged:</span>
+              			<span style={{flex:1}}>{this.props.userEngagement[2] * 100 + '%'}</span>
+            		</div>
+            		<div style={{flex:1, textAlign:'left', display:'flex'}}>
+              			<span style={{flex:3,fontSize:'11pt', textAlign:'left'}}>Unengaged:</span>
+              			<span style={{flex:1}}>{this.props.userEngagement[1] * 100 + '%'}</span>
+            		</div>
+            		<div style={{flex:1, textAlign:'left', display:'flex'}}>
+              			<span style={{flex:3,fontSize:'11pt', textAlign:'left'}}>Really Unengaged:</span>
+              			<span style={{flex:1}}>{this.props.userEngagement[0] * 100 + '%'}</span>
+            		</div>
+          		</div>
+          		<div className='flexColumnCenter' style={{flex:1}}>
+            	<h3 style={{color:userEngagementColor}}>{this.props.userEngagement[4] * 100 + '%'}</h3>
+            	<h5>Overall</h5>
+          		</div>
+        	</div>
       );
     }
   }
 
-  renderWordCloud(){
-    if (!this.props.wordCloudData || _.isEmpty(this.props.wordCloudData) ) {
-      return(
-        <h5 style={{textAlign:'center'}}>Loading...</h5>
-      );
-    } else {
-      return(
-        <WordCloud className='tag-cloud' data={this.props.wordCloudData}/>
-      );
-    }
-  }
+	// Renders word cloud analytic.
+	renderWordCloud() {
+   	if (!this.props.wordCloudData || _.isEmpty(this.props.wordCloudData) ) {
+      	return(
+        		<h5 style={{textAlign:'center'}}>Loading...</h5>
+      	);
+  	} else {
+    	return(
+      		<WordCloud className='tag-cloud' data={this.props.wordCloudData}/>
+    	);
+		}
+	}
 
 
-  renderDataBox(){
-
+	renderDataBox(){
     return(
       <div className='card card-big dataBox'>
         <div className='card flexColumnCenter' style={{flex:1, backgroundColor:'#f5f5f5 !important'}}>
-          {this.props.wsInfo.description}
+          <div style={{textAlign:'center'}}>
+            <h5><u>Workshop Id</u></h5>
+            {this.props.wsId}
+          </div>
         </div>
         {this.renderUserEngagementData()}
         <div className='card flexColumnCenter' style={{flex:1, backgroundColor:'#f5f5f5 !important', padding:'3%'}}>
@@ -158,12 +187,13 @@ export class ModeratorMain extends Component {
   }
 
   renderIdeaPanel(){
+		console.log('TITLE->',this.props.wsInfo);
     return(
       <div className='card card-big' style={{flex:1,borderRadius:0,borderBottom:'none',marginBottom:0,paddingBottom:'2%'}}>
         <h3 className='card-title' style={{textAlign:'left', marginTop:'2%'}}><u>{this.props.wsTitle}</u></h3>
         <div className='card-body' style={{flex:6,marginTop:'2%', alignItems:'stretch', overflowY:'scroll'}}>
           <div style={{flex:1}}>
-            {this.renderIdeas()}
+            {this.renderIdeaGroups()}
           </div>
         </div>
         <div
@@ -214,27 +244,28 @@ export class ModeratorMain extends Component {
   }
 }
 
+// Redux methods to manage global state of the app and actions.
 function mapStateToProps(state){
-  return {
-    isLogged: state.app.isLogged,
-    wsId: state.app.wsId,
-    wsInfo: state.app.wsInfo,
-    wsTitle: state.app.wsInfo.title,
-    wsIdeas: state.app.wsIdeas,
-    userEngagement: state.app.userEngagement,
-    wordCloudData: state.app.wordCloudData
-  };
+ 	return {
+   	isLogged: state.app.isLogged,
+     wsId: state.app.wsId,
+	   wsInfo: state.app.wsInfo,
+	   wsTitle: state.app.wsInfo.title,
+	   wsIdeas: state.app.wsIdeas,
+	   userEngagement: state.app.userEngagement,
+	   wordCloudData: state.app.wordCloudData
+  	};
 }
 
 const mapDispatchToProps = {
-  getWorkshopInfo,
-  attemptLogIn,
-  logOut,
-  setWorkshopTo,
-  fetchAllIdeas,
-  getUserEngagement,
-  getWordCloudData,
-  deactivateWorkshop
+	getWorkshopInfo,
+	attemptLogIn,
+	logOut,
+	setWorkshopTo,
+	fetchAllIdeas,
+	getUserEngagement,
+	getWordCloudData,
+	deactivateWorkshop
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ModeratorMain);

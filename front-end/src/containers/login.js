@@ -6,59 +6,64 @@ import { attemptLogIn, logOut } from '../actions';
 
 export class Login extends Component {
 
-  componentWillMount(){
-    this.props.logOut();
-  }
+	// All functions called before the component renders.
+	componentWillMount(){
+   	this.props.logOut();
+	}
 
-  onSubmit(values){
-    this.props.attemptLogIn(values.username, values.password, (result) => {
-      if (result == true) {
-        this.props.history.push('/create-workshop');
-      } else {
-        this.props.history.push('/login-failed');
-      }
-    });
-  }
+	// Function called when login button is pressed.
+	onSubmit(values){
+		this.props.attemptLogIn(values.username, values.password, (result) => {
+	      if (result == true) {
+	        this.props.history.push('/create-workshop');
+	      } else {
+	        this.props.history.push('/login-failed');
+	      }
+    	});
+	}
 
-  renderField(field){
-    const { meta: {touched, error} } = field;
-    const className = `form-group ${touched && error ? 'has-danger' : ''}`
-    return (
-      <div className={className} style={{display:'flex',flexDirection:'column', alignItems:'center'}}>
-        <div className='col-xs-6'>
-          <input className='form-control' type={field.type} placeholder={field.placeholder} {...field.input}/>
-          <div className='text-help'>
-            {touched ? error : ''}
-          </div>
-        </div>
-      </div>
-    );
-  }
+	// Renders a field to input user input which can not be empty.
+	renderField(field){
+		const { meta: {touched, error} } = field;
+		const className = `form-group ${touched && error ? 'has-danger' : ''}`
+		return (
+      	<div className={className} style={{display:'flex',flexDirection:'column', alignItems:'center'}}>
+        		<div className='col-xs-6'>
+          		<input className='form-control' type={field.type} placeholder={field.placeholder} {...field.input}/>
+          		<div className='text-help'>
+            		{touched ? error : ''}
+          		</div>
+        		</div>
+      	</div>
+    	);
+  	}
 
-  render() {
-   console.log(`isLogged - Login==> ${this.props.isLogged}`);
-    const { handleSubmit } = this.props;
+	// Render method for the component. Renders input for username, password and buttons.
+	render() {
+		console.log(`isLogged - Login==> ${this.props.isLogged}`);
+    	const { handleSubmit } = this.props;
 
-    return (
-      <div className='main'>
-        <div className='wrapper'>
-          <div className='card card-big'>
-            <h1  className='card-title' style={{textAlign: 'center', width:'100%'}}>Login</h1>
-            <form className='form-group row' style={{height:'60%'}} onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-              <Field name='username' component={this.renderField} type='text' placeholder='Username'/>
-              <Field name='password' component={this.renderField} type='password' placeholder='Password'/>
-              <div className='button-box'>
-                <Link className='btn btn-danger' to='/'>Back</Link>
-                <button type='submit' className='btn btn-primary' style={{margin:5}}>Submit</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    );
+		return (
+      	<div className='main'>
+        		<div className='wrapper'>
+          		<div className='card card-big'>
+            		<h1  className='card-title' style={{textAlign: 'center', width:'100%'}}>Login</h1>
+            		<form className='form-group row' style={{height:'60%'}} onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+              			<Field name='username' component={this.renderField} type='text' placeholder='Username'/>
+              			<Field name='password' component={this.renderField} type='password' placeholder='Password'/>
+              			<div className='button-box'>
+                			<Link className='btn btn-danger' to='/'>Back</Link>
+                			<button type='submit' className='btn btn-primary' style={{margin:5}}>Submit</button>
+              			</div>
+            		</form>
+          		</div>
+        		</div>
+      	</div>
+    	);
   }
 }
 
+// Function that checks for errors in the user input.
 function validate(values) {
   const errors = {};
 
@@ -73,20 +78,21 @@ function validate(values) {
   return errors;
 }
 
+// Redux methods to manage global state of the app and actions.
 function mapStateToProps(state) {
-  return {
-    isLogged: state.app.isLogged,
-  };
+	return {
+   	isLogged: state.app.isLogged,
+  	};
 }
 
 const mapDispatchToProps = {
-  attemptLogIn,
-  logOut
+	attemptLogIn,
+	logOut
 }
 
 export default reduxForm({
-  validate,
-  form: 'facilitatorLoginForm'
+	validate,
+	form: 'facilitatorLoginForm'
 })(
-  connect(mapStateToProps,mapDispatchToProps)(Login)
+	connect(mapStateToProps,mapDispatchToProps)(Login)
 );

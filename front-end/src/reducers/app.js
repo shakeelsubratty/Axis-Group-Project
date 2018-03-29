@@ -30,7 +30,7 @@ export default (state = INITIAL_STATE, action) => {
 		case FETCH_USERS:
 			return { ...state, wsUsers: action.payload}
 		case FETCH_ALL_IDEAS:
-			return { ...state, wsIdeas: _.mapKeys(action.payload,'_id')}
+      return { ...state, wsIdeas: _.groupBy(action.payload,'group')}
     case USER_ENGAGEMENT:
       return { ...state, userEngagement: action.payload}
     case WORD_CLOUD:
