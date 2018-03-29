@@ -118,7 +118,7 @@ export class ModeratorMain extends Component {
         </div>
       );
     } else {
-      let userEngagementColor = '#fff';
+      let userEngagementColor = '#000';
 
       	if (this.props.userEngagement[4] > 0.7) {
         		userEngagementColor = '#0cde0c';
