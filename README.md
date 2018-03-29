@@ -72,7 +72,10 @@ Finally, run the following command:
 `$ pm2 start pm2config.json`
 
 ### Deploying outside of Google Cloud (optional)
-To access the Google APIs, an environment variable with access credentials needs to be set prior to deploying the AI component. (INSTRUCTIONS ON THAT GO HERE)
+To access the Google APIs, you will need a Google Cloud account with a Cloud Project with the Cloud Natural Language API enabled.
+
+An environment variable with access credentials also needs to be set prior to deploying the AI component. 
+Follow the instructions here: `https://cloud.google.com/docs/authentication/getting-started` to set up the neccessary credentials.
 
 ### Endpoint configuration
 The variable `ROOT_URL` located in `front-end/src/actions/index.js` needs to be configured to the correct URL.
