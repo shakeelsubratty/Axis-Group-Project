@@ -1,26 +1,23 @@
 const mockery = require('mockery');
 const Promise = require('bluebird');
 const sinon = require('sinon');
+const mongoose = require('mongoose');
+const config = require('./testConfig');
 var expect = require('unexpected').clone()
     .use(require('unexpected-express'))
     .use(require('unexpected-sinon'));
 
 describe('Workshop APIs', function() {
     var workshopModel;
+    var workshopId;
+    var title = "hello";
+    var description = "This is the description of a workshop. What ideas do you have?"
 
     before(function createAppAndMocks() {
-        var mockgoose = Promise.promisifyAll(require('mongoose'));
-        console.log(mockgoose.Document.prototype);
-        var stubSave = sinon.stub(mockgoose, 'Document.prototype.saveAsync');
-        var fakeSave = function() {
-            console.log(JSON.stringify(this));
-            return Promise.resolve("123");
-        }
-        stubSave.callsFake(fakeSave);
         mockery.enable({warnOnUnregistered: false, useCleanCache: true});
-        mockery.registerMock('mongoose', mockgoose);
         mockery.registerSubstitute('../config', '../test/testConfig');
         workshopModel = require('../models/workshopModel');
+        mongoose.connect(config.mongoUrl);
     });
 
     after(function() {
@@ -29,9 +26,14 @@ describe('Workshop APIs', function() {
     });
 
     describe('#createWorkshop', function() {
-        it('should return mocked workshop title and description when called with correct parameters', function() {
-            Workshop({title: workshopTitle, description: workshopDescription}).saveAsync()
-            console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        it('should create a workshop with no errors', function() {
+            this.timeout(10000);
+            return workshopModel.createWorkshop(title, description).then(function(id) {
+                workshopId = id;
+                expect(workshopId, 'to be a', 'string');
+            });
+        });
+        it('should return the correct title and description of the workshop', function() {
             return true;
         });
     });

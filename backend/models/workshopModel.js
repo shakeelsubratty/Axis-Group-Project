@@ -23,8 +23,10 @@ module.exports = {
      */
     createWorkshop: function(workshopTitle, workshopDescription) {
 
+        console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         //Create a new workshop, saving within mongodb
         return Workshop({title: workshopTitle, description: workshopDescription}).saveAsync().then(function(newWorkshop) {
+            console.log("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
 
             //Debug console output
             if (config.DEBUG) {
