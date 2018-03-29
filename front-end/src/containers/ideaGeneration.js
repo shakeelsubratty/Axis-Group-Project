@@ -166,7 +166,7 @@ export class IdeaGeneration extends Component {
 // Redux methods to manage global state of the app and actions.
 function mapStateToProps(state) {
 	return {
-		ideas: state.ideas,
+		ideas: state.app.usrIdeas,
 		wsTitle: state.app.wsInfo.title,
 		wsDescription: state.app.wsInfo.description,
 		wsId: state.app.wsId,
