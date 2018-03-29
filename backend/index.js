@@ -9,7 +9,16 @@ const express = require('express');
 const Promise = require('bluebird');
 var config = require('./config');
 
-mongoose.connect(config.mongoUrl); //Connect to mongodb
+var recursiveConnect = function() {
+    return mongoose.connect(config.mongoUrl, function(err) {
+        if (err) {
+            console.log("Connect failed! Retrying in 2 seconds...");
+            setTimeout(recursiveConnect, 2000);
+        }
+    });
+}
+recursiveConnect();
+
 var app = express(); //Define express application
 
 var db = mongoose.connection;
@@ -20,6 +29,12 @@ db.on('error', console.error.bind(console, 'connection error:'));
 //Attempt to open a connection
 db.once('open', function() {
     if (config.DEBUG) { console.log ("Connected to mongo successfully!") };
+    //Define API routes
+    require('./routes/participantRoutes')(app);
+    require('./routes/workshopRoutes')(app);
+    require('./routes/ideaRoutes')(app);
+    require('./routes/authRoutes')(app);
+    require('./routes/analysisRoutes')(app);
 });
 
 //Return required headers for the API access
@@ -28,13 +43,6 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
-
-//Define API routes
-require('./routes/participantRoutes')(app);
-require('./routes/workshopRoutes')(app);
-require('./routes/ideaRoutes')(app);
-require('./routes/authRoutes')(app);
-require('./routes/analysisRoutes')(app);
 
 //Return placeholder on direct access to index.js
 app.get('/', function(req, res) {
