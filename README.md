@@ -46,6 +46,11 @@ Please also note that the initial startup of the backend component will take sig
  * Inside the `backend` folder, run `docker-compose up`
  * Inside the `ai` folder, run `./gradlew build -x test && java -jar build/libs/gs-rest-service-0.1.0.jar`
 
+## Running tests
+ * Inside the `front-end folder, run `npm test`
+ * Inside the `backend` folder, run `npm test`
+ * Inside the `ai` folder, run `gradle test`
+
 ## Out-of-scope features and enhancements
 During development, various ideas were generated that were deemed useful, but had to be cut from the final project due to time or resource constraints.
  * Generating a report of the stats of a workshop
