@@ -78,7 +78,9 @@ export class CreateWorkshop extends Component {
 							<form className='form-group' style={{display:'flex',flexDirection:'column', height:'60%'}} onSubmit={handleSubmit(this.onSubmit.bind(this))}>
 								<Field name='title' component={this.renderTextInputField} label='Title'/>
 								<Field name='description' component={this.renderTextAreaField} label='Description'/>
-								<button type='submit' className='btn btn-primary' style={{margin:5}}>Submit</button>
+								<div style={{width:'100%', textAlign:'center'}}>
+									<button type='submit' className='btn btn-primary' style={{margin:5, width:"99%"}}>Submit</button>
+								</div>
 							</form>
 						</div>
 						<div style={{width:'100%', textAlign:'right'}}>
