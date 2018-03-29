@@ -16,7 +16,6 @@ public class UserEngagementCalculator {
 	private double mid;
 	private double upperMid;
 	private double numEngaged;
-	private double totalTimeOfWorkshop = 120.0;
 
 	public UserEngagementCalculator(List<Participant> x)
 	{
