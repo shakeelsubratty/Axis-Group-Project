@@ -7,7 +7,6 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const Promise = require('bluebird');
-const _ = require('lodash');
 var config = require('./config');
 
 mongoose.connect(config.mongoUrl); //Connect to mongodb
@@ -20,7 +19,7 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 //Attempt to open a connection
 db.once('open', function() {
-    connected = "Connected to mongo successfully!";
+    if (config.DEBUG) { console.log ("Connected to mongo successfully!") };
 });
 
 //Return required headers for the API access
