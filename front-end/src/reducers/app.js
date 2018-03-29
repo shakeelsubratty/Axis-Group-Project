@@ -17,18 +17,18 @@ const INITIAL_STATE = {
 	wsId: '',
 	wsInfo: '',
  	wsUsers: null,
-  	wsIdeas: '',
-  	userId: '',
-  	userEngagement:'',
-  	wordCloudData: null,
+  wsIdeas: '',
+  userId: '',
+  userEngagement:'',
+  wordCloudData: null,
 };
 
-// What to return depending on the action called. 
+// What to return depending on the action called.
 export default (state = INITIAL_STATE, action) => {
 	switch (action.type) {
 		case JOIN_WORKSHOP:
 			return { ...state, userId: action.payload }
-    	case SET_PARTICIPANT_TO:
+    case SET_PARTICIPANT_TO:
         return { ...state, userId: action.payload}
 		case ATTEMPT_LOGIN:
 			return { ...state, isLogged: action.payload }
@@ -46,9 +46,9 @@ export default (state = INITIAL_STATE, action) => {
 				return { ...state, usrIdeas: action.payload}
 		case FETCH_ALL_IDEAS:
       	return { ...state, wsIdeas: _.groupBy(action.payload,'group')}
-    	case USER_ENGAGEMENT:
+    case USER_ENGAGEMENT:
       	return { ...state, userEngagement: action.payload}
-    	case WORD_CLOUD:
+    case WORD_CLOUD:
       	return { ...state, wordCloudData: action.payload}
 		default:
 			return state;
