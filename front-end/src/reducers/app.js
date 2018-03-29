@@ -11,6 +11,7 @@ import { JOIN_WORKSHOP,
 			USER_ENGAGEMENT,
 			WORD_CLOUD } from '../actions';
 
+// Initial state of our application
 const INITIAL_STATE = {
 	isLogged: false,
 	wsId: '',
@@ -22,6 +23,7 @@ const INITIAL_STATE = {
   	wordCloudData: null,
 };
 
+// What to return depending on the action called. 
 export default (state = INITIAL_STATE, action) => {
 	switch (action.type) {
 		case JOIN_WORKSHOP:
