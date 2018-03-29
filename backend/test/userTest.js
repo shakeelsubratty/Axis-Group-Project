@@ -18,7 +18,12 @@ describe('User APIs', function() {
               };
               return Promise.resolve(ret);
             }
-          }
+          },
+            Workshop: {
+                findById: function(obj) {
+                    return Promise.resolve(obj._id);
+                }
+            }
         });
         mockery.registerMock('../models/participantModel', {
             createParticipant: function(workshop) {

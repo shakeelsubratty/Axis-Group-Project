@@ -12,6 +12,8 @@ describe('IdeaGeneration', () => {
 	let fetchIdeas
 	let deleteIdea
 	let createIdea
+	let wsActive
+	let wsClosed
 
 	beforeEach(() => {
 		handleSubmit = fn => fn
@@ -22,6 +24,8 @@ describe('IdeaGeneration', () => {
 		fetchIdeas = fn => fn
 		deleteIdea = fn => fn
 		createIdea = fn => fn
+		wsActive = true
+		wsClosed = false
 	})
 
 	const buildSubject = () => {
@@ -33,7 +37,9 @@ describe('IdeaGeneration', () => {
 			getWorkshopInfo,
 			fetchIdeas,
 			deleteIdea,
-			createIdea
+			createIdea,
+			wsActive,
+			wsClosed
 		}
 		return shallow(<IdeaGeneration {...props}/>)
 	}
@@ -52,7 +58,7 @@ describe('IdeaGeneration', () => {
 
 	it('has right box for User Ideas', () => {
 		const wrapper = buildSubject();
-		expect(wrapper.find('div.card').find('div.card-body.ideaGenRight').length).toEqual(1)
+		expect(wrapper.find('div.card-body.ideaGenRight').length).toEqual(1)
 
 	})
 
