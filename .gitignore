@@ -82,6 +82,7 @@ local.properties
 .idea/**/gradle.xml
 .idea/**/libraries
 
+
 # CMake
 cmake-build-debug/
 
@@ -155,3 +156,6 @@ front-end/bundle.js
 # IntelliJ
 *.iml
 /.idea
+
+#vscode
+.vscode
